@@ -1,0 +1,3234 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#87A96B" />
+  <meta name="description" content="Fe & Vida — Librería católica. Libros seleccionados con amor para acompañar tu fe. Consultas y pedidos por WhatsApp." />
+  <title>Fe &amp; Vida · Libros católicos</title>
+
+  <!-- Favicon inline (sin archivos externos) -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='16' fill='%2387A96B'/%3E%3Cpath d='M16 7v18M9 14h14' stroke='%23F9F8F6' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E" />
+
+  <!-- Tipografías elegantes: serif para títulos, sans geométrica para textos -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ==========================================================================
+       1. TOKENS DE DISEÑO — "Catholic Girly & Green"
+       ========================================================================== */
+    :root {
+      --cream: #F9F8F6;
+      --cream-deep: #F1EFE8;
+      --white: #FFFFFF;
+      --sage: #87A96B;
+      --sage-deep: #567343;
+      --sage-soft: #D0E1D4;
+      --sage-tint: #EAF1E6;
+      --olive: #5C7350;
+      --deep: #2F3D2A;
+      --deep-2: #3C4E35;
+      --ink: #2A3127;
+      --muted: #64705D;
+      --gold: #D4AF37;
+      --gold-soft: #EADFC0;
+      --blush: #EFD9D4;
+      --line: rgba(47, 61, 42, 0.12);
+      --line-strong: rgba(47, 61, 42, 0.22);
+      --danger: #A65A4A;
+      --danger-soft: #F7E8E4;
+
+      --serif: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+      --sans: "Jost", "Quicksand", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+      --radius: 22px;
+      --radius-sm: 14px;
+      --radius-xs: 10px;
+      --shadow-sm: 0 2px 8px rgba(47, 61, 42, 0.06);
+      --shadow: 0 18px 40px -24px rgba(47, 61, 42, 0.4);
+      --shadow-lg: 0 34px 70px -34px rgba(33, 46, 28, 0.5);
+      --ease: cubic-bezier(0.22, 0.8, 0.28, 1);
+    }
+
+    /* ==========================================================================
+       2. BASE Y UTILIDADES
+       ========================================================================== */
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body {
+      margin: 0;
+      background: var(--cream);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-weight: 400;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+    body.no-scroll { overflow: hidden; }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; }
+    button { font: inherit; color: inherit; cursor: pointer; }
+    input, select, textarea { font: inherit; color: inherit; }
+    h1, h2, h3, h4 { margin: 0; font-family: var(--serif); font-weight: 500; line-height: 1.08; letter-spacing: -0.01em; color: var(--deep); }
+    p { margin: 0; }
+    ul, ol { margin: 0; padding: 0; list-style: none; }
+    [hidden] { display: none !important; }
+    ::selection { background: var(--sage-soft); color: var(--deep); }
+
+    .container { width: min(1200px, 100% - 48px); margin-inline: auto; }
+    .sr-only {
+      position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+    }
+    .skip-link {
+      position: fixed; top: 12px; left: 12px; z-index: 200;
+      padding: 10px 18px; border-radius: 999px; background: var(--deep); color: #fff;
+      text-decoration: none; transform: translateY(-160%); transition: transform 0.25s var(--ease);
+    }
+    .skip-link:focus { transform: none; }
+    :focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+
+    .svg-sprite { position: absolute; width: 0; height: 0; overflow: hidden; }
+    .icon { width: 1.15em; height: 1.15em; flex: none; vertical-align: -0.15em; }
+
+    /* Aparición suave al hacer scroll (se desactiva con prefers-reduced-motion) */
+    [data-reveal] { opacity: 0; transform: translateY(22px); transition: opacity 0.8s var(--ease), transform 0.8s var(--ease); }
+    [data-reveal].is-visible { opacity: 1; transform: none; }
+
+    /* ==========================================================================
+       3. BOTONES
+       ========================================================================== */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+      padding: 13px 24px; border: 1px solid transparent; border-radius: 999px;
+      font-family: var(--sans); font-size: 0.94rem; font-weight: 500; letter-spacing: 0.01em;
+      text-decoration: none; white-space: nowrap;
+      transition: transform 0.25s var(--ease), background-color 0.25s, color 0.25s, border-color 0.25s, box-shadow 0.25s;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn:active { transform: translateY(0); }
+    .btn--primary { background: var(--deep); color: #FBF9F3; box-shadow: 0 14px 26px -16px rgba(47, 61, 42, 0.65); }
+    .btn--primary:hover { background: var(--deep-2); box-shadow: 0 18px 32px -16px rgba(47, 61, 42, 0.6); }
+    .btn--outline { background: rgba(255, 255, 255, 0.6); border-color: var(--line-strong); color: var(--deep); }
+    .btn--outline:hover { background: #fff; border-color: var(--sage); }
+    .btn--wa { background: var(--olive); color: #fff; }
+    .btn--wa:hover { background: #4B6242; }
+    .btn--ghost { background: transparent; color: var(--deep); }
+    .btn--ghost:hover { background: rgba(47, 61, 42, 0.06); }
+    .btn--gold { background: linear-gradient(135deg, #E4C861, var(--gold)); color: #3D310C; }
+    .btn--danger { background: var(--danger-soft); color: #7E3B2E; border-color: rgba(166, 90, 74, 0.25); }
+    .btn--danger:hover { background: #F2DAD4; }
+    .btn--sm { padding: 10px 18px; font-size: 0.86rem; }
+    .btn--full { width: 100%; }
+    .icon-btn {
+      display: inline-grid; place-items: center; width: 40px; height: 40px; flex: none;
+      border: 1px solid var(--line); border-radius: 50%; background: #fff; color: var(--muted);
+      transition: background-color 0.2s, color 0.2s, border-color 0.2s, transform 0.2s;
+    }
+    .icon-btn:hover { background: var(--sage-tint); color: var(--deep); border-color: var(--sage); transform: translateY(-1px); }
+    .icon-btn--danger:hover { background: var(--danger-soft); color: #7E3B2E; border-color: rgba(166, 90, 74, 0.35); }
+
+    /* ==========================================================================
+       4. HEADER
+       ========================================================================== */
+    .site-header {
+      position: sticky; top: 0; z-index: 60;
+      padding: 16px 0;
+      background: rgba(249, 248, 246, 0.62);
+      -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+      transition: padding 0.3s var(--ease), background-color 0.3s, box-shadow 0.3s;
+    }
+    .site-header.is-scrolled {
+      padding: 9px 0;
+      background: rgba(249, 248, 246, 0.94);
+      box-shadow: 0 1px 0 var(--line), 0 16px 40px -34px rgba(47, 61, 42, 0.6);
+    }
+    .header__inner { display: flex; align-items: center; justify-content: space-between; gap: 22px; }
+    .brand { display: inline-flex; align-items: center; gap: 12px; text-decoration: none; }
+    .brand__mark {
+      display: grid; place-items: center; width: 46px; height: 46px; flex: none;
+      border-radius: 50%; color: var(--deep);
+      background: linear-gradient(150deg, #F4F8F0, var(--sage-soft));
+      border: 1px solid rgba(212, 175, 55, 0.45);
+      box-shadow: inset 0 0 0 4px rgba(255, 255, 255, 0.55), 0 8px 18px -12px rgba(47, 61, 42, 0.5);
+    }
+    .brand__mark svg { width: 23px; height: 23px; }
+    .brand__text { display: flex; flex-direction: column; line-height: 1.05; }
+    .brand__name { font-family: var(--serif); font-size: 1.5rem; font-weight: 600; color: var(--deep); letter-spacing: 0.005em; }
+    .brand__tag { font-size: 0.63rem; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: var(--sage-deep); margin-top: 3px; }
+    .nav { display: flex; align-items: center; gap: 30px; }
+    .nav__link {
+      position: relative; padding: 6px 0; font-size: 0.9rem; color: var(--ink);
+      text-decoration: none; transition: color 0.2s;
+    }
+    .nav__link::after {
+      content: ""; position: absolute; left: 0; right: 100%; bottom: 0; height: 1px;
+      background: var(--gold); transition: right 0.35s var(--ease);
+    }
+    .nav__link:hover { color: var(--sage-deep); }
+    .nav__link:hover::after { right: 0; }
+    .header__actions { display: flex; align-items: center; gap: 10px; }
+
+    /* ==========================================================================
+       5. HERO
+       ========================================================================== */
+    .hero { position: relative; overflow: hidden; padding: clamp(36px, 5vw, 72px) 0 clamp(52px, 7vw, 94px); }
+    .hero__blob { position: absolute; border-radius: 50%; filter: blur(60px); pointer-events: none; }
+    .hero__blob--1 { width: 520px; height: 520px; top: -220px; right: -120px; background: rgba(208, 225, 212, 0.75); }
+    .hero__blob--2 { width: 360px; height: 360px; bottom: -180px; left: -140px; background: rgba(239, 217, 212, 0.55); }
+    .hero__grid { position: relative; display: grid; grid-template-columns: 1.02fr 0.98fr; gap: clamp(28px, 4vw, 56px); align-items: center; }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-size: 0.7rem; font-weight: 500; letter-spacing: 0.24em; text-transform: uppercase; color: var(--sage-deep);
+    }
+    .eyebrow__line { width: 34px; height: 1px; background: var(--gold); }
+    .hero h1 { margin-top: 20px; font-size: clamp(2.7rem, 5.4vw, 4.6rem); font-weight: 500; line-height: 0.98; }
+    .hero h1 em { position: relative; font-style: italic; color: var(--sage-deep); white-space: nowrap; }
+    .hero h1 em::after {
+      content: ""; position: absolute; left: 2%; right: 2%; bottom: 0.04em; height: 0.1em;
+      background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.65), transparent);
+      border-radius: 3px;
+    }
+    .hero__lead { max-width: 50ch; margin-top: 22px; color: var(--muted); font-size: 1.02rem; font-weight: 300; line-height: 1.7; }
+    .hero__actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+    .hero__meta { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; margin-top: 28px; font-size: 0.83rem; color: var(--muted); }
+    .hero__stars { color: var(--gold); letter-spacing: 2px; font-size: 0.9rem; }
+    .hero__meta strong { color: var(--deep); font-weight: 600; }
+    .hero__dot { width: 3px; height: 3px; border-radius: 50%; background: var(--line-strong); }
+    .hero__visual { position: relative; display: flex; justify-content: center; align-items: center; min-height: 480px; }
+    .hero__visual.is-empty { display: none; }
+    .hero__halo {
+      position: absolute; width: min(430px, 84%); aspect-ratio: 1; border-radius: 50%;
+      background: radial-gradient(circle at 42% 36%, #F2F7EE 0%, var(--sage-soft) 52%, rgba(208, 225, 212, 0) 72%);
+    }
+    .hero__ring {
+      position: absolute; width: min(470px, 90%); aspect-ratio: 1; border-radius: 50%;
+      border: 1px dashed rgba(212, 175, 55, 0.45);
+      animation: spin 60s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .hero-stack { position: relative; z-index: 2; width: min(460px, 100%); height: 450px; }
+    .hero-stack__item {
+      position: absolute; display: block; text-decoration: none; border-radius: 12px;
+      box-shadow: var(--shadow-lg);
+      transition: transform 0.55s var(--ease), box-shadow 0.55s var(--ease);
+    }
+    .hero-stack__item .book-cover { box-shadow: 0 26px 44px -24px rgba(32, 45, 27, 0.65); }
+    .hero-stack__item:nth-child(1) { width: 37%; left: 2%; top: 13%; transform: rotate(-9deg); z-index: 1; }
+    .hero-stack__item:nth-child(2) { width: 45%; left: 27.5%; top: 2%; transform: rotate(1.5deg); z-index: 3; }
+    .hero-stack__item:nth-child(3) { width: 35%; right: 1%; top: 17%; transform: rotate(9deg); z-index: 2; }
+    .hero-stack:hover .hero-stack__item:nth-child(1) { transform: rotate(-12deg) translate(-9px, -7px); }
+    .hero-stack:hover .hero-stack__item:nth-child(2) { transform: rotate(0.5deg) translateY(-10px); box-shadow: 0 44px 80px -34px rgba(32, 45, 27, 0.55); }
+    .hero-stack:hover .hero-stack__item:nth-child(3) { transform: rotate(12deg) translate(9px, -4px); }
+    .hero__floating {
+      position: absolute; z-index: 4; left: 0; bottom: 26px;
+      display: flex; align-items: center; gap: 11px;
+      padding: 12px 18px 12px 13px; border-radius: 16px;
+      background: rgba(255, 255, 255, 0.92); border: 1px solid rgba(212, 175, 55, 0.3);
+      box-shadow: var(--shadow); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+    }
+    .hero__floating .floating-ico {
+      display: grid; place-items: center; width: 36px; height: 36px; flex: none;
+      border-radius: 50%; background: var(--sage-tint); color: var(--sage-deep);
+    }
+    .hero__floating strong { display: block; font-size: 0.82rem; font-weight: 600; color: var(--deep); line-height: 1.2; }
+    .hero__floating span { font-size: 0.72rem; color: var(--muted); }
+
+    /* ==========================================================================
+       6. FRANJA DE BENEFICIOS
+       ========================================================================== */
+    .promises { padding: 22px 0; background: #fff; border-block: 1px solid var(--line); }
+    .promises__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px 26px; }
+    .promise { display: flex; align-items: center; gap: 12px; }
+    .promise__icon {
+      display: grid; place-items: center; width: 40px; height: 40px; flex: none;
+      border-radius: 50%; background: var(--sage-tint); color: var(--sage-deep);
+    }
+    .promise__icon .icon { width: 19px; height: 19px; }
+    .promise strong { display: block; font-size: 0.84rem; font-weight: 600; color: var(--deep); line-height: 1.3; }
+    .promise > div > span { display: block; font-size: 0.74rem; color: var(--muted); line-height: 1.35; }
+
+    /* ==========================================================================
+       7. SECCIONES Y CATÁLOGO
+       ========================================================================== */
+    .section { padding: clamp(64px, 8vw, 104px) 0; scroll-margin-top: 80px; }
+    .section-head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 26px 40px; margin-bottom: 36px; }
+    .section-head__copy { max-width: 620px; }
+    .section-head h2 { margin-top: 14px; font-size: clamp(2rem, 3.6vw, 3rem); font-weight: 500; }
+    .section-head p { margin-top: 12px; color: var(--muted); font-weight: 300; max-width: 54ch; }
+    .catalog-tools { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+    .search { position: relative; flex: 1 1 240px; max-width: 330px; }
+    .search__icon { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); width: 18px; height: 18px; color: var(--muted); pointer-events: none; }
+    .search input {
+      width: 100%; height: 48px; padding: 0 42px 0 44px;
+      border: 1px solid var(--line-strong); border-radius: 999px; background: #fff;
+      font-size: 0.9rem; outline: none; transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .search input::placeholder { color: #9AA294; }
+    .search input:focus { border-color: var(--sage); box-shadow: 0 0 0 4px rgba(135, 169, 107, 0.16); }
+    .search input::-webkit-search-cancel-button { display: none; }
+    .search__clear {
+      position: absolute; right: 8px; top: 50%; transform: translateY(-50%);
+      display: grid; place-items: center; width: 32px; height: 32px; border: 0; border-radius: 50%;
+      background: transparent; color: var(--muted);
+    }
+    .search__clear:hover { background: var(--cream-deep); color: var(--deep); }
+    .select-wrap { position: relative; }
+    .select-wrap select {
+      height: 48px; padding: 0 38px 0 16px; border-radius: 999px;
+      border: 1px solid var(--line-strong); background: #fff; font-size: 0.85rem;
+      appearance: none; -webkit-appearance: none; cursor: pointer; outline: none;
+      transition: border-color 0.2s;
+    }
+    .select-wrap select:focus { border-color: var(--sage); box-shadow: 0 0 0 4px rgba(135, 169, 107, 0.16); }
+    .select-wrap::after {
+      content: ""; position: absolute; right: 16px; top: 50%; width: 7px; height: 7px;
+      border-right: 1.5px solid var(--muted); border-bottom: 1.5px solid var(--muted);
+      transform: translateY(-70%) rotate(45deg); pointer-events: none;
+    }
+    .catalog-meta {
+      display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+      gap: 10px 20px; margin-bottom: 22px; padding-bottom: 16px; border-bottom: 1px solid var(--line);
+    }
+    .catalog-meta p { font-size: 0.82rem; color: var(--muted); }
+    .catalog-meta strong { color: var(--deep); font-weight: 600; }
+    .catalog-meta__link { font-size: 0.8rem; color: var(--sage-deep); text-decoration: none; border-bottom: 1px solid rgba(95, 125, 75, 0.35); }
+    .catalog-meta__link:hover { color: var(--deep); border-color: var(--gold); }
+
+    .books-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(228px, 1fr)); gap: 26px; }
+    .book-card {
+      display: flex; flex-direction: column; overflow: hidden;
+      background: #fff; border: 1px solid var(--line); border-radius: var(--radius);
+      box-shadow: var(--shadow-sm);
+      animation: cardIn 0.55s var(--ease) both; animation-delay: var(--delay, 0ms);
+      transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease), border-color 0.4s;
+    }
+    .book-card:hover { transform: translateY(-6px); box-shadow: var(--shadow); border-color: rgba(135, 169, 107, 0.55); }
+    @keyframes cardIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+    .book-card__media {
+      padding: 20px 20px 14px;
+      background: linear-gradient(180deg, #F2F7EF 0%, #E8F0E5 100%);
+      border-bottom: 1px solid rgba(47, 61, 42, 0.07);
+    }
+    .book-card__media .book-cover { transition: transform 0.45s var(--ease); }
+    .book-card:hover .book-card__media .book-cover { transform: rotate(-1.2deg) scale(1.025); }
+    .book-card__body { display: flex; flex-direction: column; flex: 1; padding: 16px 18px 18px; }
+    .book-card__title {
+      font-size: 1.14rem; font-weight: 600; line-height: 1.22; color: var(--deep);
+      display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+      min-height: 2.6em;
+    }
+    .book-card__price { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; margin: 12px 0 14px; }
+    .book-card__price span { font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
+    .book-card__price strong { font-family: var(--serif); font-size: 1.42rem; font-weight: 700; color: var(--deep); letter-spacing: 0.01em; }
+    .book-card__cta { margin-top: auto; font-size: 0.85rem; padding: 12px 16px; }
+
+    /* ==========================================================================
+       8. PORTADAS GENERATIVAS (sin imágenes externas)
+       ========================================================================== */
+    .book-cover {
+      position: relative; container-type: inline-size; aspect-ratio: 3 / 4.15;
+      overflow: hidden; border-radius: 8px;
+      text-align: center; color: var(--deep);
+      box-shadow: 0 16px 29px -20px rgba(35, 48, 29, 0.7), inset 0 0 0 1px rgba(255, 255, 255, 0.35);
+      isolation: isolate;
+    }
+    .book-cover::before {
+      content: ""; position: absolute; inset: 6px; z-index: 3; pointer-events: none;
+      border: 1px solid rgba(212, 175, 55, 0.5); border-radius: 3px;
+    }
+    /* Capa interna: recibe el padding en cqw (los descendientes sí consultan al contenedor) */
+    .cover-inner {
+      position: absolute; inset: 0; z-index: 1;
+      display: flex; flex-direction: column; align-items: center; justify-content: space-between;
+      padding: 7.5cqw 6.5cqw;
+    }
+    .cover--sage { background: radial-gradient(125% 95% at 18% 0%, #F6FAF3 0%, #DCE9DA 44%, #B9CEB5 100%); }
+    .cover--cream { background: radial-gradient(125% 95% at 18% 0%, #FEFDF9 0%, #F3ECDA 52%, #E7D9B9 100%); }
+    .cover--olive { background: radial-gradient(125% 95% at 18% 0%, #EDF3E5 0%, #D2DFC5 50%, #AEC29D 100%); }
+    .cover--gold { background: radial-gradient(125% 95% at 18% 0%, #FCF6E3 0%, #F0E2B8 52%, #DFC783 100%); }
+    .cover--blush { background: radial-gradient(125% 95% at 18% 0%, #FEF8F6 0%, #F4E4E0 52%, #E7CFCB 100%); }
+    .cover--deep {
+      background: radial-gradient(125% 95% at 18% 0%, #55704C 0%, #374A2F 55%, #25331F 100%);
+      color: #F6F0DD;
+    }
+    .cover--deep::before { border-color: rgba(234, 223, 192, 0.42); }
+    .cover--deep .cover-brand, .cover--deep .cover-foot { color: #DCCB97; }
+    .cover--deep .cover-cross { color: #E3D3A2; }
+    .cover-brand {
+      max-width: 100%; font-size: 3.9cqw; font-weight: 500; letter-spacing: 0.19em;
+      text-transform: uppercase; color: var(--sage-deep); white-space: nowrap;
+      overflow: hidden; text-overflow: ellipsis;
+    }
+    .cover-main { display: flex; flex-direction: column; align-items: center; gap: 5cqw; padding-block: 2cqw; }
+    .cover-cross { width: 8.5cqw; height: 8.5cqw; color: var(--gold); flex: none; }
+    .cover--cream .cover-cross, .cover--gold .cover-cross { color: #B08A22; }
+    .cover-title {
+      display: block; max-width: 100%; font-family: var(--serif);
+      font-size: 8.1cqw; font-weight: 600; line-height: 1.12; letter-spacing: -0.005em;
+      text-wrap: balance; overflow-wrap: break-word;
+    }
+    .book-cover.is-long .cover-title { font-size: 7.1cqw; }
+    .book-cover.is-xlong .cover-title { font-size: 6.2cqw; }
+    .book-cover.is-xxlong .cover-title { font-size: 5.5cqw; line-height: 1.16; }
+    .cover-foot {
+      display: flex; align-items: center; justify-content: center; gap: 2.4cqw;
+      max-width: 100%; font-size: 2.9cqw; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--sage-deep);
+    }
+    .cover-foot i { width: 4.5cqw; height: 1px; background: currentColor; opacity: 0.5; }
+    .cover-sprig {
+      position: absolute; z-index: 0; left: -2%; bottom: -1%; width: 38%;
+      color: #B08A22; opacity: 0.42; pointer-events: none;
+    }
+    .cover-sprig--r { left: auto; right: -2%; transform: scaleX(-1); }
+    .cover--deep .cover-sprig { color: #D8C68F; opacity: 0.35; }
+    .book-cover--photo { padding: 0; background: #EDF2E9; }
+    .cover-img {
+      position: absolute; inset: 0; z-index: 2; width: 100%; height: 100%;
+      object-fit: cover; background: #EDF2E9;
+    }
+    .book-cover--photo::after {
+      content: ""; position: absolute; inset: 0; z-index: 3; pointer-events: none;
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.35);
+      background: linear-gradient(180deg, rgba(255,255,255,0.05), transparent 20%, transparent 80%, rgba(20,30,16,0.08));
+    }
+    .book-cover.is-mini { border-radius: 5px; box-shadow: none; }
+    .book-cover.is-mini::before { inset: 3px; }
+    .book-cover.is-mini .cover-main { gap: 2cqw; }
+
+    /* ==========================================================================
+       9. ESTADO VACÍO / CÓMO COMPRAR / CITA / FOOTER
+       ========================================================================== */
+    .empty {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      padding: 70px 24px; text-align: center;
+      background: #fff; border: 1px dashed var(--line-strong); border-radius: var(--radius);
+    }
+    .empty__icon {
+      display: grid; place-items: center; width: 64px; height: 64px; margin-bottom: 18px;
+      border-radius: 50%; background: var(--sage-tint); color: var(--sage-deep);
+    }
+    .empty__icon .icon { width: 26px; height: 26px; }
+    .empty h3 { font-size: 1.7rem; }
+    .empty p { margin: 8px 0 22px; color: var(--muted); max-width: 40ch; }
+
+    .how { background: linear-gradient(180deg, var(--sage-tint), #F4F8F1); border-block: 1px solid rgba(95, 125, 75, 0.08); }
+    .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .step {
+      position: relative; padding: 30px 26px; background: rgba(255, 255, 255, 0.72);
+      border: 1px solid rgba(255, 255, 255, 0.9); border-radius: var(--radius);
+      box-shadow: 0 14px 30px -26px rgba(47, 61, 42, 0.45);
+    }
+    .step__num {
+      display: inline-grid; place-items: center; width: 46px; height: 46px; margin-bottom: 18px;
+      border-radius: 50%; border: 1px solid rgba(212, 175, 55, 0.5);
+      font-family: var(--serif); font-size: 1.35rem; font-weight: 600; color: #9A7920; background: #FCF8EA;
+    }
+    .step h3 { font-size: 1.45rem; font-weight: 600; }
+    .step p { margin-top: 8px; font-size: 0.9rem; color: var(--muted); font-weight: 300; }
+    .step:not(:last-child)::after {
+      content: ""; position: absolute; top: 52px; right: -18px; width: 12px;
+      border-top: 1px dashed rgba(95, 125, 75, 0.45);
+    }
+
+    .quote-section { padding: clamp(64px, 8vw, 100px) 0; text-align: center; }
+    .quote-card { position: relative; max-width: 820px; margin-inline: auto; padding: 0 20px; }
+    .quote-mark { font-family: var(--serif); font-size: 5rem; line-height: 0.6; color: var(--gold); opacity: 0.55; }
+    .quote-card blockquote {
+      margin: 18px 0 0; font-family: var(--serif); font-size: clamp(1.6rem, 2.8vw, 2.3rem);
+      font-weight: 500; font-style: italic; line-height: 1.35; color: var(--deep);
+    }
+    .quote-card cite {
+      display: block; margin-top: 20px; font-style: normal; font-size: 0.72rem;
+      letter-spacing: 0.22em; text-transform: uppercase; color: var(--sage-deep);
+    }
+    .quote-divider { display: flex; align-items: center; justify-content: center; gap: 12px; margin-top: 26px; color: var(--gold); }
+    .quote-divider::before, .quote-divider::after { content: ""; width: 48px; height: 1px; background: rgba(212, 175, 55, 0.5); }
+    .quote-divider span { width: 5px; height: 5px; transform: rotate(45deg); background: var(--gold); }
+
+    .site-footer {
+      position: relative; overflow: hidden; padding: 64px 0 26px;
+      background: var(--deep); color: #E9EEE4;
+    }
+    .site-footer::before {
+      content: ""; position: absolute; width: 420px; height: 420px; top: -220px; right: -140px;
+      border-radius: 50%; background: radial-gradient(circle, rgba(135, 169, 107, 0.28), transparent 68%);
+    }
+    .footer__grid { position: relative; display: grid; grid-template-columns: 1.5fr 1fr 1.1fr; gap: 36px 40px; }
+    .brand--footer .brand__name { color: #F7F4EA; }
+    .brand--footer .brand__tag { color: #B9CDA8; }
+    .brand--footer .brand__mark { background: rgba(255, 255, 255, 0.08); border-color: rgba(212, 175, 55, 0.4); color: #EADFC0; box-shadow: none; }
+    .footer__about { max-width: 34ch; margin-top: 18px; font-size: 0.87rem; font-weight: 300; color: #B9C4B0; line-height: 1.7; }
+    .footer__title { font-family: var(--sans); font-size: 0.7rem; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: #D9C68E; }
+    .footer__links { display: flex; flex-direction: column; gap: 10px; margin-top: 18px; }
+    .footer__links a { font-size: 0.88rem; color: #D3DCCB; text-decoration: none; transition: color 0.2s; }
+    .footer__links a:hover { color: #fff; }
+    .footer__contact { display: flex; flex-direction: column; gap: 12px; margin-top: 18px; }
+    .footer__contact a, .footer__contact span { display: inline-flex; align-items: center; gap: 9px; font-size: 0.87rem; color: #D3DCCB; text-decoration: none; }
+    .footer__contact a:hover { color: #fff; }
+    .footer__contact .icon { color: #D9C68E; }
+    .footer__wa { margin-top: 20px; }
+    .footer__bottom {
+      position: relative; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px;
+      margin-top: 48px; padding-top: 22px; border-top: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 0.74rem; color: #98A68E;
+    }
+    .admin-trigger {
+      display: inline-flex; align-items: center; gap: 7px; padding: 7px 12px;
+      border: 1px solid transparent; border-radius: 999px; background: transparent;
+      font-size: 0.72rem; color: #AEBBA4; transition: color 0.2s, background-color 0.2s, border-color 0.2s;
+    }
+    .admin-trigger:hover { color: #F2E7C8; background: rgba(255, 255, 255, 0.06); border-color: rgba(212, 175, 55, 0.3); }
+    .admin-trigger .icon { width: 13px; height: 13px; }
+
+    /* ==========================================================================
+       10. TOASTS (notificaciones)
+       ========================================================================== */
+    .toast-stack {
+      position: fixed; z-index: 160; right: 20px; bottom: 20px;
+      display: flex; flex-direction: column; gap: 10px;
+      width: min(370px, calc(100vw - 32px)); pointer-events: none;
+    }
+    .toast {
+      display: flex; align-items: center; gap: 12px; padding: 13px 15px;
+      border-radius: 14px; background: var(--deep); color: #F7F3E7;
+      box-shadow: 0 22px 44px -20px rgba(20, 30, 16, 0.6);
+      font-size: 0.86rem; line-height: 1.35; pointer-events: auto;
+      animation: toastIn 0.35s var(--ease) both;
+    }
+    .toast.is-out { animation: toastOut 0.28s ease forwards; }
+    .toast--error { background: #6E3429; }
+    .toast--info { background: var(--deep-2); }
+    .toast__icon { display: grid; place-items: center; width: 26px; height: 26px; flex: none; border-radius: 50%; background: rgba(255, 255, 255, 0.12); }
+    .toast__text { flex: 1; }
+    .toast__action {
+      flex: none; padding: 5px 11px; border: 1px solid rgba(255, 255, 255, 0.35);
+      border-radius: 999px; background: transparent; color: #fff; font-size: 0.74rem;
+    }
+    .toast__action:hover { background: rgba(255, 255, 255, 0.12); }
+    @keyframes toastIn { from { opacity: 0; transform: translateY(14px) scale(0.97); } to { opacity: 1; transform: none; } }
+    @keyframes toastOut { to { opacity: 0; transform: translateY(10px) scale(0.97); } }
+
+    /* ==========================================================================
+       11. PANEL DE ADMINISTRACIÓN
+       ========================================================================== */
+    .admin-dialog {
+      width: min(1060px, calc(100vw - 32px));
+      height: min(880px, calc(100vh - 44px));
+      max-width: none; max-height: none;
+      padding: 0; border: 0; background: transparent; color: var(--ink);
+      overflow: visible;
+    }
+    .admin-dialog::backdrop {
+      background: rgba(28, 38, 24, 0.5);
+      -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+    }
+    .admin-dialog[open] { animation: dialogIn 0.32s var(--ease) both; }
+    .admin-dialog[open]::backdrop { animation: fadeIn 0.3s ease both; }
+    @keyframes dialogIn { from { opacity: 0; transform: translateY(18px) scale(0.985); } to { opacity: 1; transform: none; } }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+    /* Acceso con contraseña */
+    .login-dialog {
+      width: min(420px, calc(100vw - 32px));
+      max-width: none; max-height: none;
+      padding: 0; border: 0; background: transparent; color: var(--ink);
+      overflow: visible;
+    }
+    .login-dialog::backdrop {
+      background: rgba(28, 38, 24, 0.55);
+      -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+    }
+    .login-dialog[open] { animation: dialogIn 0.32s var(--ease) both; }
+    .login-dialog[open]::backdrop { animation: fadeIn 0.3s ease both; }
+    .login-card {
+      padding: 30px 28px 24px; background: var(--cream); border-radius: 22px;
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      box-shadow: 0 50px 110px -40px rgba(18, 28, 14, 0.7);
+    }
+    .login-card.is-error { animation: loginShake 0.4s var(--ease); }
+    @keyframes loginShake {
+      0%, 100% { transform: translateX(0); }
+      20% { transform: translateX(-7px); }
+      40% { transform: translateX(6px); }
+      60% { transform: translateX(-4px); }
+      80% { transform: translateX(3px); }
+    }
+    .login-card__mark {
+      display: grid; place-items: center; width: 52px; height: 52px; margin: 0 auto 15px;
+      border-radius: 16px; background: var(--deep); color: #EFE3BE;
+      box-shadow: 0 12px 24px -14px rgba(30, 48, 24, 0.8);
+    }
+    .login-card__mark .icon { width: 23px; height: 23px; }
+    .login-card__head { text-align: center; }
+    .login-card h2 { font-family: var(--serif); font-size: 1.7rem; font-weight: 600; color: var(--deep); }
+    .login-card__head p { max-width: 300px; margin: 6px auto 0; font-size: 0.82rem; line-height: 1.5; color: var(--muted); }
+    .login-field { margin-top: 22px; }
+    .login-field + .login-field { margin-top: 14px; }
+    .login-error {
+      margin-top: 12px; padding: 9px 12px; border-radius: 10px;
+      background: #FBEAE6; border: 1px solid rgba(166, 90, 74, 0.35);
+      color: #8A3D2E; font-size: 0.78rem; line-height: 1.45;
+    }
+    .login-actions { display: flex; align-items: center; gap: 9px; margin-top: 20px; }
+    .login-actions .btn--primary { flex: 1; justify-content: center; }
+    .login-actions .btn.is-busy { opacity: 0.7; cursor: progress; }
+    .login-foot {
+      display: flex; align-items: center; justify-content: center; gap: 6px;
+      margin-top: 18px; font-size: 0.7rem; color: var(--muted);
+    }
+    .login-foot .icon { width: 13px; height: 13px; }
+
+    .password-input { position: relative; display: flex; }
+    .password-input .input { padding-right: 46px; }
+    .password-toggle {
+      position: absolute; right: 4px; top: 50%; transform: translateY(-50%);
+      display: grid; place-items: center; width: 34px; height: 34px;
+      border: 0; border-radius: 8px; background: transparent; color: var(--muted);
+      transition: color 0.2s, background-color 0.2s;
+    }
+    .password-toggle:hover { color: var(--deep); background: var(--cream-deep); }
+    .password-toggle .icon { width: 18px; height: 18px; }
+    .password-toggle .password-toggle__off { display: none; }
+    .password-toggle[aria-pressed="true"] .password-toggle__on { display: none; }
+    .password-toggle[aria-pressed="true"] .password-toggle__off { display: block; }
+
+    .admin-shell {
+      display: flex; flex-direction: column; height: 100%; overflow: hidden;
+      background: var(--cream); border-radius: 24px;
+      box-shadow: 0 50px 110px -40px rgba(18, 28, 14, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+    }
+    .admin-head {
+      display: flex; align-items: center; justify-content: space-between; gap: 18px;
+      padding: 20px 24px; background: linear-gradient(135deg, #F1F6ED, #E4EFE0);
+      border-bottom: 1px solid var(--line);
+    }
+    .admin-head__title { display: flex; align-items: center; gap: 14px; min-width: 0; }
+    .admin-head__badge {
+      display: grid; place-items: center; width: 44px; height: 44px; flex: none;
+      border-radius: 14px; background: var(--deep); color: #EFE3BE;
+    }
+    .admin-head__badge .icon { width: 20px; height: 20px; }
+    .admin-head h2 { font-size: 1.55rem; font-weight: 600; }
+    .admin-head p { font-size: 0.78rem; color: var(--muted); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .admin-head__actions { display: flex; align-items: center; gap: 8px; flex: none; }
+
+    .admin-tabs {
+      display: flex; gap: 4px; padding: 12px 24px 0;
+      background: #fff; border-bottom: 1px solid var(--line);
+    }
+    .admin-tab {
+      position: relative; display: inline-flex; align-items: center; gap: 7px;
+      padding: 11px 16px 13px; border: 0; border-radius: 10px 10px 0 0;
+      background: transparent; font-size: 0.86rem; font-weight: 500; color: var(--muted);
+      transition: color 0.2s, background-color 0.2s;
+    }
+    .admin-tab:hover { color: var(--deep); background: var(--cream); }
+    .admin-tab.is-active { color: var(--deep); background: var(--cream); }
+    .admin-tab.is-active::after {
+      content: ""; position: absolute; left: 14px; right: 14px; bottom: -1px; height: 2px;
+      background: var(--gold); border-radius: 2px;
+    }
+    .admin-tab__count {
+      display: inline-grid; place-items: center; min-width: 22px; height: 20px; padding: 0 6px;
+      border-radius: 999px; background: var(--sage-tint); color: var(--sage-deep);
+      font-size: 0.68rem; font-weight: 600;
+    }
+    .admin-body { flex: 1; overflow-y: auto; overscroll-behavior: contain; padding: 24px; }
+    .admin-pane { animation: paneIn 0.3s var(--ease) both; }
+    @keyframes paneIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+    .admin-notice {
+      display: flex; align-items: flex-start; gap: 10px; margin-bottom: 20px;
+      padding: 12px 15px; border-radius: 12px; font-size: 0.8rem; line-height: 1.5;
+      background: #FBF7E9; border: 1px solid rgba(212, 175, 55, 0.35); color: #6B5A1F;
+    }
+    .admin-notice .icon { margin-top: 2px; color: #A98A25; }
+
+    .admin-add-grid { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(230px, 0.75fr); gap: 26px; align-items: start; }
+    .admin-card {
+      padding: 22px; background: #fff; border: 1px solid var(--line);
+      border-radius: 18px; box-shadow: var(--shadow-sm);
+    }
+    .admin-card h3 { font-family: var(--sans); font-size: 0.95rem; font-weight: 600; color: var(--deep); }
+    .admin-card__hint { margin-top: 4px; font-size: 0.76rem; color: var(--muted); }
+
+    .field { display: flex; flex-direction: column; gap: 7px; margin-top: 16px; }
+    .field > span, .field > .field-label {
+      font-size: 0.74rem; font-weight: 500; letter-spacing: 0.09em; text-transform: uppercase; color: var(--sage-deep);
+    }
+    .input {
+      width: 100%; padding: 11px 13px; border: 1px solid var(--line-strong); border-radius: 11px;
+      background: #fff; font-size: 0.92rem; outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s, background-color 0.2s;
+    }
+    .input::placeholder { color: #A2AA9B; }
+    .input:hover { border-color: rgba(95, 125, 75, 0.45); }
+    .input:focus { border-color: var(--sage); box-shadow: 0 0 0 3px rgba(135, 169, 107, 0.16); }
+    .input.is-invalid { border-color: rgba(166, 90, 74, 0.7); background: #FFF9F7; box-shadow: 0 0 0 3px rgba(166, 90, 74, 0.1); }
+    textarea.input { resize: vertical; min-height: 80px; }
+    select.input { cursor: pointer; }
+
+    .price-input { position: relative; }
+    .price-input span {
+      position: absolute; left: 13px; top: 50%; transform: translateY(-50%);
+      font-family: var(--serif); font-size: 1.1rem; font-weight: 600; color: var(--sage-deep);
+    }
+    .price-input .input { padding-left: 30px; font-variant-numeric: tabular-nums; }
+
+    .image-field { margin-top: 18px; padding: 0; border: 0; }
+    .image-field legend {
+      padding: 0; font-size: 0.74rem; font-weight: 500; letter-spacing: 0.09em;
+      text-transform: uppercase; color: var(--sage-deep);
+    }
+    .image-options { display: flex; flex-direction: column; gap: 10px; margin-top: 8px; }
+    .file-drop {
+      position: relative; display: flex; align-items: center; gap: 12px;
+      padding: 12px 14px; border: 1px dashed rgba(95, 125, 75, 0.5); border-radius: 12px;
+      background: var(--sage-tint); cursor: pointer; transition: background-color 0.2s, border-color 0.2s;
+    }
+    .file-drop:hover { background: #E2EDDD; border-color: var(--sage); }
+    .file-drop input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+    .file-drop__icon {
+      display: grid; place-items: center; width: 34px; height: 34px; flex: none;
+      border-radius: 9px; background: #fff; color: var(--sage-deep);
+    }
+    .file-drop strong { display: block; font-size: 0.82rem; font-weight: 500; color: var(--deep); }
+    .file-drop small { display: block; font-size: 0.7rem; color: var(--muted); }
+    .image-or { text-align: center; font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+    .image-help { display: block; margin-top: 8px; font-size: 0.73rem; color: var(--muted); line-height: 1.5; }
+
+    .admin-form-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+    .admin-preview { position: sticky; top: 0; }
+    .admin-preview__inner {
+      display: flex; flex-direction: column; align-items: center; gap: 6px;
+      padding: 22px 20px; background: #fff; border: 1px solid var(--line);
+      border-radius: 18px; box-shadow: var(--shadow-sm);
+    }
+    .admin-preview__label { align-self: flex-start; font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+    .admin-preview__cover { width: min(210px, 100%); margin: 12px 0 6px; }
+    .admin-preview__price { font-family: var(--serif); font-size: 1.5rem; font-weight: 700; color: var(--deep); }
+    .admin-preview__hint { font-size: 0.7rem; color: var(--muted); text-align: center; }
+
+    /* Gestión */
+    .manage-toolbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 16px; }
+    .manage-toolbar .search { max-width: 320px; }
+    .manage-toolbar__count { font-size: 0.8rem; color: var(--muted); }
+    .manage-list { display: flex; flex-direction: column; gap: 10px; }
+    .manage-row {
+      display: grid; grid-template-columns: 56px minmax(0, 1fr) auto; gap: 14px; align-items: center;
+      padding: 11px 14px 11px 11px; background: #fff; border: 1px solid var(--line);
+      border-radius: 15px; transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .manage-row:hover { border-color: rgba(135, 169, 107, 0.5); box-shadow: var(--shadow-sm); }
+    .manage-thumb {
+      position: relative; display: block; width: 56px; cursor: pointer; border-radius: 5px;
+      overflow: hidden; outline-offset: 3px;
+    }
+    .manage-thumb .book-cover { border-radius: 5px; }
+    .manage-thumb__hint {
+      position: absolute; inset: 0; z-index: 5; display: grid; place-items: center;
+      background: rgba(35, 48, 29, 0.55); color: #fff; opacity: 0; transition: opacity 0.2s;
+    }
+    .manage-thumb__hint .icon { width: 16px; height: 16px; }
+    .manage-thumb:hover .manage-thumb__hint, .manage-thumb:focus-within .manage-thumb__hint { opacity: 1; }
+    .manage-thumb input { position: absolute; inset: 0; z-index: 6; opacity: 0; cursor: pointer; }
+    .manage-thumb:focus-within, .file-drop:focus-within { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .manage-fields { display: grid; grid-template-columns: minmax(0, 1fr) 142px; gap: 9px; min-width: 0; }
+    .manage-fields .input { padding: 8px 10px; font-size: 0.86rem; border-radius: 9px; }
+    .manage-price { position: relative; }
+    .manage-price__currency {
+      position: absolute; left: 9px; top: 50%; transform: translateY(-50%);
+      font-family: var(--serif); font-size: 0.98rem; font-weight: 600; color: var(--sage-deep);
+    }
+    .manage-price .input { padding-left: 23px; text-align: right; font-variant-numeric: tabular-nums; }
+    .manage-actions { display: flex; align-items: center; gap: 6px; }
+    .manage-actions .icon-btn { width: 34px; height: 34px; }
+    .manage-actions .icon { width: 15px; height: 15px; }
+    .manage-empty { padding: 30px 16px; text-align: center; font-size: 0.86rem; color: var(--muted); }
+    .manage-footer { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 16px; font-size: 0.74rem; color: var(--muted); }
+    .manage-footer .dot-live { width: 7px; height: 7px; border-radius: 50%; background: var(--sage); box-shadow: 0 0 0 3px rgba(135, 169, 107, 0.18); }
+
+    /* Ajustes */
+    .settings-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; align-items: start; }
+    .settings-card h3 { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
+    .settings-card h3 small { font-family: var(--sans); font-size: 0.68rem; font-weight: 400; letter-spacing: 0; text-transform: none; color: var(--muted); }
+    .settings-card .field { margin-top: 14px; }
+    .hint { margin-top: 6px; font-size: 0.72rem; line-height: 1.5; color: var(--muted); }
+    .hint code { font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 0.72em; background: var(--cream-deep); padding: 1px 5px; border-radius: 4px; }
+    .settings-savehint { display: inline-flex; align-items: center; gap: 6px; margin-top: 14px; font-size: 0.72rem; color: var(--sage-deep); }
+    .backup-card { margin-top: 18px; }
+    .backup-card__actions { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 16px; }
+    .backup-card__danger { margin-top: 18px; padding-top: 16px; border-top: 1px dashed var(--line-strong); }
+    .backup-card__danger p { margin-bottom: 10px; font-size: 0.75rem; color: var(--muted); }
+
+    /* Seguridad */
+    .security-card { margin-top: 18px; }
+    .security-card__head { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
+    .security-card__title { display: flex; align-items: flex-start; gap: 12px; }
+    .security-card__icon {
+      display: grid; place-items: center; width: 38px; height: 38px; flex: none;
+      border-radius: 11px; background: var(--sage-tint); color: var(--sage-deep);
+    }
+    .security-card__icon .icon { width: 18px; height: 18px; }
+    .security-pill {
+      flex: none; padding: 4px 11px; border-radius: 999px;
+      background: var(--sage-tint); color: var(--sage-deep);
+      font-size: 0.66rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase;
+    }
+    .security-pill.is-default { background: #FBF1D9; color: #8A6D1C; }
+    .security-status { margin-top: 12px; font-size: 0.78rem; line-height: 1.5; color: var(--muted); }
+    .security-status.is-default { color: #8A6D1C; }
+    .security-form { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin-top: 16px; }
+    .security-form .field { margin-top: 0; }
+    .security-form .hint { font-size: 0.7rem; }
+    .security-form__actions { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 9px; margin-top: 2px; }
+
+    /* ==========================================================================
+       12. RESPONSIVE Y ACCESIBILIDAD
+       ========================================================================== */
+    @media (max-width: 1024px) {
+      .hero__grid { gap: 30px; }
+      .hero-stack { height: 410px; }
+      .admin-add-grid { gap: 18px; }
+    }
+    @media (max-width: 900px) {
+      .nav { display: none; }
+      .hero__grid { grid-template-columns: 1fr; text-align: center; }
+      .hero__copy { max-width: 640px; margin-inline: auto; }
+      .hero__lead { margin-inline: auto; }
+      .hero__actions, .hero__meta { justify-content: center; }
+      .hero__visual { display: none; }
+      .promises__grid { grid-template-columns: repeat(2, 1fr); }
+      .footer__grid { grid-template-columns: 1.2fr 1fr; }
+      .admin-add-grid { grid-template-columns: 1fr; }
+      .admin-preview { position: static; }
+      .admin-preview__inner { max-width: 320px; margin-inline: auto; }
+    }
+    @media (max-width: 760px) {
+      .section-head { align-items: flex-start; }
+      .catalog-tools { width: 100%; }
+      .search { max-width: none; flex-basis: 100%; }
+      .select-wrap { flex: 1; }
+      .select-wrap select { width: 100%; }
+      .steps { grid-template-columns: 1fr; }
+      .step:not(:last-child)::after { display: none; }
+      .settings-grid { grid-template-columns: 1fr; }
+      .security-form { grid-template-columns: 1fr; }
+      .security-card__head { flex-direction: column; }
+      .admin-dialog { width: 100vw; height: 100dvh; }
+      .admin-shell { border-radius: 0; }
+      .admin-head { padding: 14px 16px; }
+      .admin-head p { display: none; }
+      .admin-head__actions .btn { display: none; }
+      .admin-tabs { padding: 10px 14px 0; }
+      .admin-tab { padding: 9px 11px 11px; font-size: 0.8rem; }
+      .admin-body { padding: 16px 14px 28px; }
+      .admin-card { padding: 16px; }
+      .manage-row { grid-template-columns: 48px minmax(0, 1fr); padding: 10px; }
+      .manage-thumb { width: 48px; }
+      .manage-fields { grid-template-columns: 1fr; }
+      .manage-actions { grid-column: 1 / -1; justify-content: flex-end; }
+      .manage-price .input { text-align: left; }
+    }
+    @media (max-width: 560px) {
+      .container { width: calc(100% - 32px); }
+      .brand__name { font-size: 1.32rem; }
+      .brand__mark { width: 42px; height: 42px; }
+      .header__actions .btn--ghost { display: none; }
+      .header__actions .btn span { display: none; }
+      .header__actions .btn { padding: 11px 13px; }
+      .promises__grid { grid-template-columns: 1fr; gap: 14px; }
+      .books-grid { grid-template-columns: 1fr; }
+      .book-card__media { padding: 22px 22px 16px; }
+      .footer__grid { grid-template-columns: 1fr; gap: 30px; }
+      .footer__bottom { flex-direction: column; align-items: flex-start; }
+      .toast-stack { right: 16px; bottom: 16px; }
+      .login-dialog { width: calc(100vw - 24px); }
+      .login-card { padding: 26px 20px 20px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+      [data-reveal] { opacity: 1; transform: none; }
+      .hero__ring { animation: none; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#catalogo">Saltar al catálogo</a>
+
+  <!-- Sprite de iconos reutilizables -->
+  <svg class="svg-sprite" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+    <symbol id="i-wa" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M12.04 2a9.87 9.87 0 0 0-8.4 15.17L2 22l4.96-1.6A9.87 9.87 0 1 0 12.04 2Zm0 1.8a8.07 8.07 0 1 1-4.12 15.02l-.3-.18-2.94.95.96-2.86-.19-.31A8.07 8.07 0 0 1 12.04 3.8Zm-3.1 3.7c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1 0 1.23.9 2.42 1.02 2.58.13.17 1.74 2.78 4.3 3.79 2.13.84 2.57.67 3.03.63.46-.04 1.5-.61 1.71-1.2.21-.59.21-1.1.15-1.2-.06-.11-.23-.17-.48-.29-.25-.13-1.5-.74-1.73-.82-.23-.09-.4-.13-.57.12-.17.25-.65.82-.8.99-.14.17-.29.19-.54.06-.25-.12-1.06-.39-2.02-1.25-.75-.67-1.25-1.5-1.4-1.75-.14-.25-.01-.39.11-.51.11-.11.25-.29.38-.44.13-.14.17-.25.25-.42.09-.17.04-.31-.02-.44-.06-.12-.57-1.38-.78-1.89-.2-.49-.41-.42-.57-.43h-.48Z"/>
+    </symbol>
+    <symbol id="i-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+      <circle cx="11" cy="11" r="6.5"/><path d="m16 16 4 4"/>
+    </symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M4 12h15"/><path d="m13 6 6 6-6 6"/>
+    </symbol>
+    <symbol id="i-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round">
+      <path d="M6 6l12 12M18 6 6 18"/>
+    </symbol>
+    <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="m5 13 4 4L19 7"/>
+    </symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round">
+      <path d="M12 5v14M5 12h14"/>
+    </symbol>
+    <symbol id="i-trash" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/>
+    </symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="5" y="10" width="14" height="10" rx="2.5"/><path d="M8.5 10V7.5a3.5 3.5 0 0 1 7 0V10"/>
+    </symbol>
+    <symbol id="i-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M2.5 12S6 5.8 12 5.8 21.5 12 21.5 12 18 18.2 12 18.2 2.5 12 2.5 12Z"/><circle cx="12" cy="12" r="3"/>
+    </symbol>
+    <symbol id="i-eye-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="m3 3 18 18"/><path d="M10.6 6.1A9.6 9.6 0 0 1 12 6c6 0 9.5 6 9.5 6a17 17 0 0 1-3.3 4M6.6 6.7A17 17 0 0 0 2.5 12S6 18 12 18a9.3 9.3 0 0 0 4.1-.9"/><path d="M9.9 9.9a3 3 0 0 0 4.2 4.2"/>
+    </symbol>
+    <symbol id="i-image" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="3.5" y="4.5" width="17" height="15" rx="2.5"/><circle cx="9" cy="10" r="1.6"/><path d="m4.5 17 4.8-4.4a2 2 0 0 1 2.7 0l5.5 5"/>
+    </symbol>
+    <symbol id="i-truck" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M2.5 6.5h11v10h-11zM13.5 9.5h4l3 3.2v3.8h-7z"/><circle cx="6.5" cy="18" r="1.8"/><circle cx="17.5" cy="18" r="1.8"/>
+    </symbol>
+    <symbol id="i-heart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 20s-7-4.35-7-9.3A4.2 4.2 0 0 1 12 7.9a4.2 4.2 0 0 1 7 2.8C19 15.65 12 20 12 20Z"/>
+    </symbol>
+    <symbol id="i-book" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5z"/><path d="M4 5.5v15M8 7h8M8 10.5h6"/>
+    </symbol>
+    <symbol id="i-sparkle" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 2.5c.3 3.9 2.6 6.2 6.5 6.5-3.9.3-6.2 2.6-6.5 6.5-.3-3.9-2.6-6.2-6.5-6.5 3.9-.3 6.2-2.6 6.5-6.5ZM19 14c.15 1.95 1.3 3.1 3.25 3.25-1.95.15-3.1 1.3-3.25 3.25-.15-1.95-1.3-3.1-3.25-3.25 1.95-.15 3.1-1.3 3.25-3.25Z"/>
+    </symbol>
+    <symbol id="i-star" viewBox="0 0 24 24" fill="currentColor">
+      <path d="m12 3 2.7 5.5 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.8 1-6.1L3.2 9.4l6.1-.9z"/>
+    </symbol>
+    <symbol id="i-instagram" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+      <rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="3.8"/><circle cx="17.2" cy="6.8" r=".9" fill="currentColor" stroke="none"/>
+    </symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m4 7 8 6 8-6"/>
+    </symbol>
+    <symbol id="i-download" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 3v12M7 10l5 5 5-5M5 21h14"/>
+    </symbol>
+    <symbol id="i-upload" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 21V9M7 14l5-5 5 5M5 3h14"/>
+    </symbol>
+    <symbol id="i-refresh" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M20 11.5A8 8 0 0 0 6 6L3.5 8.5M4 12.5A8 8 0 0 0 18 18l2.5-2.5"/><path d="M3.5 4v4.5H8M20.5 20v-4.5H16"/>
+    </symbol>
+    <symbol id="i-info" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+      <circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/>
+    </symbol>
+    <symbol id="i-leaf" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M20 4C10 4 4 9 4 15a5 5 0 0 0 5 5c6 0 11-6 11-16Z"/><path d="M4 20c2.5-5 6-8 11-10"/>
+    </symbol>
+  </svg>
+
+  <!-- ======================================================================
+       HEADER
+       ====================================================================== -->
+  <header class="site-header" id="top">
+    <div class="container header__inner">
+      <a class="brand" href="#top">
+        <span class="brand__mark" aria-hidden="true">
+          <svg viewBox="0 0 32 32" fill="none">
+            <path d="M16 5v22M8 12h16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M22 24.5c4-1 6-4 6-8-4 0-7 2-8 6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="16" cy="12" r="1.5" fill="#D4AF37"/>
+          </svg>
+        </span>
+        <span class="brand__text">
+          <span class="brand__name" data-store-name>Fe &amp; Vida</span>
+          <span class="brand__tag" data-store-tagline>Libros católicos</span>
+        </span>
+        <span class="sr-only">Ir al inicio</span>
+      </a>
+
+      <nav class="nav" aria-label="Navegación principal">
+        <a class="nav__link" href="#catalogo">Catálogo</a>
+        <a class="nav__link" href="#como-comprar">Cómo comprar</a>
+        <a class="nav__link" href="#contacto">Contacto</a>
+      </nav>
+
+      <div class="header__actions">
+        <a class="btn btn--ghost btn--sm" href="#catalogo">Ver libros</a>
+        <a class="btn btn--wa btn--sm" href="#" data-wa-link data-general-wa target="_blank" rel="noopener noreferrer" aria-label="Escribinos por WhatsApp">
+          <svg class="icon" aria-hidden="true"><use href="#i-wa"/></svg><span>WhatsApp</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ====================================================================
+         HERO
+         ==================================================================== -->
+    <section class="hero" aria-labelledby="heroTitle">
+      <div class="hero__blob hero__blob--1" aria-hidden="true"></div>
+      <div class="hero__blob hero__blob--2" aria-hidden="true"></div>
+      <div class="container hero__grid">
+        <div class="hero__copy" data-reveal>
+          <span class="eyebrow"><span class="eyebrow__line" aria-hidden="true"></span>Libros católicos · 2027</span>
+          <h1 id="heroTitle">Palabras que <em>acompañan</em> tu fe.</h1>
+          <p class="hero__lead">Una selección cuidada de libros para orar, crecer y regalar. Elegí tu título y coordinamos todo por WhatsApp: simple, cercano y con atención personalizada.</p>
+          <div class="hero__actions">
+            <a class="btn btn--primary" href="#catalogo">
+              Explorar el catálogo
+              <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg>
+            </a>
+            <a class="btn btn--outline" href="#" data-wa-link data-general-wa target="_blank" rel="noopener noreferrer">
+              <svg class="icon" aria-hidden="true"><use href="#i-wa"/></svg> Hablar con nosotros
+            </a>
+          </div>
+          <div class="hero__meta">
+            <span class="hero__stars" aria-hidden="true">★★★★★</span>
+            <span><strong data-book-count>34</strong> títulos disponibles</span>
+            <span class="hero__dot" aria-hidden="true"></span>
+            <span>Puntos de entrega en Zona Norte</span>
+          </div>
+        </div>
+
+        <div class="hero__visual">
+          <div class="hero__halo"></div>
+          <div class="hero__ring"></div>
+          <div class="hero-stack" id="heroStack"></div>
+          <div class="hero__floating">
+            <span class="floating-ico"><svg class="icon"><use href="#i-heart"/></svg></span>
+            <div>
+              <strong>Elegidos con amor</strong>
+              <span>para tu biblioteca</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         BENEFICIOS
+         ==================================================================== -->
+    <section class="promises" aria-label="Beneficios de comprar con nosotros">
+      <div class="container promises__grid">
+        <div class="promise">
+          <span class="promise__icon"><svg class="icon" aria-hidden="true"><use href="#i-truck"/></svg></span>
+          <div><strong>Puntos de entrega en Zona Norte</strong><span>Coordinamos la entrega por WhatsApp</span></div>
+        </div>
+        <div class="promise">
+          <span class="promise__icon"><svg class="icon" aria-hidden="true"><use href="#i-heart"/></svg></span>
+          <div><strong>Atención personalizada</strong><span>Te acompañamos en cada consulta</span></div>
+        </div>
+        <div class="promise">
+          <span class="promise__icon"><svg class="icon" aria-hidden="true"><use href="#i-book"/></svg></span>
+          <div><strong>Lecturas seleccionadas</strong><span>Títulos para el alma y la familia</span></div>
+        </div>
+        <div class="promise">
+          <span class="promise__icon"><svg class="icon" aria-hidden="true"><use href="#i-sparkle"/></svg></span>
+          <div><strong>Regalos con sentido</strong><span>Detalles que dejan huella</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         CATÁLOGO
+         ==================================================================== -->
+    <section class="section catalog" id="catalogo" aria-labelledby="catalogTitle">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <div class="section-head__copy">
+            <span class="eyebrow"><span class="eyebrow__line" aria-hidden="true"></span>Nuestro catálogo</span>
+            <h2 id="catalogTitle">Encontrá tu próximo libro</h2>
+            <p>Una biblioteca pensada para acompañar la oración, la familia y los momentos que importan. Consultanos por cualquier título.</p>
+          </div>
+          <div class="catalog-tools">
+            <div class="search">
+              <svg class="search__icon" aria-hidden="true"><use href="#i-search"/></svg>
+              <input id="searchInput" type="search" placeholder="Buscar por título…" aria-label="Buscar libros por título" autocomplete="off" />
+              <button class="search__clear" id="clearSearch" type="button" aria-label="Borrar búsqueda" hidden>
+                <svg class="icon" aria-hidden="true"><use href="#i-x"/></svg>
+              </button>
+            </div>
+            <div class="select-wrap">
+              <label class="sr-only" for="sortSelect">Ordenar catálogo</label>
+              <select id="sortSelect">
+                <option value="reco">Recomendados</option>
+                <option value="price-asc">Precio: menor a mayor</option>
+                <option value="price-desc">Precio: mayor a menor</option>
+                <option value="az">Título: A–Z</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="catalog-meta">
+          <p id="resultCount" aria-live="polite"><strong>34</strong> libros disponibles</p>
+          <a class="catalog-meta__link" href="#" data-wa-link data-general-wa target="_blank" rel="noopener noreferrer">¿No encontrás un título? Escribinos →</a>
+        </div>
+
+        <div class="books-grid" id="booksGrid"></div>
+
+        <div class="empty" id="emptyState" hidden>
+          <span class="empty__icon"><svg class="icon" aria-hidden="true"><use href="#i-book"/></svg></span>
+          <h3 id="emptyTitle">No encontramos ese libro</h3>
+          <p id="emptyText">Probá con otra palabra o mirá todos los títulos disponibles.</p>
+          <button class="btn btn--outline" id="emptyAction" type="button">Ver todos los libros</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         CÓMO COMPRAR
+         ==================================================================== -->
+    <section class="section how" id="como-comprar" aria-labelledby="howTitle">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <div class="section-head__copy">
+            <span class="eyebrow"><span class="eyebrow__line" aria-hidden="true"></span>Así de simple</span>
+            <h2 id="howTitle">Comprar es muy fácil</h2>
+            <p>Sin carritos complicados ni registros. Elegís, nos escribís y coordinamos todo de forma personal.</p>
+          </div>
+        </div>
+        <div class="steps" data-reveal>
+          <article class="step">
+            <span class="step__num">1</span>
+            <h3>Elegí tu libro</h3>
+            <p>Explorá el catálogo y buscá el título que estabas esperando. Cada portada te muestra su precio actualizado.</p>
+          </article>
+          <article class="step">
+            <span class="step__num">2</span>
+            <h3>Escribinos</h3>
+            <p>Tocá “Consultar por WhatsApp” y envianos el mensaje ya preparado. Te respondemos con disponibilidad y envío.</p>
+          </article>
+          <article class="step">
+            <span class="step__num">3</span>
+            <h3>Recibilo y disfrutalo</h3>
+            <p>Acordamos pago y entrega de la manera más cómoda para vos. Tu próximo libro favorito está a un mensaje.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         CITA
+         ==================================================================== -->
+    <section class="quote-section" aria-label="Palabra del día">
+      <div class="quote-card" data-reveal>
+        <span class="quote-mark" aria-hidden="true">“</span>
+        <blockquote>Lámpara es tu palabra para mis pasos, luz en mi camino.</blockquote>
+        <cite>Salmo 119, 105</cite>
+        <div class="quote-divider" aria-hidden="true"><span></span></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ======================================================================
+       FOOTER
+       ====================================================================== -->
+  <footer class="site-footer" id="contacto">
+    <div class="container">
+      <div class="footer__grid">
+        <div>
+          <a class="brand brand--footer" href="#top">
+            <span class="brand__mark" aria-hidden="true">
+              <svg viewBox="0 0 32 32" fill="none">
+                <path d="M16 5v22M8 12h16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                <path d="M22 24.5c4-1 6-4 6-8-4 0-7 2-8 6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="16" cy="12" r="1.5" fill="#D4AF37"/>
+              </svg>
+            </span>
+            <span class="brand__text">
+              <span class="brand__name" data-store-name>Fe &amp; Vida</span>
+              <span class="brand__tag" data-store-tagline>Libros católicos</span>
+            </span>
+            <span class="sr-only">Volver al inicio</span>
+          </a>
+          <p class="footer__about">Un rincón con libros elegidos para acompañar tu vida de fe, tu familia y esos pequeños momentos que merecen una buena lectura.</p>
+          <a class="btn btn--gold btn--sm footer__wa" href="#" data-wa-link data-general-wa target="_blank" rel="noopener noreferrer">
+            <svg class="icon" aria-hidden="true"><use href="#i-wa"/></svg> Hacenos tu consulta
+          </a>
+        </div>
+
+        <div>
+          <h3 class="footer__title">Explorar</h3>
+          <nav class="footer__links" aria-label="Enlaces del pie">
+            <a href="#catalogo">Catálogo completo</a>
+            <a href="#como-comprar">Cómo comprar</a>
+            <a href="#top">Inicio</a>
+            <a href="#" data-wa-link data-general-wa target="_blank" rel="noopener noreferrer">Consultas por WhatsApp</a>
+          </nav>
+        </div>
+
+        <div>
+          <h3 class="footer__title">Contacto</h3>
+          <div class="footer__contact">
+            <a href="#" data-wa-link data-general-wa target="_blank" rel="noopener noreferrer">
+              <svg class="icon" aria-hidden="true"><use href="#i-wa"/></svg> Escribinos por WhatsApp
+            </a>
+            <a id="footerInstagram" href="#" target="_blank" rel="noopener noreferrer" hidden>
+              <svg class="icon" aria-hidden="true"><use href="#i-instagram"/></svg> <span id="footerInstagramText">Instagram</span>
+            </a>
+            <a id="footerEmail" href="#" hidden>
+              <svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg> <span id="footerEmailText">Correo</span>
+            </a>
+            <span><svg class="icon" aria-hidden="true"><use href="#i-leaf"/></svg> Atención personalizada</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer__bottom">
+        <span>© <span id="year">2026</span> <span data-store-name>Fe &amp; Vida</span>. Hecho con fe y dedicación.</span>
+        <button class="admin-trigger" type="button" data-open-admin="manage" title="Atajo: Ctrl + Shift + A">
+          <svg class="icon" aria-hidden="true"><use href="#i-lock"/></svg> Administración
+        </button>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ======================================================================
+       PANEL DE ADMINISTRACIÓN
+       ====================================================================== -->
+  <dialog class="admin-dialog" id="adminDialog" aria-labelledby="adminTitle">
+    <div class="admin-shell">
+      <header class="admin-head">
+        <div class="admin-head__title">
+          <span class="admin-head__badge"><svg class="icon" aria-hidden="true"><use href="#i-lock"/></svg></span>
+          <div>
+            <h2 id="adminTitle">Panel de administración</h2>
+            <p>Gestioná tu catálogo de forma simple y visual</p>
+          </div>
+        </div>
+        <div class="admin-head__actions">
+          <button class="btn btn--outline btn--sm" type="button" data-close-admin>Ver catálogo</button>
+          <button class="icon-btn" type="button" data-close-admin aria-label="Cerrar panel">
+            <svg class="icon" aria-hidden="true"><use href="#i-x"/></svg>
+          </button>
+        </div>
+      </header>
+
+      <nav class="admin-tabs" aria-label="Secciones del panel">
+        <button class="admin-tab is-active" type="button" data-tab="add" aria-pressed="true">
+          <svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg> Agregar
+        </button>
+        <button class="admin-tab" type="button" data-tab="manage" aria-pressed="false">
+          Gestionar <span class="admin-tab__count" id="tabCount">34</span>
+        </button>
+        <button class="admin-tab" type="button" data-tab="settings" aria-pressed="false">
+          Ajustes
+        </button>
+      </nav>
+
+      <div class="admin-body">
+        <div class="admin-notice">
+          <svg class="icon" aria-hidden="true"><use href="#i-info"/></svg>
+          <span id="adminStorageNotice">Todo se guarda automáticamente en este navegador (<strong>localStorage</strong>). No necesitás cuenta ni servidor. Para usar en otro dispositivo, exportá un respaldo desde Ajustes.</span>
+        </div>
+
+        <!-- PESTAÑA: AGREGAR -->
+        <section class="admin-pane" data-pane="add" aria-label="Agregar un libro nuevo">
+          <form class="admin-add-grid" id="addForm" novalidate>
+            <div class="admin-card">
+              <h3>Nuevo libro</h3>
+              <p class="admin-card__hint">Completá los datos y la portada aparecerá al instante en el catálogo.</p>
+
+              <label class="field">
+                <span>Título del libro *</span>
+                <input class="input" id="newTitle" type="text" maxlength="140" placeholder="Ej.: El Pan de la Palabra" autocomplete="off" required />
+              </label>
+
+              <label class="field">
+                <span>Precio de venta *</span>
+                <div class="price-input">
+                  <span aria-hidden="true">$</span>
+                  <input class="input" id="newPrice" type="text" inputmode="decimal" placeholder="13.200,00" autocomplete="off" required />
+                </div>
+              </label>
+
+              <fieldset class="image-field">
+                <legend>Foto de portada</legend>
+                <div class="image-options">
+                  <label class="file-drop">
+                    <span class="file-drop__icon"><svg class="icon" aria-hidden="true"><use href="#i-image"/></svg></span>
+                    <span>
+                      <strong id="newImageName">Subir una imagen</strong>
+                      <small>JPG o PNG · se optimiza automáticamente</small>
+                    </span>
+                    <input id="newImage" type="file" accept="image/*" aria-label="Subir imagen de portada" />
+                  </label>
+                  <span class="image-or">o pegá un enlace</span>
+                  <input class="input" id="newImageUrl" type="url" placeholder="https://ejemplo.com/portada.jpg" autocomplete="off" aria-label="URL de la imagen de portada" />
+                </div>
+                <small class="image-help">Si no agregás una foto, creamos una portada elegante con el título automáticamente.</small>
+              </fieldset>
+
+              <div class="admin-form-actions">
+                <button class="btn btn--primary" type="submit">
+                  <svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg> Agregar al catálogo
+                </button>
+                <button class="btn btn--ghost btn--sm" type="reset" id="addReset">Limpiar</button>
+              </div>
+            </div>
+
+            <aside class="admin-preview">
+              <div class="admin-preview__inner">
+                <span class="admin-preview__label">Vista previa</span>
+                <div class="admin-preview__cover" id="newPreview"></div>
+                <span class="admin-preview__price" id="newPreviewPrice">—</span>
+                <span class="admin-preview__hint">Así se verá en el catálogo</span>
+              </div>
+            </aside>
+          </form>
+        </section>
+
+        <!-- PESTAÑA: GESTIONAR -->
+        <section class="admin-pane" data-pane="manage" aria-label="Gestionar libros" hidden>
+          <div class="manage-toolbar">
+            <div class="search">
+              <svg class="search__icon" aria-hidden="true"><use href="#i-search"/></svg>
+              <input id="manageSearch" type="search" placeholder="Buscar en el catálogo…" aria-label="Buscar libro para editar" autocomplete="off" />
+            </div>
+            <span class="manage-toolbar__count" id="manageCount">34 libros</span>
+          </div>
+
+          <ul class="manage-list" id="manageList"></ul>
+          <p class="manage-empty" id="manageEmpty" hidden>No hay libros que coincidan con la búsqueda.</p>
+
+          <div class="manage-footer">
+            <span class="dot-live" aria-hidden="true"></span>
+            <span>Los cambios de título y precio se guardan automáticamente. Tocá una portada para reemplazarla.</span>
+          </div>
+        </section>
+
+        <!-- PESTAÑA: AJUSTES -->
+        <section class="admin-pane" data-pane="settings" aria-label="Ajustes y respaldo" hidden>
+          <div class="settings-grid">
+            <div class="admin-card settings-card">
+              <h3>Datos del emprendimiento</h3>
+              <p class="admin-card__hint">Estos datos se usan en los mensajes de WhatsApp y en el catálogo.</p>
+
+              <label class="field">
+                <span>Nombre del emprendimiento</span>
+                <input class="input" id="setStoreName" data-setting="storeName" type="text" maxlength="40" placeholder="Fe & Vida" autocomplete="organization" />
+              </label>
+
+              <label class="field">
+                <span>WhatsApp</span>
+                <input class="input" id="setWhatsapp" data-setting="whatsapp" type="tel" inputmode="tel" placeholder="5491122334455" autocomplete="tel" />
+                <small class="hint">Código de país + número, <strong>sin “+” y sin “0” inicial</strong>. Ejemplo: <code>5491122334455</code>. El número precargado es solo una muestra: reemplazalo por el tuyo para recibir los pedidos.</small>
+              </label>
+
+              <span class="settings-savehint" id="settingsSaveHint">
+                <svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>
+                <span id="settingsSaveText">Guardado automático</span>
+              </span>
+            </div>
+
+            <div class="admin-card settings-card">
+              <h3>Redes y contacto <small>opcional</small></h3>
+              <p class="admin-card__hint">Si los completás, aparecen en el pie de página.</p>
+
+              <label class="field">
+                <span>Instagram</span>
+                <input class="input" id="setInstagram" data-setting="instagram" type="text" placeholder="@tu_usuario o enlace" autocomplete="off" />
+              </label>
+
+              <label class="field">
+                <span>Email</span>
+                <input class="input" id="setEmail" data-setting="email" type="email" placeholder="hola@tulibreria.com" autocomplete="email" />
+              </label>
+            </div>
+          </div>
+
+          <div class="admin-card security-card">
+            <div class="security-card__head">
+              <div class="security-card__title">
+                <span class="security-card__icon" aria-hidden="true"><svg class="icon"><use href="#i-lock"/></svg></span>
+                <div>
+                  <h3>Seguridad del panel</h3>
+                  <p class="admin-card__hint">El panel pide contraseña cada vez que se abre en una visita nueva.</p>
+                </div>
+              </div>
+              <span class="security-pill" id="passwordStatusPill">Inicial</span>
+            </div>
+
+            <p class="security-status" id="passwordStatus">Estás usando la contraseña inicial del panel.</p>
+
+            <form class="security-form" id="passwordForm" novalidate>
+              <label class="field">
+                <span>Contraseña actual</span>
+                <div class="password-input">
+                  <input class="input" id="currentPassword" type="password" autocomplete="current-password" required />
+                  <button class="password-toggle" type="button" data-toggle-password="currentPassword" aria-label="Mostrar contraseña" aria-pressed="false">
+                    <svg class="icon password-toggle__on" aria-hidden="true"><use href="#i-eye"/></svg>
+                    <svg class="icon password-toggle__off" aria-hidden="true"><use href="#i-eye-off"/></svg>
+                  </button>
+                </div>
+              </label>
+
+              <label class="field">
+                <span>Nueva contraseña</span>
+                <div class="password-input">
+                  <input class="input" id="newPassword" type="password" autocomplete="new-password" minlength="6" required />
+                  <button class="password-toggle" type="button" data-toggle-password="newPassword" aria-label="Mostrar contraseña" aria-pressed="false">
+                    <svg class="icon password-toggle__on" aria-hidden="true"><use href="#i-eye"/></svg>
+                    <svg class="icon password-toggle__off" aria-hidden="true"><use href="#i-eye-off"/></svg>
+                  </button>
+                </div>
+                <small class="hint">Mínimo 6 caracteres. Usá algo que puedas recordar.</small>
+              </label>
+
+              <label class="field">
+                <span>Repetir nueva contraseña</span>
+                <div class="password-input">
+                  <input class="input" id="confirmPassword" type="password" autocomplete="new-password" minlength="6" required />
+                  <button class="password-toggle" type="button" data-toggle-password="confirmPassword" aria-label="Mostrar contraseña" aria-pressed="false">
+                    <svg class="icon password-toggle__on" aria-hidden="true"><use href="#i-eye"/></svg>
+                    <svg class="icon password-toggle__off" aria-hidden="true"><use href="#i-eye-off"/></svg>
+                  </button>
+                </div>
+              </label>
+
+              <div class="security-form__actions">
+                <button class="btn btn--primary btn--sm" type="submit" id="passwordSubmit">Actualizar contraseña</button>
+                <button class="btn btn--outline btn--sm" type="button" id="lockNowBtn">
+                  <svg class="icon" aria-hidden="true"><use href="#i-lock"/></svg> Bloquear panel ahora
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <div class="admin-card backup-card">
+            <h3>Respaldo de datos</h3>
+            <p class="admin-card__hint">Guardá una copia de tu catálogo y tus ajustes, o restaurá el catálogo original.</p>
+            <div class="backup-card__actions">
+              <button class="btn btn--outline btn--sm" type="button" id="exportBtn">
+                <svg class="icon" aria-hidden="true"><use href="#i-download"/></svg> Exportar respaldo
+              </button>
+              <button class="btn btn--outline btn--sm" type="button" id="importBtn">
+                <svg class="icon" aria-hidden="true"><use href="#i-upload"/></svg> Importar respaldo
+              </button>
+              <input type="file" id="importInput" accept="application/json,.json" hidden />
+            </div>
+            <div class="backup-card__danger">
+              <p>Esto borra los cambios del catálogo y vuelve a cargar los 34 títulos originales. No modifica tus datos de contacto.</p>
+              <button class="btn btn--danger btn--sm" type="button" id="resetBtn">
+                <svg class="icon" aria-hidden="true"><use href="#i-refresh"/></svg> Restaurar catálogo original
+              </button>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- ======================================================================
+       ACCESO AL PANEL (CONTRASEÑA)
+       ====================================================================== -->
+  <dialog class="login-dialog" id="loginDialog" aria-labelledby="loginTitle" aria-describedby="loginDesc">
+    <form class="login-card" id="loginForm" novalidate>
+      <div class="login-card__mark" aria-hidden="true">
+        <svg class="icon"><use href="#i-lock"/></svg>
+      </div>
+      <div class="login-card__head">
+        <h2 id="loginTitle">Acceso al panel</h2>
+        <p id="loginDesc">Ingresá la contraseña de administración para gestionar el catálogo.</p>
+      </div>
+
+      <label class="field login-field" id="loginEmailField" hidden>
+        <span>Email</span>
+        <input class="input" id="loginEmail" type="email" autocomplete="username" placeholder="tu@email.com" />
+      </label>
+
+      <label class="field login-field">
+        <span>Contraseña</span>
+        <div class="password-input">
+          <input class="input" id="loginPassword" type="password" autocomplete="current-password" placeholder="Tu contraseña" required />
+          <button class="password-toggle" type="button" data-toggle-password="loginPassword" aria-label="Mostrar contraseña" aria-pressed="false">
+            <svg class="icon password-toggle__on" aria-hidden="true"><use href="#i-eye"/></svg>
+            <svg class="icon password-toggle__off" aria-hidden="true"><use href="#i-eye-off"/></svg>
+          </button>
+        </div>
+      </label>
+
+      <p class="login-error" id="loginError" role="alert" hidden></p>
+
+      <div class="login-actions">
+        <button class="btn btn--ghost btn--sm" type="button" data-close-login>Cancelar</button>
+        <button class="btn btn--primary" type="submit" id="loginSubmit">
+          <svg class="icon" aria-hidden="true"><use href="#i-lock"/></svg> <span>Entrar al panel</span>
+        </button>
+      </div>
+
+      <p class="login-foot">
+        <svg class="icon" aria-hidden="true"><use href="#i-lock"/></svg>
+        Acceso exclusivo para la persona administradora
+      </p>
+    </form>
+  </dialog>
+
+  <!-- Notificaciones -->
+  <div class="toast-stack" id="toastStack" aria-live="polite" aria-atomic="false"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+  <script>
+    /* ========================================================================
+       LANDING PAGE + ADMINISTRADOR VISUAL
+       - Catálogo público con búsqueda, orden y botones de WhatsApp.
+       - Panel de administración con CRUD completo.
+       - Persistencia en localStorage (sin backend).
+       ======================================================================== */
+    (() => {
+      'use strict';
+
+      /* ----------------------------------------------------------------------
+         1. CONFIGURACIÓN Y DATOS INICIALES
+         ---------------------------------------------------------------------- */
+      const STORAGE_KEY = 'fe-vida-catalogo-v1';
+      const ADMIN_CRED_KEY = 'fe-vida-admin-cred-v1';
+      const DEFAULT_ADMIN_PASSWORD = 'FeVida2026';
+      const MIN_PASSWORD_LENGTH = 6;
+
+      /* ======================================================================
+         CONFIGURACIÓN DE SUPABASE
+         Reemplazá estos dos valores por los de tu proyecto:
+         Supabase → Project Settings → API → Project URL / anon public key.
+         La anon key es pública: la seguridad real la dan las políticas RLS.
+         ====================================================================== */
+      const SUPABASE_URL = 'TU_SUPABASE_URL'; // Ej.: https://abcdefghij.supabase.co
+      const SUPABASE_ANON_KEY = 'TU_SUPABASE_ANON_KEY';
+      const SUPABASE_BUCKET = 'portadas';
+      const SUPABASE_EMAIL_KEY = 'fe-vida-admin-email';
+
+      const hasSupabaseConfig =
+        /^https:\/\//i.test(SUPABASE_URL) &&
+        !SUPABASE_URL.includes('TU_SUPABASE') &&
+        SUPABASE_ANON_KEY.length > 20 &&
+        !SUPABASE_ANON_KEY.startsWith('TU_');
+
+      let sb = null;
+      if (hasSupabaseConfig && window.supabase && typeof window.supabase.createClient === 'function') {
+        try {
+          sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+            auth: {
+              persistSession: false,
+              autoRefreshToken: true,
+              detectSessionInUrl: false
+            }
+          });
+        } catch (err) {
+          console.error('No se pudo iniciar Supabase:', err);
+        }
+      }
+      const cloudEnabled = !!sb;
+      if (hasSupabaseConfig && !cloudEnabled) {
+        console.error('Supabase está configurado, pero la librería no se cargó. Revisá el CDN o tu conexión.');
+      }
+
+      const DEFAULT_SETTINGS = {
+        storeName: 'Fe & Vida',
+        whatsapp: '5491122334455', // Número de ejemplo: se cambia en Ajustes.
+        instagram: '',
+        email: ''
+      };
+
+      // Base oficial de productos: [título, precio de venta]
+      const SEED_BOOKS = [
+        ['Jugar... Crear... Compartir', 13200],
+        ['30 Dinámicas con el Evangelio', 13200],
+        ['Treinta a San José y Devociones', 5100],
+        ['Año del Señor 2027', 4800],
+        ['El Pan de la Palabra (Nueva Edición)', 16100],
+        ['Rosario de Bendición Familiar', 2900],
+        ['La Alegría de Ser Agente de Paz', 13100],
+        ['El Estrés de Jesús (Ensayo Meditado)', 31500],
+        ['Bolsa Eco 25 x 35', 4200],
+        ['Devoción Sagrado Corazón de Jesús y María', 15200],
+        ['Mamá Antula', 2900],
+        ['Historias de la Vida', 3600],
+        ['40 Formas de Oración Personal', 7300],
+        ['Transitar Nuestras Crisis', 13600],
+        ['Sinodalidad en la Vida y en la Iglesia', 2200],
+        ['Huellas del Pastor', 22300],
+        ['Magnifica Humanitas', 6600],
+        ['Amor Hospitalario (El Buen Samaritano)', 5300],
+        ['Dios te Quiere Feliz', 5300],
+        ['Amor que Reconcilia al Pecador', 5300],
+        ['Dios, ¿Por qué Sufro? Acompañando el Dolor', 5300],
+        ['Las Parábolas de la Misericordia', 1500],
+        ['Rosario de Sanación (Nueva Edición)', 4600],
+        ['Celebremos en Familia el Cumpleaños', 3700],
+        ['Charlando con María Navideñas', 6500],
+        ['Para Gustar Más la Misa', 6500],
+        ['Cuando Visites A Un Enfermo', 5300],
+        ['Agenda Mujer Virtuosa (Permanente)', 29300],
+        ['365 Días con Cristo 2027 (Mini)', 12900],
+        ['365 Días con Cristo 2027 (Grande)', 26000],
+        ['Mi Diario Santos Varios', 27300],
+        ['Imitación de Cristo', 12300],
+        ['Tratado de la Verdadera Devoción', 12800],
+        ['Evangelio Cotidiano 2027', 6400]
+      ];
+
+      const nf = new Intl.NumberFormat('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      const $ = (selector, root = document) => root.querySelector(selector);
+      const $$ = (selector, root = document) => Array.from(root.querySelectorAll(selector));
+
+      /* ----------------------------------------------------------------------
+         2. UTILIDADES GENERALES
+         ---------------------------------------------------------------------- */
+      function uid() {
+        return 'bk-' + Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+      }
+
+      function newUuid() {
+        if (window.crypto && typeof window.crypto.randomUUID === 'function') return window.crypto.randomUUID();
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (ch) => {
+          const random = Math.random() * 16 | 0;
+          const value = ch === 'x' ? random : (random & 0x3) | 0x8;
+          return value.toString(16);
+        });
+      }
+
+      function isUuid(value) {
+        return typeof value === 'string' &&
+          /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(value);
+      }
+
+      function escapeHtml(value) {
+        return String(value ?? '').replace(/[&<>"']/g, (ch) => ({
+          '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+        }[ch]));
+      }
+      const escapeAttr = escapeHtml;
+
+      function normalizeText(value) {
+        return String(value ?? '')
+          .normalize('NFD')
+          .replace(/[\u0300-\u036f]/g, '')
+          .toLowerCase()
+          .trim();
+      }
+
+      function digits(value) {
+        return String(value ?? '').replace(/\D/g, '');
+      }
+
+      function truncate(value, max) {
+        const str = String(value ?? '');
+        return str.length > max ? str.slice(0, max - 1) + '…' : str;
+      }
+
+      function formatPrice(value) {
+        return '$' + nf.format(Number(value) || 0);
+      }
+
+      function formatPricePlain(value) {
+        return nf.format(Number(value) || 0);
+      }
+
+      // Acepta "13.200,00", "13200", "13.200" y "13200.50"
+      function parsePrice(raw) {
+        if (typeof raw === 'number') return Number.isFinite(raw) ? raw : NaN;
+        let str = String(raw ?? '').replace(/[^\d.,-]/g, '').trim();
+        if (!str) return NaN;
+
+        const negative = str.startsWith('-');
+        str = str.replace(/-/g, '');
+        if (!str) return NaN;
+
+        let normalized;
+        if (str.includes(',')) {
+          normalized = str.replace(/\./g, '').replace(',', '.');
+        } else {
+          const parts = str.split('.');
+          if (parts.length > 2) normalized = parts.join('');
+          else if (parts.length === 2) {
+            normalized = parts[1].length === 3 ? parts[0] + parts[1] : parts[0] + '.' + parts[1];
+          } else {
+            normalized = str;
+          }
+        }
+        const number = Number(normalized);
+        return Number.isFinite(number) ? (negative ? -number : number) : NaN;
+      }
+
+      function icon(name) {
+        return '<svg class="icon" aria-hidden="true"><use href="#i-' + name + '"></use></svg>';
+      }
+
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      function scrollToCatalog() {
+        const target = document.getElementById('catalogo');
+        if (target) target.scrollIntoView({ behavior: prefersReducedMotion ? 'auto' : 'smooth', block: 'start' });
+      }
+
+      /* ----------------------------------------------------------------------
+         3. ESTADO Y PERSISTENCIA
+         ---------------------------------------------------------------------- */
+      function freshState() {
+        return {
+          books: SEED_BOOKS.map(([title, price], index) => ({
+            id: 'seed-' + (index + 1),
+            title,
+            price,
+            image: null
+          })),
+          settings: { ...DEFAULT_SETTINGS }
+        };
+      }
+
+      function normalizeBook(raw) {
+        const book = raw && typeof raw === 'object' ? raw : {};
+        const validId = typeof book.id === 'string' && /^[A-Za-z0-9_-]{1,80}$/.test(book.id);
+        return {
+          id: validId ? book.id : uid(),
+          title: String(book.title ?? '').trim(),
+          price: Number(book.price),
+          image: typeof book.image === 'string' && book.image.trim() ? book.image : null
+        };
+      }
+
+      function loadState() {
+        let raw = null;
+        try { raw = localStorage.getItem(STORAGE_KEY); } catch (err) { console.warn('localStorage no disponible:', err); }
+        if (!raw) return freshState();
+        try {
+          const data = JSON.parse(raw);
+          if (!data || !Array.isArray(data.books)) return freshState();
+          return {
+            books: data.books.map(normalizeBook).filter((b) => b.title && Number.isFinite(b.price)),
+            settings: {
+              ...DEFAULT_SETTINGS,
+              ...(data.settings && typeof data.settings === 'object' ? data.settings : {})
+            }
+          };
+        } catch (err) {
+          console.warn('No se pudo leer el catálogo guardado:', err);
+          return freshState();
+        }
+      }
+
+      let state = loadState();
+      let saveTimer = null;
+      let refreshTimer = null;
+      let pendingImage = null;
+      let adminUnlocked = false;
+      let pendingAdminTab = 'add';
+      let adminCredential = loadAdminCredential();
+      let authUser = null;
+      let remoteLoaded = false;
+      let remoteSyncTimer = null;
+      let remoteSyncing = false;
+      let remoteDirty = false;
+      let lastSyncedBooks = new Map();
+      let lastSyncedSettings = '';
+
+      function flashSaved() {
+        const label = $('#settingsSaveText');
+        if (!label) return;
+        label.textContent = 'Cambios guardados';
+        clearTimeout(flashSaved.timer);
+        flashSaved.timer = setTimeout(() => { label.textContent = 'Guardado automático'; }, 2200);
+      }
+
+      function saveCache() {
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify({
+            version: 1,
+            books: state.books,
+            settings: state.settings
+          }));
+          return true;
+        } catch (err) {
+          console.error('Error al guardar la copia local:', err);
+          toast('No se pudo guardar la copia local. Si subiste muchas fotos, probá con imágenes más livianas.', { type: 'error', duration: 7000 });
+          return false;
+        }
+      }
+
+      function saveNow() {
+        if (saveTimer) { clearTimeout(saveTimer); saveTimer = null; }
+        saveCache();
+        flashSaved();
+        scheduleRemoteSave();
+      }
+
+      function scheduleSave() {
+        if (saveTimer) clearTimeout(saveTimer);
+        saveTimer = setTimeout(saveNow, 350);
+      }
+
+      function scheduleCatalogRefresh() {
+        if (refreshTimer) clearTimeout(refreshTimer);
+        refreshTimer = setTimeout(() => {
+          renderCatalog();
+          renderHero();
+          updateCounts();
+        }, 180);
+      }
+
+      /* ----------------------------------------------------------------------
+         3b. SUPABASE: LECTURA, ESCRITURA E IMÁGENES
+         ---------------------------------------------------------------------- */
+      function updateBackendUx() {
+        if (el.loginEmailField) el.loginEmailField.hidden = !cloudEnabled;
+        if (el.loginDesc) {
+          el.loginDesc.textContent = cloudEnabled
+            ? 'Ingresá con tu email y contraseña de administración.'
+            : 'Ingresá la contraseña de administración para gestionar el catálogo.';
+        }
+        if (el.storageNotice) {
+          el.storageNotice.innerHTML = cloudEnabled
+            ? 'Los libros, las portadas y los ajustes se guardan en <strong>Supabase</strong>. El panel se protege con una cuenta real y la contraseña queda cifrada en la base de datos.'
+            : 'Todo se guarda automáticamente en este navegador (<strong>localStorage</strong>). No necesitás cuenta ni servidor. Para usar en otro dispositivo, exportá un respaldo desde Ajustes.';
+        }
+        if (cloudEnabled && el.loginEmail) {
+          try {
+            const savedEmail = localStorage.getItem(SUPABASE_EMAIL_KEY);
+            if (savedEmail && !el.loginEmail.value) el.loginEmail.value = savedEmail;
+          } catch (err) { /* sin acceso a localStorage */ }
+        }
+      }
+
+      function remoteBook(row) {
+        return {
+          id: row.id,
+          title: String(row.title || ''),
+          price: Number(row.price) || 0,
+          image: row.image_url || null
+        };
+      }
+
+      function remoteSettings(row) {
+        if (!row) return { ...DEFAULT_SETTINGS };
+        return {
+          storeName: row.store_name || DEFAULT_SETTINGS.storeName,
+          whatsapp: row.whatsapp || '',
+          instagram: row.instagram || '',
+          email: row.email || ''
+        };
+      }
+
+      function bookSignature(book, index) {
+        return [book.title, book.price, book.image || '', index].join('\u0001');
+      }
+
+      function rememberRemoteState() {
+        lastSyncedBooks = new Map(state.books.map((book, index) => [book.id, bookSignature(book, index)]));
+        lastSyncedSettings = JSON.stringify(state.settings);
+      }
+
+      function ensureRemoteBookIds() {
+        if (!cloudEnabled) return false;
+        let changed = false;
+        state.books.forEach((book) => {
+          if (!isUuid(book.id)) {
+            book.id = newUuid();
+            changed = true;
+          }
+        });
+        if (changed) {
+          saveCache();
+          renderAll();
+        }
+        return changed;
+      }
+
+      async function refreshRemoteState(options = {}) {
+        if (!cloudEnabled) return false;
+        const { silent = false } = options;
+        try {
+          const [booksResult, settingsResult] = await Promise.all([
+            sb.from('books')
+              .select('id,title,price,image_url,sort_order,created_at')
+              .order('sort_order', { ascending: true })
+              .order('created_at', { ascending: true }),
+            sb.from('settings')
+              .select('store_name,whatsapp,instagram,email')
+              .eq('id', 1)
+              .maybeSingle()
+          ]);
+
+          if (booksResult.error) throw booksResult.error;
+          if (settingsResult.error) throw settingsResult.error;
+
+          state = {
+            books: (booksResult.data || []).map(remoteBook),
+            settings: remoteSettings(settingsResult.data)
+          };
+          remoteLoaded = true;
+          rememberRemoteState();
+          saveCache();
+          applySettings();
+          syncSettingsForm();
+          renderAll();
+          return true;
+        } catch (err) {
+          remoteLoaded = false;
+          console.error('No se pudo cargar Supabase:', err);
+          if (!silent) {
+            toast('No se pudo cargar la base de datos. Revisá la conexión e intentá de nuevo.', { type: 'error', duration: 6500 });
+          }
+          return false;
+        }
+      }
+
+      function scheduleRemoteSave() {
+        if (!cloudEnabled || !adminUnlocked || !remoteLoaded) return;
+        if (remoteSyncTimer) clearTimeout(remoteSyncTimer);
+        remoteSyncTimer = setTimeout(() => {
+          remoteSyncTimer = null;
+          void pushRemoteState();
+        }, 450);
+      }
+
+      async function uploadCover(bookId, dataUrl) {
+        const response = await fetch(dataUrl);
+        const blob = await response.blob();
+        const type = blob.type || 'image/jpeg';
+        const ext = type.includes('png') ? 'png' : type.includes('webp') ? 'webp' : 'jpg';
+        const path = bookId + '/' + Date.now() + '-' + Math.random().toString(36).slice(2, 8) + '.' + ext;
+        const { error } = await sb.storage.from(SUPABASE_BUCKET).upload(path, blob, {
+          contentType: type,
+          upsert: false,
+          cacheControl: '31536000'
+        });
+        if (error) throw error;
+        const { data } = sb.storage.from(SUPABASE_BUCKET).getPublicUrl(path);
+        if (!data || !data.publicUrl) throw new Error('No se pudo obtener la URL pública de la portada.');
+        return data.publicUrl;
+      }
+
+      async function pushRemoteState() {
+        if (!cloudEnabled || !adminUnlocked || !remoteLoaded) return;
+        if (remoteSyncing) {
+          remoteDirty = true;
+          return;
+        }
+        remoteSyncing = true;
+        try {
+          ensureRemoteBookIds();
+
+          // Subir a Storage las portadas que todavía están como data URL.
+          let uploaded = false;
+          for (const book of state.books) {
+            if (book.image && book.image.startsWith('data:')) {
+              book.image = await uploadCover(book.id, book.image);
+              uploaded = true;
+            }
+          }
+          if (uploaded) saveCache();
+
+          const changed = [];
+          state.books.forEach((book, index) => {
+            const signature = bookSignature(book, index);
+            if (lastSyncedBooks.get(book.id) !== signature) changed.push({ book, index, signature });
+          });
+
+          if (changed.length) {
+            const rows = changed.map(({ book, index }) => ({
+              id: book.id,
+              title: book.title,
+              price: book.price,
+              image_url: book.image || null,
+              sort_order: index,
+              updated_at: new Date().toISOString()
+            }));
+            const { error } = await sb.from('books').upsert(rows, { onConflict: 'id' });
+            if (error) throw error;
+            changed.forEach(({ book, signature }) => lastSyncedBooks.set(book.id, signature));
+          }
+
+          const currentIds = new Set(state.books.map((book) => book.id));
+          const removed = Array.from(lastSyncedBooks.keys()).filter((id) => !currentIds.has(id));
+          if (removed.length) {
+            const { error } = await sb.from('books').delete().in('id', removed);
+            if (error) throw error;
+            removed.forEach((id) => lastSyncedBooks.delete(id));
+          }
+
+          const settingsSignature = JSON.stringify(state.settings);
+          if (settingsSignature !== lastSyncedSettings) {
+            const { error } = await sb.from('settings').upsert({
+              id: 1,
+              store_name: state.settings.storeName,
+              whatsapp: state.settings.whatsapp,
+              instagram: state.settings.instagram,
+              email: state.settings.email,
+              updated_at: new Date().toISOString()
+            }, { onConflict: 'id' });
+            if (error) throw error;
+            lastSyncedSettings = settingsSignature;
+          }
+        } catch (err) {
+          console.error('No se pudo guardar en Supabase:', err);
+          toast('No se pudieron guardar los cambios en la nube. Revisá tu conexión e intentá de nuevo.', {
+            type: 'error',
+            duration: 7000,
+            actionLabel: 'Reintentar',
+            onAction: () => {
+              remoteDirty = true;
+              scheduleRemoteSave();
+            }
+          });
+        } finally {
+          remoteSyncing = false;
+          if (remoteDirty) {
+            remoteDirty = false;
+            scheduleRemoteSave();
+          }
+        }
+      }
+
+      /* ----------------------------------------------------------------------
+         4. REFERENCIAS DEL DOM
+         ---------------------------------------------------------------------- */
+      const el = {
+        header: $('.site-header'),
+        heroVisual: $('.hero__visual'),
+        heroStack: $('#heroStack'),
+        booksGrid: $('#booksGrid'),
+        searchInput: $('#searchInput'),
+        clearSearch: $('#clearSearch'),
+        sortSelect: $('#sortSelect'),
+        resultCount: $('#resultCount'),
+        emptyState: $('#emptyState'),
+        emptyTitle: $('#emptyTitle'),
+        emptyText: $('#emptyText'),
+        emptyAction: $('#emptyAction'),
+        adminDialog: $('#adminDialog'),
+        loginDialog: $('#loginDialog'),
+        loginForm: $('#loginForm'),
+        loginEmailField: $('#loginEmailField'),
+        loginEmail: $('#loginEmail'),
+        loginPassword: $('#loginPassword'),
+        loginDesc: $('#loginDesc'),
+        loginError: $('#loginError'),
+        loginSubmit: $('#loginSubmit'),
+        storageNotice: $('#adminStorageNotice'),
+        passwordForm: $('#passwordForm'),
+        currentPassword: $('#currentPassword'),
+        newPassword: $('#newPassword'),
+        confirmPassword: $('#confirmPassword'),
+        passwordSubmit: $('#passwordSubmit'),
+        passwordStatus: $('#passwordStatus'),
+        passwordStatusPill: $('#passwordStatusPill'),
+        lockNowBtn: $('#lockNowBtn'),
+        tabs: $$('.admin-tab'),
+        panes: $$('[data-pane]'),
+        tabCount: $('#tabCount'),
+        addForm: $('#addForm'),
+        addReset: $('#addReset'),
+        newTitle: $('#newTitle'),
+        newPrice: $('#newPrice'),
+        newImage: $('#newImage'),
+        newImageName: $('#newImageName'),
+        newImageUrl: $('#newImageUrl'),
+        newPreview: $('#newPreview'),
+        newPreviewPrice: $('#newPreviewPrice'),
+        manageSearch: $('#manageSearch'),
+        manageCount: $('#manageCount'),
+        manageList: $('#manageList'),
+        manageEmpty: $('#manageEmpty'),
+        setStoreName: $('#setStoreName'),
+        setWhatsapp: $('#setWhatsapp'),
+        setInstagram: $('#setInstagram'),
+        setEmail: $('#setEmail'),
+        settingsSaveHint: $('#settingsSaveHint'),
+        exportBtn: $('#exportBtn'),
+        importBtn: $('#importBtn'),
+        importInput: $('#importInput'),
+        resetBtn: $('#resetBtn'),
+        toastStack: $('#toastStack'),
+        year: $('#year'),
+        footerInstagram: $('#footerInstagram'),
+        footerInstagramText: $('#footerInstagramText'),
+        footerEmail: $('#footerEmail'),
+        footerEmailText: $('#footerEmailText')
+      };
+
+      /* ----------------------------------------------------------------------
+         5. NOTIFICACIONES (TOASTS)
+         ---------------------------------------------------------------------- */
+      function toast(message, options = {}) {
+        const { type = 'success', actionLabel = '', onAction = null, duration = 4200 } = options;
+        if (!el.toastStack) return null;
+
+        const node = document.createElement('div');
+        node.className = 'toast toast--' + type;
+        node.innerHTML =
+          '<span class="toast__icon">' + icon(type === 'error' ? 'info' : type === 'info' ? 'info' : 'check') + '</span>' +
+          '<span class="toast__text"></span>' +
+          (actionLabel ? '<button class="toast__action" type="button"></button>' : '');
+        node.querySelector('.toast__text').textContent = message;
+
+        const remove = () => {
+          if (!node.isConnected) return;
+          node.classList.add('is-out');
+          setTimeout(() => node.remove(), 300);
+        };
+
+        if (actionLabel) {
+          const action = node.querySelector('.toast__action');
+          action.textContent = actionLabel;
+          action.addEventListener('click', () => {
+            remove();
+            if (typeof onAction === 'function') onAction();
+          });
+        }
+
+        el.toastStack.appendChild(node);
+        while (el.toastStack.children.length > 3) el.toastStack.firstElementChild.remove();
+        if (duration > 0) setTimeout(remove, duration);
+        return node;
+      }
+
+      /* ----------------------------------------------------------------------
+         6. PORTADAS GENERATIVAS
+         ---------------------------------------------------------------------- */
+      const COVER_THEMES = ['sage', 'cream', 'olive', 'gold', 'sage', 'blush', 'cream', 'deep'];
+
+      function coverTheme(book) {
+        let hash = 0;
+        const title = book && book.title ? book.title : '';
+        for (let i = 0; i < title.length; i++) hash = (hash * 31 + title.charCodeAt(i)) >>> 0;
+        return COVER_THEMES[hash % COVER_THEMES.length];
+      }
+
+      const CROSS_SVG =
+        '<svg class="cover-cross" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" aria-hidden="true">' +
+        '<path d="M12 3v18M5 10h14"/><circle cx="12" cy="10" r="1.7" fill="currentColor" stroke="none"/></svg>';
+
+      function sprigSvg(modifier = '') {
+        return '<svg class="cover-sprig' + modifier + '" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true">' +
+          '<path d="M8 114c24-16 39-38 44-66"/>' +
+          '<path d="M52 48c-11 1-20-5-22-16 11-1 20 5 22 16Z"/>' +
+          '<path d="M45 64c-10 2-20-3-23-13 10-2 20 3 23 13Z"/>' +
+          '<path d="M34 83c-10 2-19-2-23-11 10-2 19 2 23 11Z"/>' +
+          '<circle cx="68" cy="31" r="2.1"/><circle cx="78" cy="21" r="1.3"/>' +
+        '</svg>';
+      }
+
+      function coverMarkup(book, options = {}) {
+        const { mini = false, eager = false, decorative = false } = options;
+        const title = book.title || 'Nuevo libro';
+        const length = title.length;
+        const sizeClass = length > 48 ? ' is-xxlong' : length > 34 ? ' is-xlong' : length > 24 ? ' is-long' : '';
+        const theme = coverTheme(book);
+        const storeName = state.settings.storeName || 'Fe & Vida';
+        const hideFromAT = mini || decorative;
+        const accessible = hideFromAT
+          ? ' aria-hidden="true"'
+          : ' role="img" aria-label="Portada del libro ' + escapeAttr(title) + '"';
+
+        const inner =
+          '<span class="cover-inner">' +
+            '<span class="cover-brand">' + escapeHtml(storeName) + '</span>' +
+            '<span class="cover-main">' + CROSS_SVG +
+              '<span class="cover-title">' + escapeHtml(title) + '</span>' +
+            '</span>' +
+            '<span class="cover-foot"><i></i><span>Ediciones católicas</span><i></i></span>' +
+          '</span>' +
+          sprigSvg() + sprigSvg(' cover-sprig--r');
+
+        const photo = book.image
+          ? '<img class="cover-img" src="' + escapeAttr(book.image) + '" alt="' +
+            (hideFromAT ? '' : 'Portada del libro ' + escapeAttr(title)) + '" ' +
+            (eager ? 'fetchpriority="high" ' : 'loading="lazy" ') + 'decoding="async" />'
+          : '';
+
+        return '<div class="book-cover cover--' + theme + sizeClass + (mini ? ' is-mini' : '') +
+          (book.image ? ' book-cover--photo' : '') + '"' + accessible + '>' + photo + inner + '</div>';
+      }
+
+      /* ----------------------------------------------------------------------
+         7. WHATSAPP
+         ---------------------------------------------------------------------- */
+      function whatsappHref(book) {
+        const phone = digits(state.settings.whatsapp);
+        if (!phone) return '#';
+        const store = state.settings.storeName || 'Fe & Vida';
+        const message = book
+          ? '¡Hola ' + store + '! Me interesa consultar por el libro "' + book.title + '" (Precio: ' + formatPrice(book.price) + '). ¿Está disponible?'
+          : '¡Hola ' + store + '! Quisiera consultar por los libros disponibles.';
+        return 'https://wa.me/' + phone + '?text=' + encodeURIComponent(message);
+      }
+
+      /* ----------------------------------------------------------------------
+         8. RENDER PÚBLICO
+         ---------------------------------------------------------------------- */
+      function updateCounts() {
+        $$('[data-book-count]').forEach((node) => { node.textContent = state.books.length; });
+        if (el.tabCount) el.tabCount.textContent = state.books.length;
+      }
+
+      function applySettings() {
+        const settings = state.settings;
+        const name = String(settings.storeName || '').trim() || 'Fe & Vida';
+
+        document.title = name + ' · Libros católicos';
+        const description = document.querySelector('meta[name="description"]');
+        if (description) {
+          description.setAttribute('content', name + ' — Librería católica. Libros seleccionados para acompañar tu fe, tu familia y tus momentos de oración. Consultas y pedidos por WhatsApp.');
+        }
+        $$('[data-store-name]').forEach((node) => { node.textContent = name; });
+
+        const general = whatsappHref(null);
+        $$('[data-general-wa]').forEach((anchor) => { anchor.href = general; });
+
+        const instagram = String(settings.instagram || '').trim();
+        if (instagram) {
+          const handle = instagram
+            .replace(/^@/, '')
+            .replace(/^(https?:\/\/)?(www\.)?instagram\.com\//i, '')
+            .replace(/[?#].*$/, '')
+            .replace(/\/+$/, '');
+          el.footerInstagram.hidden = false;
+          el.footerInstagram.href = /^https?:\/\//i.test(instagram) ? instagram : 'https://instagram.com/' + handle;
+          el.footerInstagramText.textContent = '@' + handle;
+        } else {
+          el.footerInstagram.hidden = true;
+        }
+
+        const email = String(settings.email || '').trim();
+        if (email) {
+          el.footerEmail.hidden = false;
+          el.footerEmail.href = 'mailto:' + email;
+          el.footerEmailText.textContent = email;
+        } else {
+          el.footerEmail.hidden = true;
+        }
+
+        if (el.year) el.year.textContent = new Date().getFullYear();
+      }
+
+      function syncSettingsForm() {
+        el.setStoreName.value = state.settings.storeName || '';
+        el.setWhatsapp.value = state.settings.whatsapp || '';
+        el.setInstagram.value = state.settings.instagram || '';
+        el.setEmail.value = state.settings.email || '';
+      }
+
+      function bookCard(book, index) {
+        const href = whatsappHref(book);
+        return '<article class="book-card" style="--delay:' + Math.min(index, 9) * 45 + 'ms">' +
+          '<div class="book-card__media">' + coverMarkup(book) + '</div>' +
+          '<div class="book-card__body">' +
+            '<h3 class="book-card__title">' + escapeHtml(book.title) + '</h3>' +
+            '<p class="book-card__price"><span>Precio</span><strong>' + formatPrice(book.price) + '</strong></p>' +
+            '<a class="btn btn--wa btn--full book-card__cta" href="' + escapeAttr(href) + '" data-wa-link ' +
+              'target="_blank" rel="noopener noreferrer" aria-label="Consultar por ' + escapeAttr(book.title) + ' por WhatsApp">' +
+              icon('wa') + ' <span>Consultar por WhatsApp</span>' +
+            '</a>' +
+          '</div>' +
+        '</article>';
+      }
+
+      function renderCatalog() {
+        const query = el.searchInput.value.trim();
+        const normalized = normalizeText(query);
+        let list = state.books.filter((book) => !normalized || normalizeText(book.title).includes(normalized));
+
+        const sort = el.sortSelect.value;
+        if (sort === 'price-asc') list = [...list].sort((a, b) => a.price - b.price || a.title.localeCompare(b.title, 'es'));
+        else if (sort === 'price-desc') list = [...list].sort((a, b) => b.price - a.price || a.title.localeCompare(b.title, 'es'));
+        else if (sort === 'az') list = [...list].sort((a, b) => a.title.localeCompare(b.title, 'es'));
+
+        el.booksGrid.innerHTML = list.map(bookCard).join('');
+        el.booksGrid.hidden = list.length === 0;
+        el.emptyState.hidden = list.length !== 0;
+        el.clearSearch.hidden = !query;
+
+        if (query) {
+          el.resultCount.innerHTML = '<strong>' + list.length + '</strong> ' +
+            (list.length === 1 ? 'resultado' : 'resultados') + ' para “' + escapeHtml(query) + '”';
+        } else {
+          el.resultCount.innerHTML = '<strong>' + state.books.length + '</strong> ' +
+            (state.books.length === 1 ? 'libro disponible' : 'libros disponibles');
+        }
+
+        if (!list.length) {
+          if (!state.books.length) {
+            el.emptyTitle.textContent = 'Tu catálogo está vacío';
+            el.emptyText.textContent = 'Agregá tu primer libro desde el panel de administración.';
+            el.emptyAction.textContent = 'Agregar mi primer libro';
+          } else {
+            el.emptyTitle.textContent = 'No encontramos ese libro';
+            el.emptyText.textContent = 'Probá con otra palabra o mirá todos los títulos disponibles.';
+            el.emptyAction.textContent = 'Ver todos los libros';
+          }
+        }
+
+        updateCounts();
+      }
+
+      function renderHero() {
+        if (!el.heroStack) return;
+        const picks = [];
+        const preferred = [16, 4, 27, 0, 8, 12];
+        for (const index of preferred) {
+          const book = state.books[index];
+          if (book && !picks.includes(book)) picks.push(book);
+          if (picks.length === 3) break;
+        }
+        if (picks.length < 3) {
+          for (const book of state.books) {
+            if (!picks.includes(book)) picks.push(book);
+            if (picks.length === 3) break;
+          }
+        }
+
+        el.heroStack.innerHTML = picks.map((book) =>
+          '<a class="hero-stack__item" href="#catalogo" data-hero-book="' + escapeAttr(book.id) + '">' +
+            coverMarkup(book, { eager: true, decorative: true }) +
+            '<span class="sr-only">Buscar «' + escapeHtml(book.title) + '» en el catálogo</span>' +
+          '</a>'
+        ).join('');
+
+        if (el.heroVisual) el.heroVisual.classList.toggle('is-empty', picks.length === 0);
+      }
+
+      function renderAll() {
+        renderCatalog();
+        renderHero();
+        updateCounts();
+        renderManage();
+      }
+
+      /* ----------------------------------------------------------------------
+         9. GESTIÓN DEL CATÁLOGO (ADMIN)
+         ---------------------------------------------------------------------- */
+      function manageRow(book) {
+        const titleId = 'title-' + book.id;
+        const priceId = 'price-' + book.id;
+        return '<li class="manage-row" data-id="' + escapeAttr(book.id) + '">' +
+          '<label class="manage-thumb" title="Cambiar portada">' +
+            coverMarkup(book, { mini: true }) +
+            '<span class="manage-thumb__hint">' + icon('image') + '</span>' +
+            '<input type="file" accept="image/*" data-action="replace-image" aria-label="Cambiar portada de ' + escapeAttr(book.title) + '" />' +
+          '</label>' +
+          '<div class="manage-fields">' +
+            '<label class="sr-only" for="' + titleId + '">Título</label>' +
+            '<input class="input" id="' + titleId + '" data-field="title" type="text" maxlength="140" value="' + escapeAttr(book.title) + '" />' +
+            '<div class="manage-price">' +
+              '<span class="manage-price__currency" aria-hidden="true">$</span>' +
+              '<label class="sr-only" for="' + priceId + '">Precio</label>' +
+              '<input class="input" id="' + priceId + '" data-field="price" type="text" inputmode="decimal" value="' + formatPricePlain(book.price) + '" />' +
+            '</div>' +
+          '</div>' +
+          '<div class="manage-actions">' +
+            (book.image
+              ? '<button class="icon-btn" type="button" data-action="remove-image" title="Quitar portada" aria-label="Quitar portada de ' + escapeAttr(book.title) + '">' + icon('image') + '</button>'
+              : '') +
+            '<button class="icon-btn icon-btn--danger" type="button" data-action="delete" title="Eliminar libro" aria-label="Eliminar ' + escapeAttr(book.title) + '">' + icon('trash') + '</button>' +
+          '</div>' +
+        '</li>';
+      }
+
+      function renderManage() {
+        if (!el.manageList) return;
+        const query = normalizeText(el.manageSearch.value);
+        const list = state.books.filter((book) => !query || normalizeText(book.title).includes(query));
+
+        el.manageList.innerHTML = list.map(manageRow).join('');
+        el.manageEmpty.hidden = list.length !== 0;
+        el.manageCount.textContent = query
+          ? list.length + ' de ' + state.books.length + ' libros'
+          : state.books.length + ' ' + (state.books.length === 1 ? 'libro' : 'libros');
+        el.tabCount.textContent = state.books.length;
+      }
+
+      function deleteBook(id) {
+        const index = state.books.findIndex((book) => book.id === id);
+        if (index < 0) return;
+        const [removed] = state.books.splice(index, 1);
+        saveNow();
+        renderAll();
+        toast('«' + truncate(removed.title, 42) + '» se eliminó del catálogo.', {
+          type: 'info',
+          actionLabel: 'Deshacer',
+          duration: 6500,
+          onAction: () => {
+            state.books.splice(Math.min(index, state.books.length), 0, removed);
+            saveNow();
+            renderAll();
+            toast('Libro restaurado.');
+          }
+        });
+      }
+
+      // Optimiza y comprime la imagen para que quepa cómodamente en localStorage
+      function processImage(file, maxSide = 720) {
+        return new Promise((resolve, reject) => {
+          if (!file || !file.type.startsWith('image/')) {
+            reject(new Error('Elegí un archivo de imagen válido (JPG o PNG).'));
+            return;
+          }
+          if (file.size > 12 * 1024 * 1024) {
+            reject(new Error('La imagen es muy grande. El máximo es 12 MB.'));
+            return;
+          }
+          const reader = new FileReader();
+          reader.onerror = () => reject(new Error('No se pudo leer la imagen.'));
+          reader.onload = () => {
+            const image = new Image();
+            image.onerror = () => reject(new Error('El formato de la imagen no es compatible.'));
+            image.onload = () => {
+              try {
+                const scale = Math.min(1, maxSide / Math.max(image.naturalWidth, image.naturalHeight));
+                const canvas = document.createElement('canvas');
+                canvas.width = Math.max(1, Math.round(image.naturalWidth * scale));
+                canvas.height = Math.max(1, Math.round(image.naturalHeight * scale));
+                const ctx = canvas.getContext('2d');
+                ctx.fillStyle = '#FFFFFF';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+                resolve(canvas.toDataURL('image/jpeg', 0.8));
+              } catch (err) {
+                reject(new Error('No se pudo procesar la imagen.'));
+              }
+            };
+            image.src = String(reader.result);
+          };
+          reader.readAsDataURL(file);
+        });
+      }
+
+      function updateAddPreview() {
+        const title = el.newTitle.value.trim() || 'Título del libro';
+        const image = pendingImage || el.newImageUrl.value.trim() || null;
+        el.newPreview.innerHTML = coverMarkup({ title, image });
+        const price = parsePrice(el.newPrice.value);
+        el.newPreviewPrice.textContent = Number.isFinite(price) && price > 0 ? formatPrice(price) : '—';
+      }
+
+      function resetAddForm() {
+        pendingImage = null;
+        el.newImageName.textContent = 'Subir una imagen';
+        el.newTitle.classList.remove('is-invalid');
+        el.newPrice.classList.remove('is-invalid');
+        updateAddPreview();
+      }
+
+      /* ----------------------------------------------------------------------
+         10. PESTAÑAS Y APERTURA DEL PANEL
+         ---------------------------------------------------------------------- */
+      function setTab(tab) {
+        el.tabs.forEach((button) => {
+          const active = button.dataset.tab === tab;
+          button.classList.toggle('is-active', active);
+          button.setAttribute('aria-pressed', String(active));
+        });
+        el.panes.forEach((pane) => { pane.hidden = pane.dataset.pane !== tab; });
+        if (tab === 'manage') renderManage();
+        if (tab === 'settings') syncSettingsForm();
+        const body = $('.admin-body');
+        if (body) body.scrollTop = 0;
+      }
+
+      function dialogIsOpen(dialog) {
+        return !!dialog && (dialog.open || dialog.hasAttribute('open'));
+      }
+
+      function syncBodyLock() {
+        const locked = dialogIsOpen(el.loginDialog) || dialogIsOpen(el.adminDialog);
+        document.body.classList.toggle('no-scroll', locked);
+      }
+
+      function showAdmin(tab = 'add') {
+        setTab(tab);
+        if (typeof el.adminDialog.showModal === 'function') {
+          if (!el.adminDialog.open) el.adminDialog.showModal();
+        } else {
+          el.adminDialog.setAttribute('open', '');
+        }
+        syncBodyLock();
+        if (tab === 'settings') syncSettingsForm();
+      }
+
+      function openAdmin(tab = 'add') {
+        if (adminUnlocked) {
+          showAdmin(tab);
+          return;
+        }
+        openLogin(tab);
+      }
+
+      function closeAdmin() {
+        if (typeof el.adminDialog.close === 'function' && el.adminDialog.open) el.adminDialog.close();
+        else el.adminDialog.removeAttribute('open');
+        syncBodyLock();
+      }
+
+      /* ----------------------------------------------------------------------
+         10b. CONTRASEÑA DEL PANEL
+         ---------------------------------------------------------------------- */
+      function loadAdminCredential() {
+        try {
+          const raw = localStorage.getItem(ADMIN_CRED_KEY);
+          if (!raw) return null;
+          const data = JSON.parse(raw);
+          if (!data || typeof data.salt !== 'string' || typeof data.hash !== 'string') return null;
+          return {
+            version: 1,
+            salt: data.salt,
+            hash: data.hash,
+            updatedAt: Number(data.updatedAt) || 0
+          };
+        } catch (err) {
+          console.warn('No se pudo leer la contraseña guardada:', err);
+          return null;
+        }
+      }
+
+      function saveAdminCredential(credential) {
+        adminCredential = credential;
+        try {
+          localStorage.setItem(ADMIN_CRED_KEY, JSON.stringify(credential));
+          return true;
+        } catch (err) {
+          console.error('Error al guardar la contraseña:', err);
+          return false;
+        }
+      }
+
+      function randomHex(bytes) {
+        const array = new Uint8Array(bytes);
+        if (window.crypto && typeof window.crypto.getRandomValues === 'function') {
+          window.crypto.getRandomValues(array);
+        } else {
+          for (let i = 0; i < array.length; i++) array[i] = Math.floor(Math.random() * 256);
+        }
+        return Array.from(array, (byte) => byte.toString(16).padStart(2, '0')).join('');
+      }
+
+      function toHex(bytes) {
+        return Array.from(bytes, (byte) => byte.toString(16).padStart(2, '0')).join('');
+      }
+
+      function hasSubtleCrypto() {
+        return !!(window.crypto && window.crypto.subtle &&
+          typeof window.crypto.subtle.digest === 'function' && window.TextEncoder);
+      }
+
+      // Respaldo determinista por si SHA-256 no está disponible (por ejemplo, fuera de un contexto seguro).
+      function fallbackHash(input) {
+        let h1 = 0x811c9dc5, h2 = 0x01000193, h3 = 0x9e3779b9, h4 = 0x85ebca6b;
+        for (let round = 0; round < 64; round++) {
+          for (let i = 0; i < input.length; i++) {
+            const code = input.charCodeAt(i) + round;
+            h1 = Math.imul(h1 ^ code, 0x01000193) >>> 0;
+            h2 = Math.imul(h2 ^ (code + h1), 0x85ebca6b) >>> 0;
+            h3 = Math.imul(h3 ^ (code + h2), 0xc2b2ae35) >>> 0;
+            h4 = Math.imul(h4 ^ (code + h3), 0x27d4eb2f) >>> 0;
+          }
+        }
+        return [h1, h2, h3, h4].map((part) => part.toString(16).padStart(8, '0')).join('');
+      }
+
+      async function sha256Hex(input) {
+        const digest = await window.crypto.subtle.digest('SHA-256', new TextEncoder().encode(input));
+        return toHex(new Uint8Array(digest));
+      }
+
+      async function buildCredential(password) {
+        const salt = randomHex(16);
+        let hash = null;
+        if (hasSubtleCrypto()) {
+          try { hash = await sha256Hex(salt + ':' + password); } catch (err) { hash = null; }
+        }
+        if (!hash) hash = fallbackHash(salt + ':' + password);
+        return { version: 1, salt, hash, updatedAt: Date.now() };
+      }
+
+      async function passwordMatches(password) {
+        if (!adminCredential) return password === DEFAULT_ADMIN_PASSWORD;
+        const input = adminCredential.salt + ':' + password;
+        if (hasSubtleCrypto()) {
+          try {
+            if (await sha256Hex(input) === adminCredential.hash) return true;
+          } catch (err) { /* se prueba el respaldo */ }
+        }
+        return fallbackHash(input) === adminCredential.hash;
+      }
+
+      function resetLoginForm() {
+        if (!el.loginForm) return;
+        el.loginForm.classList.remove('is-error');
+        el.loginPassword.classList.remove('is-invalid');
+        el.loginPassword.value = '';
+        if (el.loginEmail) el.loginEmail.classList.remove('is-invalid');
+        el.loginError.hidden = true;
+        el.loginError.textContent = '';
+        $$('.password-toggle').forEach((button) => setPasswordVisibility(button, false));
+        if (cloudEnabled && el.loginEmail && !el.loginEmail.value) {
+          try {
+            const savedEmail = localStorage.getItem(SUPABASE_EMAIL_KEY);
+            if (savedEmail) el.loginEmail.value = savedEmail;
+          } catch (err) { /* sin acceso a localStorage */ }
+        }
+      }
+
+      function showLoginError(message, target = 'password') {
+        el.loginError.textContent = message;
+        el.loginError.hidden = false;
+        const input = target === 'email' && el.loginEmail ? el.loginEmail : el.loginPassword;
+        input.classList.add('is-invalid');
+        el.loginForm.classList.remove('is-error');
+        void el.loginForm.offsetWidth;
+        el.loginForm.classList.add('is-error');
+        input.focus();
+        if (typeof input.select === 'function') input.select();
+      }
+
+      function openLogin(tab = 'add') {
+        pendingAdminTab = tab;
+        resetLoginForm();
+        if (typeof el.loginDialog.showModal === 'function') {
+          if (!el.loginDialog.open) el.loginDialog.showModal();
+        } else {
+          el.loginDialog.setAttribute('open', '');
+        }
+        syncBodyLock();
+        setTimeout(() => {
+          if (!dialogIsOpen(el.loginDialog)) return;
+          if (cloudEnabled && el.loginEmail) el.loginEmail.focus();
+          else el.loginPassword.focus();
+        }, 60);
+      }
+
+      function closeLogin() {
+        if (typeof el.loginDialog.close === 'function' && el.loginDialog.open) el.loginDialog.close();
+        else el.loginDialog.removeAttribute('open');
+        resetLoginForm();
+        syncBodyLock();
+      }
+
+      async function handleLoginSubmit(event) {
+        event.preventDefault();
+        const password = el.loginPassword.value;
+        const email = cloudEnabled && el.loginEmail ? el.loginEmail.value.trim() : '';
+
+        if (cloudEnabled && !email) {
+          showLoginError('Ingresá el email de la cuenta administradora.', 'email');
+          return;
+        }
+        if (!password) {
+          showLoginError('Ingresá la contraseña para continuar.');
+          return;
+        }
+
+        const submit = el.loginSubmit;
+        submit.disabled = true;
+        submit.classList.add('is-busy');
+        el.loginError.hidden = true;
+        el.loginPassword.classList.remove('is-invalid');
+        if (el.loginEmail) el.loginEmail.classList.remove('is-invalid');
+
+        try {
+          if (cloudEnabled) {
+            const { data, error } = await sb.auth.signInWithPassword({ email, password });
+            if (error) {
+              console.warn('Error de acceso Supabase:', error.message);
+              const message = /confirm/i.test(error.message)
+                ? 'La cuenta todavía no confirmó su email. Confirmala desde Supabase.'
+                : 'Email o contraseña incorrectos. Revisalos e intentá de nuevo.';
+              showLoginError(message);
+              return;
+            }
+
+            authUser = data.user;
+            try { localStorage.setItem(SUPABASE_EMAIL_KEY, email); } catch (err) { /* sin acceso */ }
+
+            const loaded = await refreshRemoteState({ silent: true });
+            if (!loaded) {
+              await sb.auth.signOut();
+              authUser = null;
+              showLoginError('Entraste, pero no se pudo leer la base de datos. Revisá las políticas RLS o tu conexión.');
+              return;
+            }
+
+            adminUnlocked = true;
+            const tab = pendingAdminTab;
+            closeLogin();
+            showAdmin(tab);
+            updatePasswordStatus();
+            return;
+          }
+
+          if (!(await passwordMatches(password))) {
+            showLoginError('Contraseña incorrecta. Revisala e intentá de nuevo.');
+            return;
+          }
+          adminUnlocked = true;
+          const tab = pendingAdminTab;
+          closeLogin();
+          showAdmin(tab);
+          updatePasswordStatus();
+        } catch (err) {
+          console.error('Error al iniciar sesión:', err);
+          showLoginError('No se pudo iniciar sesión. Revisá tu conexión e intentá de nuevo.');
+        } finally {
+          submit.disabled = false;
+          submit.classList.remove('is-busy');
+        }
+      }
+
+      function setPasswordVisibility(button, visible) {
+        const input = document.getElementById(button.dataset.togglePassword);
+        if (!input) return;
+        input.type = visible ? 'text' : 'password';
+        button.setAttribute('aria-pressed', String(visible));
+        button.setAttribute('aria-label', visible ? 'Ocultar contraseña' : 'Mostrar contraseña');
+      }
+
+      function updatePasswordStatus() {
+        if (!el.passwordStatus) return;
+        if (cloudEnabled) {
+          const email = (authUser && authUser.email) || 'tu cuenta';
+          el.passwordStatus.textContent = authUser
+            ? 'Sesión iniciada como ' + email + '. La contraseña se guarda cifrada en Supabase Auth.'
+            : 'Las cuentas y contraseñas se administran de forma segura en Supabase Auth.';
+          el.passwordStatus.classList.remove('is-default');
+          if (el.passwordStatusPill) {
+            el.passwordStatusPill.textContent = 'Supabase';
+            el.passwordStatusPill.classList.remove('is-default');
+          }
+          return;
+        }
+        const custom = !!adminCredential;
+        el.passwordStatus.textContent = custom
+          ? 'Contraseña personalizada activa. Se pide al abrir el panel en una visita nueva.'
+          : 'Estás usando la contraseña inicial del panel. Te recomendamos cambiarla ahora.';
+        el.passwordStatus.classList.toggle('is-default', !custom);
+        if (el.passwordStatusPill) {
+          el.passwordStatusPill.textContent = custom ? 'Personalizada' : 'Inicial';
+          el.passwordStatusPill.classList.toggle('is-default', !custom);
+        }
+      }
+
+      async function handlePasswordChange(event) {
+        event.preventDefault();
+        const current = el.currentPassword.value;
+        const next = el.newPassword.value;
+        const confirm = el.confirmPassword.value;
+        const fields = [el.currentPassword, el.newPassword, el.confirmPassword];
+        fields.forEach((input) => input.classList.remove('is-invalid'));
+
+        if (!current) {
+          el.currentPassword.classList.add('is-invalid');
+          el.currentPassword.focus();
+          toast('Ingresá tu contraseña actual.', { type: 'error' });
+          return;
+        }
+
+        if (next.length < MIN_PASSWORD_LENGTH) {
+          el.newPassword.classList.add('is-invalid');
+          el.newPassword.focus();
+          toast('La nueva contraseña debe tener al menos ' + MIN_PASSWORD_LENGTH + ' caracteres.', { type: 'error' });
+          return;
+        }
+
+        if (next !== confirm) {
+          el.confirmPassword.classList.add('is-invalid');
+          el.confirmPassword.focus();
+          toast('Las contraseñas nuevas no coinciden.', { type: 'error' });
+          return;
+        }
+
+        const submit = el.passwordSubmit;
+        submit.disabled = true;
+        try {
+          if (cloudEnabled) {
+            const email = authUser && authUser.email;
+            if (!email) throw new Error('No hay una sesión activa.');
+
+            // Reautenticar antes de cambiar la contraseña.
+            const { error: reauthError } = await sb.auth.signInWithPassword({ email, password: current });
+            if (reauthError) {
+              el.currentPassword.classList.add('is-invalid');
+              el.currentPassword.focus();
+              el.currentPassword.select();
+              toast('La contraseña actual no es correcta.', { type: 'error' });
+              return;
+            }
+
+            const { error } = await sb.auth.updateUser({ password: next });
+            if (error) throw error;
+
+            el.passwordForm.reset();
+            fields.forEach((input) => input.classList.remove('is-invalid'));
+            $$('.password-toggle').forEach((button) => setPasswordVisibility(button, false));
+            updatePasswordStatus();
+            toast('Contraseña actualizada en Supabase. Ya podés usarla la próxima vez.', { type: 'success', duration: 6000 });
+            return;
+          }
+
+          if (!(await passwordMatches(current))) {
+            el.currentPassword.classList.add('is-invalid');
+            el.currentPassword.focus();
+            el.currentPassword.select();
+            toast('La contraseña actual no es correcta.', { type: 'error' });
+            return;
+          }
+
+          const credential = await buildCredential(next);
+          const stored = saveAdminCredential(credential);
+          el.passwordForm.reset();
+          fields.forEach((input) => input.classList.remove('is-invalid'));
+          $$('.password-toggle').forEach((button) => setPasswordVisibility(button, false));
+          updatePasswordStatus();
+          toast(stored
+            ? 'Contraseña actualizada. Guardala en un lugar seguro.'
+            : 'Contraseña actualizada solo para esta sesión: no se pudo guardar en el navegador.',
+            { type: stored ? 'success' : 'error', duration: 6000 });
+        } catch (err) {
+          console.error('Error al cambiar la contraseña:', err);
+          const detail = err && err.message ? ' (' + err.message + ')' : '';
+          toast('No se pudo cambiar la contraseña' + detail + '.', { type: 'error', duration: 6500 });
+        } finally {
+          submit.disabled = false;
+        }
+      }
+
+      function lockAdminNow() {
+        if (cloudEnabled && sb) {
+          void sb.auth.signOut();
+          authUser = null;
+        }
+        if (remoteSyncTimer) {
+          clearTimeout(remoteSyncTimer);
+          remoteSyncTimer = null;
+        }
+        adminUnlocked = false;
+        closeAdmin();
+        resetLoginForm();
+        updatePasswordStatus();
+        toast(cloudEnabled
+          ? 'Sesión cerrada. Se pedirá la contraseña para volver a entrar.'
+          : 'Panel bloqueado. Se pedirá la contraseña para volver a entrar.', { type: 'info' });
+      }
+
+      /* ----------------------------------------------------------------------
+         11. RESPALDO
+         ---------------------------------------------------------------------- */
+      function exportBackup() {
+        const payload = {
+          app: 'fe-vida-catalogo',
+          version: 1,
+          exportedAt: new Date().toISOString(),
+          settings: state.settings,
+          books: state.books
+        };
+        const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const anchor = document.createElement('a');
+        anchor.href = url;
+        anchor.download = 'respaldo-catalogo-' + new Date().toISOString().slice(0, 10) + '.json';
+        document.body.appendChild(anchor);
+        anchor.click();
+        anchor.remove();
+        setTimeout(() => URL.revokeObjectURL(url), 1200);
+        toast('Respaldo descargado. Guardalo en un lugar seguro.');
+      }
+
+      async function importBackup(file) {
+        if (!file) return;
+        try {
+          const text = await file.text();
+          const data = JSON.parse(text);
+          const rawBooks = Array.isArray(data) ? data : data.books;
+          if (!Array.isArray(rawBooks)) throw new Error('El archivo no contiene una lista de libros válida.');
+
+          const books = rawBooks.map(normalizeBook).filter((book) => book.title && Number.isFinite(book.price) && book.price >= 0);
+          if (!books.length) throw new Error('No se encontraron libros válidos en el archivo.');
+
+          const confirmed = window.confirm('Se reemplazarán el catálogo y los datos de contacto por los del respaldo (' + books.length + ' libros). ¿Continuar?');
+          if (!confirmed) return;
+
+          state.books = books;
+          if (data.settings && typeof data.settings === 'object') {
+            state.settings = { ...DEFAULT_SETTINGS, ...data.settings };
+          }
+          saveNow();
+          applySettings();
+          syncSettingsForm();
+          renderAll();
+          setTab('manage');
+          toast('Respaldo importado correctamente.');
+        } catch (err) {
+          toast(err.message || 'No se pudo importar el respaldo.', { type: 'error', duration: 6000 });
+        } finally {
+          el.importInput.value = '';
+        }
+      }
+
+      /* ----------------------------------------------------------------------
+         12. FORMULARIO DE ALTA
+         ---------------------------------------------------------------------- */
+      function handleAddSubmit(event) {
+        event.preventDefault();
+        const title = el.newTitle.value.trim();
+        const price = parsePrice(el.newPrice.value);
+        const validPrice = Number.isFinite(price) && price > 0;
+
+        el.newTitle.classList.toggle('is-invalid', !title);
+        el.newPrice.classList.toggle('is-invalid', !validPrice);
+
+        if (!title || !validPrice) {
+          toast('Completá el título y un precio mayor a cero.', { type: 'error' });
+          return;
+        }
+
+        const book = {
+          id: uid(),
+          title,
+          price: Math.round(price * 100) / 100,
+          image: pendingImage || el.newImageUrl.value.trim() || null
+        };
+
+        state.books.unshift(book);
+        saveNow();
+        el.addForm.reset();
+        resetAddForm();
+        el.manageSearch.value = '';
+        renderAll();
+        setTab('manage');
+
+        toast('Libro agregado al catálogo.', {
+          type: 'success',
+          actionLabel: 'Ver catálogo',
+          onAction: () => { closeAdmin(); scrollToCatalog(); }
+        });
+      }
+
+      /* ----------------------------------------------------------------------
+         13. EVENTOS
+         ---------------------------------------------------------------------- */
+      function bindEvents() {
+        // Header con sombra al hacer scroll
+        const onScroll = () => el.header.classList.toggle('is-scrolled', window.scrollY > 12);
+        window.addEventListener('scroll', onScroll, { passive: true });
+        onScroll();
+
+        // Búsqueda y orden
+        el.searchInput.addEventListener('input', renderCatalog);
+        el.searchInput.addEventListener('search', renderCatalog);
+        el.sortSelect.addEventListener('change', renderCatalog);
+        el.clearSearch.addEventListener('click', () => {
+          el.searchInput.value = '';
+          el.searchInput.focus();
+          renderCatalog();
+        });
+
+        // Estado vacío: agregar el primer libro o limpiar la búsqueda
+        el.emptyAction.addEventListener('click', () => {
+          if (!state.books.length) {
+            openAdmin('add');
+          } else {
+            el.searchInput.value = '';
+            renderCatalog();
+            el.searchInput.focus();
+          }
+        });
+
+        // Portadas del hero: filtran el catálogo por ese título
+        el.heroStack.addEventListener('click', (event) => {
+          const item = event.target.closest('[data-hero-book]');
+          if (!item) return;
+          event.preventDefault();
+          const book = state.books.find((b) => b.id === item.dataset.heroBook);
+          if (!book) return;
+          el.searchInput.value = book.title;
+          el.sortSelect.value = 'reco';
+          renderCatalog();
+          scrollToCatalog();
+        });
+
+        // Si todavía no hay un WhatsApp configurado, avisamos al visitante
+        document.addEventListener('click', (event) => {
+          const link = event.target.closest('a[data-wa-link]');
+          if (!link) return;
+          if (!digits(state.settings.whatsapp)) {
+            event.preventDefault();
+            toast('Este catálogo todavía no tiene un número de WhatsApp configurado.', { type: 'info', duration: 5000 });
+          }
+        });
+
+        // Acceso al panel (siempre pasa por la contraseña)
+        $$('[data-open-admin]').forEach((button) => {
+          button.addEventListener('click', () => openAdmin(button.dataset.openAdmin || 'add'));
+        });
+        $$('[data-close-admin]').forEach((button) => {
+          button.addEventListener('click', closeAdmin);
+        });
+        el.adminDialog.addEventListener('click', (event) => {
+          if (event.target === el.adminDialog) closeAdmin();
+        });
+        el.adminDialog.addEventListener('close', syncBodyLock);
+
+        // Diálogo de contraseña
+        el.loginForm.addEventListener('submit', handleLoginSubmit);
+        el.loginPassword.addEventListener('input', () => {
+          el.loginPassword.classList.remove('is-invalid');
+          el.loginError.hidden = true;
+        });
+        if (el.loginEmail) {
+          el.loginEmail.addEventListener('input', () => {
+            el.loginEmail.classList.remove('is-invalid');
+            el.loginError.hidden = true;
+          });
+        }
+        $$('[data-close-login]').forEach((button) => {
+          button.addEventListener('click', closeLogin);
+        });
+        el.loginDialog.addEventListener('click', (event) => {
+          if (event.target === el.loginDialog) closeLogin();
+        });
+        el.loginDialog.addEventListener('close', () => {
+          resetLoginForm();
+          syncBodyLock();
+        });
+
+        // Mostrar u ocultar contraseñas
+        $$('[data-toggle-password]').forEach((button) => {
+          button.addEventListener('click', () => {
+            const input = document.getElementById(button.dataset.togglePassword);
+            if (!input) return;
+            setPasswordVisibility(button, input.type === 'password');
+            input.focus();
+          });
+        });
+
+        // Cambio de contraseña y bloqueo manual
+        el.passwordForm.addEventListener('submit', handlePasswordChange);
+        el.lockNowBtn.addEventListener('click', lockAdminNow);
+
+        // El bloqueo del scroll siempre acompaña el estado real de los diálogos
+        if ('MutationObserver' in window) {
+          const observer = new MutationObserver(syncBodyLock);
+          observer.observe(el.adminDialog, { attributes: true, attributeFilter: ['open'] });
+          observer.observe(el.loginDialog, { attributes: true, attributeFilter: ['open'] });
+        }
+
+        document.addEventListener('keydown', (event) => {
+          if (event.key === 'Escape' && dialogIsOpen(el.loginDialog)) {
+            event.preventDefault();
+            closeLogin();
+            return;
+          }
+          if (event.key === 'Escape' && dialogIsOpen(el.adminDialog)) {
+            event.preventDefault();
+            closeAdmin();
+            return;
+          }
+          if ((event.ctrlKey || event.metaKey) && event.shiftKey && event.key.toLowerCase() === 'a') {
+            event.preventDefault();
+            openAdmin('manage');
+          }
+        });
+
+        // Pestañas del panel
+        el.tabs.forEach((button) => {
+          button.addEventListener('click', () => setTab(button.dataset.tab));
+        });
+
+        // Formulario de alta: vista previa en vivo
+        el.newTitle.addEventListener('input', () => {
+          el.newTitle.classList.remove('is-invalid');
+          updateAddPreview();
+        });
+        el.newPrice.addEventListener('input', () => {
+          el.newPrice.classList.remove('is-invalid');
+          updateAddPreview();
+        });
+        el.newImageUrl.addEventListener('input', () => {
+          if (el.newImageUrl.value.trim()) {
+            pendingImage = null;
+            el.newImage.value = '';
+            el.newImageName.textContent = 'Subir una imagen';
+          }
+          updateAddPreview();
+        });
+        el.newImage.addEventListener('change', async () => {
+          const file = el.newImage.files && el.newImage.files[0];
+          if (!file) return;
+          try {
+            pendingImage = await processImage(file);
+            el.newImageUrl.value = '';
+            el.newImageName.textContent = truncate(file.name, 32);
+            updateAddPreview();
+            toast('Imagen lista para guardar.', { type: 'success', duration: 2200 });
+          } catch (err) {
+            el.newImage.value = '';
+            pendingImage = null;
+            toast(err.message || 'No se pudo procesar la imagen.', { type: 'error' });
+          }
+        });
+        el.addForm.addEventListener('reset', () => {
+          setTimeout(resetAddForm, 0);
+        });
+        el.addForm.addEventListener('submit', handleAddSubmit);
+
+        // Gestión: búsqueda, edición en vivo, borrado y cambio de portada
+        el.manageSearch.addEventListener('input', renderManage);
+
+        el.manageList.addEventListener('input', (event) => {
+          const input = event.target.closest('[data-field]');
+          if (!input) return;
+          const row = input.closest('.manage-row');
+          if (!row) return;
+          const book = state.books.find((b) => b.id === row.dataset.id);
+          if (!book) return;
+
+          if (input.dataset.field === 'title') {
+            book.title = input.value;
+          } else if (input.dataset.field === 'price') {
+            const price = parsePrice(input.value);
+            if (Number.isFinite(price) && price >= 0) book.price = Math.round(price * 100) / 100;
+          }
+
+          scheduleSave();
+          scheduleCatalogRefresh();
+        });
+
+        el.manageList.addEventListener('focusout', (event) => {
+          const input = event.target.closest('[data-field="price"]');
+          if (!input) return;
+          const row = input.closest('.manage-row');
+          const book = row ? state.books.find((b) => b.id === row.dataset.id) : null;
+          if (book) input.value = formatPricePlain(book.price);
+        });
+
+        el.manageList.addEventListener('click', (event) => {
+          const button = event.target.closest('[data-action]');
+          if (!button) return;
+          const row = button.closest('.manage-row');
+          if (!row) return;
+          const book = state.books.find((b) => b.id === row.dataset.id);
+          if (!book) return;
+
+          if (button.dataset.action === 'delete') {
+            deleteBook(book.id);
+          } else if (button.dataset.action === 'remove-image') {
+            book.image = null;
+            saveNow();
+            renderAll();
+            toast('Portada quitada. Se generará una automática con el título.');
+          }
+        });
+
+        el.manageList.addEventListener('change', async (event) => {
+          const input = event.target.closest('[data-action="replace-image"]');
+          if (!input || !input.files || !input.files[0]) return;
+          const row = input.closest('.manage-row');
+          const book = row ? state.books.find((b) => b.id === row.dataset.id) : null;
+          if (!book) return;
+          try {
+            const dataUrl = await processImage(input.files[0]);
+            book.image = dataUrl;
+            saveNow();
+            renderAll();
+            toast('Portada actualizada.');
+          } catch (err) {
+            toast(err.message || 'No se pudo cambiar la portada.', { type: 'error' });
+          } finally {
+            input.value = '';
+          }
+        });
+
+        // Ajustes: guardado automático
+        $$('[data-setting]').forEach((input) => {
+          input.addEventListener('input', () => {
+            state.settings[input.dataset.setting] = input.value;
+            applySettings();
+            scheduleCatalogRefresh();
+            scheduleSave();
+          });
+          input.addEventListener('blur', () => {
+            if (input.dataset.setting === 'whatsapp') {
+              const clean = digits(input.value);
+              input.value = clean;
+              state.settings.whatsapp = clean;
+              applySettings();
+              scheduleSave();
+            }
+          });
+        });
+
+        // Respaldo y restauración
+        el.exportBtn.addEventListener('click', exportBackup);
+        el.importBtn.addEventListener('click', () => el.importInput.click());
+        el.importInput.addEventListener('change', () => {
+          importBackup(el.importInput.files && el.importInput.files[0]);
+        });
+        el.resetBtn.addEventListener('click', () => {
+          const confirmed = window.confirm('¿Restaurar el catálogo original de 34 libros? Se borrarán los libros agregados y los cambios de títulos y precios. Tus datos de contacto se conservan.');
+          if (!confirmed) return;
+          state.books = freshState().books;
+          saveNow();
+          el.manageSearch.value = '';
+          renderAll();
+          setTab('manage');
+          toast('Catálogo original restaurado.');
+        });
+
+        // Guardar cambios pendientes al salir
+        window.addEventListener('beforeunload', () => {
+          if (saveTimer) saveNow();
+        });
+
+        // Si una portada externa falla, se muestra la portada generativa
+        document.addEventListener('error', (event) => {
+          const target = event.target;
+          if (target instanceof HTMLImageElement && target.classList.contains('cover-img')) {
+            target.remove();
+          }
+        }, true);
+
+        // Animaciones de aparición
+        const revealNodes = $$('[data-reveal]');
+        if ('IntersectionObserver' in window && !prefersReducedMotion) {
+          const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+                observer.unobserve(entry.target);
+              }
+            });
+          }, { threshold: 0.12, rootMargin: '0px 0px -40px' });
+          revealNodes.forEach((node) => observer.observe(node));
+        } else {
+          revealNodes.forEach((node) => node.classList.add('is-visible'));
+        }
+      }
+
+      /* ----------------------------------------------------------------------
+         14. INICIO
+         ---------------------------------------------------------------------- */
+      function init() {
+        applySettings();
+        syncSettingsForm();
+        updatePasswordStatus();
+        renderHero();
+        renderCatalog();
+        renderManage();
+        updateAddPreview();
+        setTab('add');
+      }
+
+      bindEvents();
+      init();
+    })();
+  </script>
+</body>
+</html>
