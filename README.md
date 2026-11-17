@@ -1,2 +1,39 @@
-# Fe-Vida-LibreriaCristiana
-Landing Page para emprendimiento.
+# Fe & Vida · Librería Cristiana
+
+Landing page del emprendimiento, con catálogo público y panel de administración.
+
+## Archivos
+
+| Archivo | Para qué sirve |
+| --- | --- |
+| `index.html` | Toda la página: catálogo, filtros, galería, panel de administración y conexión con Supabase. |
+| `supabase-schema.sql` | Crea las tablas `books` y `settings`, los permisos (RLS), el bucket de portadas y los 34 libros iniciales. |
+| `supabase-categorias.sql` | Crea las tablas `categories` y `book_categories` (conexión muchos a muchos), sus permisos y las categorías iniciales. |
+
+## Puesta en marcha
+
+1. Creá un proyecto en [Supabase](https://supabase.com).
+2. En **SQL Editor**, ejecutá primero `supabase-schema.sql` y después `supabase-categorias.sql`.
+3. En `index.html`, reemplazá `SUPABASE_URL` y `SUPABASE_ANON_KEY` por los datos de tu proyecto
+   (**Project Settings → API**). La `anon key` es pública: la seguridad real la dan las políticas RLS.
+4. Creá la cuenta de administración en **Authentication → Users** y deshabilitá el registro público.
+5. Abrí `index.html` y entrá al panel desde **Administración** (o con `Ctrl + Shift + A`).
+
+Sin Supabase configurado, la página funciona igual con `localStorage` en un solo navegador.
+
+## Categorías
+
+- Categorías iniciales: **Agendas, Biblias, Para la familia, Para jóvenes, Para niños,
+  Libros sobre Santos, Espiritualidad, Oración y devoción, Formación y estudio,
+  Acompañamiento y duelo y Regalos y detalles**.
+- Cada libro puede pertenecer a varias categorías.
+- El script asigna automáticamente las categorías al catálogo actual usando fragmentos del título.
+  Después se pueden ajustar desde el panel: pestaña **Gestionar → botón de etiqueta** de cada libro,
+  o al agregar uno nuevo en **Agregar → Categorías**.
+- En el catálogo público aparecen como filtros rápidos y dentro de cada tarjeta.
+- La búsqueda (pública y del panel) encuentra libros por **título o categoría**.
+
+## Respaldo
+
+Desde **Administración → Ajustes → Respaldo de datos** podés exportar o importar todo el catálogo
+(incluidas las categorías) en un archivo JSON.

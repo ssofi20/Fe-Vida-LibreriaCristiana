@@ -298,6 +298,22 @@
     .catalog-meta__link { font-size: 0.8rem; color: var(--sage-deep); text-decoration: none; border-bottom: 1px solid rgba(95, 125, 75, 0.35); }
     .catalog-meta__link:hover { color: var(--deep); border-color: var(--gold); }
 
+    /* Filtros por categoría */
+    .catalog-filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
+    .catalog-filters:empty { display: none; }
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .chip {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 7px 13px; border: 1px solid var(--line-strong); border-radius: 999px;
+      background: #fff; color: var(--deep); font-size: 0.8rem; font-weight: 400;
+      line-height: 1.2; text-align: left;
+      transition: background-color 0.2s, border-color 0.2s, color 0.2s, transform 0.2s;
+    }
+    .chip:hover { border-color: var(--sage); background: var(--sage-tint); transform: translateY(-1px); }
+    .chip.is-active { background: var(--deep); border-color: var(--deep); color: #F7F3E7; }
+    .chip.is-active:hover { background: var(--deep-2); border-color: var(--deep-2); }
+    .chip__count { font-size: 0.68rem; opacity: 0.72; }
+
     .books-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(228px, 1fr)); gap: 26px; }
     .book-card {
       display: flex; flex-direction: column; overflow: hidden;
@@ -324,7 +340,13 @@
     .book-card__price { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; margin: 12px 0 14px; }
     .book-card__price span { font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
     .book-card__price strong { font-family: var(--serif); font-size: 1.42rem; font-weight: 700; color: var(--deep); letter-spacing: 0.01em; }
+    .book-card__tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 2px; }
     .book-card__cta { margin-top: auto; font-size: 0.85rem; padding: 12px 16px; }
+    .tag {
+      display: inline-block; padding: 3px 9px; border-radius: 999px;
+      background: var(--sage-tint); color: var(--sage-deep);
+      font-size: 0.66rem; font-weight: 500; letter-spacing: 0.02em; line-height: 1.35;
+    }
     .book-card__media-inner { position: relative; }
     .book-card__gallery {
       position: absolute; inset: 0; z-index: 5; display: block; width: 100%; height: 100%;
@@ -609,6 +631,7 @@
       background: rgba(28, 38, 24, 0.55);
       -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
     }
+    .categories-dialog { width: min(660px, calc(100vw - 32px)); }
     .photos-dialog[open] { animation: dialogIn 0.32s var(--ease) both; }
     .photos-dialog[open]::backdrop { animation: fadeIn 0.3s ease both; }
     .photos-card {
@@ -840,6 +863,21 @@
       font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
     }
 
+    .category-field { margin: 18px 0 0; padding: 0; border: 0; }
+    .category-field legend {
+      padding: 0; font-size: 0.74rem; font-weight: 500; letter-spacing: 0.09em;
+      text-transform: uppercase; color: var(--sage-deep);
+    }
+    .category-field legend small {
+      font-family: var(--sans); font-size: 0.68rem; font-weight: 400;
+      letter-spacing: 0; text-transform: none; color: var(--muted);
+    }
+    .category-chips { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 8px; }
+    .category-chips .chip { font-size: 0.76rem; padding: 6px 11px; }
+    .category-new { display: flex; gap: 8px; margin-top: 12px; }
+    .category-new .input { flex: 1; min-width: 0; }
+    .category-new .btn { flex: none; }
+
     .admin-form-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
     .admin-preview { position: sticky; top: 0; }
     .admin-preview__inner {
@@ -878,6 +916,9 @@
     .manage-thumb:focus-within, .file-drop:focus-within { outline: 2px solid var(--gold); outline-offset: 2px; }
     .manage-fields { display: grid; grid-template-columns: minmax(0, 1fr) 142px; gap: 9px; min-width: 0; }
     .manage-fields .input { padding: 8px 10px; font-size: 0.86rem; border-radius: 9px; }
+    .manage-tags { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 4px; margin-top: 1px; }
+    .manage-tags .tag { font-size: 0.6rem; padding: 2px 7px; }
+    .manage-tags--empty { font-size: 0.7rem; color: var(--muted); }
     .manage-price { position: relative; }
     .manage-price__currency {
       position: absolute; left: 9px; top: 50%; transform: translateY(-50%);
@@ -1057,6 +1098,9 @@
     <symbol id="i-book" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
       <path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5z"/><path d="M4 5.5v15M8 7h8M8 10.5h6"/>
     </symbol>
+    <symbol id="i-tag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M11.6 3.3 3.3 11.6a1.6 1.6 0 0 0 0 2.3l6.8 6.8a1.6 1.6 0 0 0 2.3 0l8.3-8.3V3.3z"/><circle cx="16.2" cy="7.8" r="1.4"/>
+    </symbol>
     <symbol id="i-sparkle" viewBox="0 0 24 24" fill="currentColor">
       <path d="M12 2.5c.3 3.9 2.6 6.2 6.5 6.5-3.9.3-6.2 2.6-6.5 6.5-.3-3.9-2.6-6.2-6.5-6.5 3.9-.3 6.2-2.6 6.5-6.5ZM19 14c.15 1.95 1.3 3.1 3.25 3.25-1.95.15-3.1 1.3-3.25 3.25-.15-1.95-1.3-3.1-3.25-3.25 1.95-.15 3.1-1.3 3.25-3.25Z"/>
     </symbol>
@@ -1209,7 +1253,7 @@
           <div class="catalog-tools">
             <div class="search">
               <svg class="search__icon" aria-hidden="true"><use href="#i-search"/></svg>
-              <input id="searchInput" type="search" placeholder="Buscar por título…" aria-label="Buscar libros por título" autocomplete="off" />
+              <input id="searchInput" type="search" placeholder="Buscar por título o categoría…" aria-label="Buscar libros por título o categoría" autocomplete="off" />
               <button class="search__clear" id="clearSearch" type="button" aria-label="Borrar búsqueda" hidden>
                 <svg class="icon" aria-hidden="true"><use href="#i-x"/></svg>
               </button>
@@ -1226,9 +1270,11 @@
           </div>
         </div>
 
+        <div class="catalog-filters" id="categoryFilters" role="group" aria-label="Filtrar libros por categoría"></div>
+
         <div class="catalog-meta">
           <p id="resultCount" aria-live="polite"><strong>34</strong> libros disponibles</p>
-          <a class="catalog-meta__link" href="#" data-wa-link data-general-wa target="_blank" rel="noopener noreferrer">¿No encontrás un título? Escribinos →</a>
+          <a class="catalog-meta__link" href="#" data-wa-link data-general-wa target="_blank" rel="noopener noreferrer">¿No encontrás un título? Escribinos que Dios mediando nos ocuparemos →</a>
         </div>
 
         <div class="books-grid" id="booksGrid"></div>
@@ -1409,6 +1455,16 @@
                 </div>
               </label>
 
+              <fieldset class="category-field">
+                <legend>Categorías <small>· podés elegir varias</small></legend>
+                <div class="category-chips" id="newCategories" role="group" aria-label="Categorías del libro nuevo"></div>
+                <div class="category-new">
+                  <label class="sr-only" for="newCategoryName">Nueva categoría</label>
+                  <input class="input" id="newCategoryName" type="text" maxlength="60" placeholder="Nueva categoría…" autocomplete="off" />
+                  <button class="btn btn--outline btn--sm" type="button" id="newCategoryAdd">Agregar</button>
+                </div>
+              </fieldset>
+
               <fieldset class="image-field">
                 <legend>Fotos del libro (hasta 8)</legend>
                 <div class="image-options">
@@ -1451,7 +1507,7 @@
           <div class="manage-toolbar">
             <div class="search">
               <svg class="search__icon" aria-hidden="true"><use href="#i-search"/></svg>
-              <input id="manageSearch" type="search" placeholder="Buscar en el catálogo…" aria-label="Buscar libro para editar" autocomplete="off" />
+              <input id="manageSearch" type="search" placeholder="Buscar por título o categoría…" aria-label="Buscar libro o categoría para editar" autocomplete="off" />
             </div>
             <span class="manage-toolbar__count" id="manageCount">34 libros</span>
           </div>
@@ -1461,7 +1517,7 @@
 
           <div class="manage-footer">
             <span class="dot-live" aria-hidden="true"></span>
-            <span>Los cambios de título y precio se guardan automáticamente. Tocá una portada para reemplazarla o el botón de fotos para administrar todas.</span>
+            <span>Los cambios de título, precio y categorías se guardan automáticamente. Tocá una portada para reemplazarla, la etiqueta para categorizar o el botón de fotos para administrar todas.</span>
           </div>
         </section>
 
@@ -1622,6 +1678,37 @@
     </div>
   </dialog>
 
+  <!-- ======================================================================
+       CATEGORÍAS DE UN LIBRO
+       ====================================================================== -->
+  <dialog class="photos-dialog categories-dialog" id="categoriesDialog" aria-labelledby="categoriesTitle" aria-describedby="categoriesSubtitle">
+    <div class="photos-card">
+      <div class="photos-head">
+        <div>
+          <h2 id="categoriesTitle">Categorías del libro</h2>
+          <p id="categoriesSubtitle"></p>
+        </div>
+        <button class="icon-btn" type="button" data-close-categories aria-label="Cerrar categorías">
+          <svg class="icon" aria-hidden="true"><use href="#i-x"/></svg>
+        </button>
+      </div>
+
+      <div class="chips category-chips" id="categoriesChips" role="group" aria-label="Categorías del libro"></div>
+
+      <div class="category-new">
+        <label class="sr-only" for="categoriesNewName">Nueva categoría</label>
+        <input class="input" id="categoriesNewName" type="text" maxlength="60" placeholder="Nueva categoría…" autocomplete="off" />
+        <button class="btn btn--outline btn--sm" type="button" id="categoriesAddBtn">Agregar</button>
+      </div>
+
+      <p class="photos-help">Tocá una categoría para asignarla o quitarla. Los cambios se guardan automáticamente.</p>
+
+      <div class="photos-actions">
+        <button class="btn btn--ghost" type="button" data-close-categories>Cerrar</button>
+      </div>
+    </div>
+  </dialog>
+
   <dialog class="login-dialog" id="loginDialog" aria-labelledby="loginTitle" aria-describedby="loginDesc">
     <form class="login-card" id="loginForm" novalidate>
       <div class="login-card__mark" aria-hidden="true">
@@ -1717,6 +1804,21 @@
       const MIN_PASSWORD_LENGTH = 6;
       const MAX_BOOK_IMAGES = 8;
 
+      // Categorías iniciales del catálogo. Se pueden crear más desde el panel.
+      const DEFAULT_CATEGORIES = [
+        'Agendas',
+        'Biblias',
+        'Para la familia',
+        'Para jóvenes',
+        'Para niños',
+        'Libros sobre Santos',
+        'Espiritualidad',
+        'Oración y devoción',
+        'Formación y estudio',
+        'Acompañamiento y duelo',
+        'Regalos y detalles'
+      ];
+
       /* ======================================================================
          CONFIGURACIÓN DE SUPABASE
          Reemplazá estos dos valores por los de tu proyecto:
@@ -1760,42 +1862,42 @@
         email: ''
       };
 
-      // Base oficial de productos: [título, precio de venta]
+      // Base oficial de productos: [título, precio de venta, categorías]
       const SEED_BOOKS = [
-        ['Jugar... Crear... Compartir', 13200],
-        ['30 Dinámicas con el Evangelio', 13200],
-        ['Treinta a San José y Devociones', 5100],
-        ['Año del Señor 2027', 4800],
-        ['El Pan de la Palabra (Nueva Edición)', 16100],
-        ['Rosario de Bendición Familiar', 2900],
-        ['La Alegría de Ser Agente de Paz', 13100],
-        ['El Estrés de Jesús (Ensayo Meditado)', 31500],
-        ['Bolsa Eco 25 x 35', 4200],
-        ['Devoción Sagrado Corazón de Jesús y María', 15200],
-        ['Mamá Antula', 2900],
-        ['Historias de la Vida', 3600],
-        ['40 Formas de Oración Personal', 7300],
-        ['Transitar Nuestras Crisis', 13600],
-        ['Sinodalidad en la Vida y en la Iglesia', 2200],
-        ['Huellas del Pastor', 22300],
-        ['Magnifica Humanitas', 6600],
-        ['Amor Hospitalario (El Buen Samaritano)', 5300],
-        ['Dios te Quiere Feliz', 5300],
-        ['Amor que Reconcilia al Pecador', 5300],
-        ['Dios, ¿Por qué Sufro? Acompañando el Dolor', 5300],
-        ['Las Parábolas de la Misericordia', 1500],
-        ['Rosario de Sanación (Nueva Edición)', 4600],
-        ['Celebremos en Familia el Cumpleaños', 3700],
-        ['Charlando con María Navideñas', 6500],
-        ['Para Gustar Más la Misa', 6500],
-        ['Cuando Visites A Un Enfermo', 5300],
-        ['Agenda Mujer Virtuosa (Permanente)', 29300],
-        ['365 Días con Cristo 2027 (Mini)', 12900],
-        ['365 Días con Cristo 2027 (Grande)', 26000],
-        ['Mi Diario Santos Varios', 27300],
-        ['Imitación de Cristo', 12300],
-        ['Tratado de la Verdadera Devoción', 12800],
-        ['Evangelio Cotidiano 2027', 6400]
+        ['Jugar... Crear... Compartir', 13200, ['Para la familia', 'Para niños']],
+        ['30 Dinámicas con el Evangelio', 13200, ['Para jóvenes', 'Para niños', 'Formación y estudio']],
+        ['Treinta a San José y Devociones', 5100, ['Libros sobre Santos', 'Oración y devoción']],
+        ['Año del Señor 2027', 4800, ['Oración y devoción']],
+        ['El Pan de la Palabra (Nueva Edición)', 16100, ['Oración y devoción', 'Formación y estudio']],
+        ['Rosario de Bendición Familiar', 2900, ['Oración y devoción', 'Para la familia']],
+        ['La Alegría de Ser Agente de Paz', 13100, ['Para jóvenes', 'Formación y estudio']],
+        ['El Estrés de Jesús (Ensayo Meditado)', 31500, ['Espiritualidad', 'Formación y estudio']],
+        ['Bolsa Eco 25 x 35', 4200, ['Regalos y detalles']],
+        ['Devoción Sagrado Corazón de Jesús y María', 15200, ['Oración y devoción', 'Espiritualidad']],
+        ['Mamá Antula', 2900, ['Libros sobre Santos']],
+        ['Historias de la Vida', 3600, ['Para jóvenes', 'Formación y estudio']],
+        ['40 Formas de Oración Personal', 7300, ['Oración y devoción', 'Espiritualidad']],
+        ['Transitar Nuestras Crisis', 13600, ['Acompañamiento y duelo', 'Espiritualidad']],
+        ['Sinodalidad en la Vida y en la Iglesia', 2200, ['Formación y estudio']],
+        ['Huellas del Pastor', 22300, ['Formación y estudio', 'Espiritualidad']],
+        ['Magnifica Humanitas', 6600, ['Formación y estudio']],
+        ['Amor Hospitalario (El Buen Samaritano)', 5300, ['Acompañamiento y duelo']],
+        ['Dios te Quiere Feliz', 5300, ['Espiritualidad', 'Para jóvenes']],
+        ['Amor que Reconcilia al Pecador', 5300, ['Espiritualidad', 'Oración y devoción']],
+        ['Dios, ¿Por qué Sufro? Acompañando el Dolor', 5300, ['Acompañamiento y duelo', 'Espiritualidad']],
+        ['Las Parábolas de la Misericordia', 1500, ['Oración y devoción', 'Formación y estudio']],
+        ['Rosario de Sanación (Nueva Edición)', 4600, ['Oración y devoción']],
+        ['Celebremos en Familia el Cumpleaños', 3700, ['Para la familia', 'Para niños']],
+        ['Charlando con María Navideñas', 6500, ['Para la familia', 'Oración y devoción']],
+        ['Para Gustar Más la Misa', 6500, ['Oración y devoción', 'Espiritualidad']],
+        ['Cuando Visites A Un Enfermo', 5300, ['Acompañamiento y duelo']],
+        ['Agenda Mujer Virtuosa (Permanente)', 29300, ['Agendas']],
+        ['365 Días con Cristo 2027 (Mini)', 12900, ['Agendas', 'Oración y devoción']],
+        ['365 Días con Cristo 2027 (Grande)', 26000, ['Agendas', 'Oración y devoción']],
+        ['Mi Diario Santos Varios', 27300, ['Agendas', 'Libros sobre Santos']],
+        ['Imitación de Cristo', 12300, ['Espiritualidad']],
+        ['Tratado de la Verdadera Devoción', 12800, ['Espiritualidad', 'Oración y devoción']],
+        ['Evangelio Cotidiano 2027', 6400, ['Oración y devoción']]
       ];
 
       const nf = new Intl.NumberFormat('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
@@ -1896,12 +1998,14 @@
          ---------------------------------------------------------------------- */
       function freshState() {
         return {
-          books: SEED_BOOKS.map(([title, price], index) => ({
+          books: SEED_BOOKS.map(([title, price, categories], index) => ({
             id: 'seed-' + (index + 1),
             title,
             price,
-            images: []
+            images: [],
+            categories: Array.isArray(categories) ? categories.slice() : []
           })),
+          categories: DEFAULT_CATEGORIES.slice(),
           settings: { ...DEFAULT_SETTINGS }
         };
       }
@@ -1924,6 +2028,68 @@
         return bookImages(book)[0] || null;
       }
 
+      function cleanCategoryName(value) {
+        return String(value ?? '').trim().replace(/\s+/g, ' ');
+      }
+
+      function bookCategories(book) {
+        if (!book || !Array.isArray(book.categories)) return [];
+        const seen = new Set();
+        const list = [];
+        book.categories.forEach((value) => {
+          const name = cleanCategoryName(value);
+          if (!name) return;
+          const key = normalizeText(name);
+          if (seen.has(key)) return;
+          seen.add(key);
+          list.push(name);
+        });
+        return list;
+      }
+
+      // Une varias listas de categorías sin duplicados y respeta el orden inicial.
+      function mergeCategoryNames(...lists) {
+        const order = new Map(DEFAULT_CATEGORIES.map((name, index) => [normalizeText(name), index]));
+        const byKey = new Map();
+        lists.flat(Infinity).forEach((value) => {
+          const name = cleanCategoryName(value);
+          if (!name) return;
+          const key = normalizeText(name);
+          if (!byKey.has(key)) byKey.set(key, name);
+        });
+        return Array.from(byKey.values()).sort((a, b) => {
+          const indexA = order.has(normalizeText(a)) ? order.get(normalizeText(a)) : Number.MAX_SAFE_INTEGER;
+          const indexB = order.has(normalizeText(b)) ? order.get(normalizeText(b)) : Number.MAX_SAFE_INTEGER;
+          return indexA - indexB || a.localeCompare(b, 'es');
+        });
+      }
+
+      // Categorías disponibles: las del catálogo, las iniciales y las ya usadas.
+      function allCategoryNames() {
+        return mergeCategoryNames(
+          state.categories,
+          DEFAULT_CATEGORIES,
+          state.books.map((book) => bookCategories(book))
+        );
+      }
+
+      function addCategoryName(value) {
+        const name = cleanCategoryName(value);
+        if (!name) return null;
+        const exists = state.categories.some((item) => normalizeText(item) === normalizeText(name));
+        if (!exists) state.categories = mergeCategoryNames(state.categories, [name]);
+        return name;
+      }
+
+      function toggleCategoryName(list, value) {
+        const key = normalizeText(value);
+        const current = mergeCategoryNames(list);
+        if (current.some((item) => normalizeText(item) === key)) {
+          return current.filter((item) => normalizeText(item) !== key);
+        }
+        return current.concat(cleanCategoryName(value));
+      }
+
       function normalizeBook(raw) {
         const book = raw && typeof raw === 'object' ? raw : {};
         const validId = typeof book.id === 'string' && /^[A-Za-z0-9_-]{1,80}$/.test(book.id);
@@ -1934,7 +2100,8 @@
           id: validId ? book.id : uid(),
           title: String(book.title ?? '').trim(),
           price: Number(book.price),
-          images: images.slice(0, MAX_BOOK_IMAGES)
+          images: images.slice(0, MAX_BOOK_IMAGES),
+          categories: bookCategories({ categories: Array.isArray(book.categories) ? book.categories : [] })
         };
       }
 
@@ -1945,8 +2112,14 @@
         try {
           const data = JSON.parse(raw);
           if (!data || !Array.isArray(data.books)) return freshState();
+          const books = data.books.map(normalizeBook).filter((b) => b.title && Number.isFinite(b.price));
           return {
-            books: data.books.map(normalizeBook).filter((b) => b.title && Number.isFinite(b.price)),
+            books,
+            categories: mergeCategoryNames(
+              Array.isArray(data.categories) ? data.categories : [],
+              books.map((book) => bookCategories(book)),
+              DEFAULT_CATEGORIES
+            ),
             settings: {
               ...DEFAULT_SETTINGS,
               ...(data.settings && typeof data.settings === 'object' ? data.settings : {})
@@ -1971,9 +2144,14 @@
       let remoteSyncing = false;
       let remoteDirty = false;
       let remoteImageArraysAvailable = true;
+      let remoteCategoriesAvailable = true;
+      let warnedMissingCategories = false;
       let lastSyncedBooks = new Map();
       let lastSyncedSettings = '';
       let photosBookId = null;
+      let categoriesBookId = null;
+      let pendingCategories = [];
+      let activeCategory = '';
       let galleryBookId = null;
       let galleryIndex = 0;
 
@@ -1990,6 +2168,7 @@
           localStorage.setItem(STORAGE_KEY, JSON.stringify({
             version: 1,
             books: state.books,
+            categories: state.categories,
             settings: state.settings
           }));
           return true;
@@ -2033,8 +2212,8 @@
         }
         if (el.storageNotice) {
           el.storageNotice.innerHTML = cloudEnabled
-            ? 'Los libros, las fotos y los ajustes se guardan en <strong>Supabase</strong>. Cada libro admite hasta 8 fotos y la primera se usa como portada. El panel se protege con una cuenta real y la contraseña queda cifrada en la base de datos.'
-            : 'Todo se guarda automáticamente en este navegador (<strong>localStorage</strong>). Podés agregar hasta 8 fotos por libro. Para usar en otro dispositivo, exportá un respaldo desde Ajustes.';
+            ? 'Los libros, las categorías, las fotos y los ajustes se guardan en <strong>Supabase</strong>. Cada libro admite hasta 8 fotos y varias categorías. El panel se protege con una cuenta real y la contraseña queda cifrada en la base de datos.'
+            : 'Todo se guarda automáticamente en este navegador (<strong>localStorage</strong>). Podés agregar hasta 8 fotos y varias categorías por libro. Para usar en otro dispositivo, exportá un respaldo desde Ajustes.';
         }
         if (cloudEnabled && el.loginEmail) {
           try {
@@ -2047,11 +2226,16 @@
       function remoteBook(row) {
         const images = Array.isArray(row.image_urls) ? row.image_urls.filter(isImageSource) : [];
         if (!images.length && isImageSource(row.image_url)) images.push(row.image_url);
+        const links = Array.isArray(row.book_categories) ? row.book_categories : [];
+        const categories = links
+          .map((link) => (link && link.categories ? link.categories.name : null))
+          .filter(Boolean);
         return {
           id: row.id,
           title: String(row.title || ''),
           price: Number(row.price) || 0,
-          images: images.slice(0, MAX_BOOK_IMAGES)
+          images: images.slice(0, MAX_BOOK_IMAGES),
+          categories: bookCategories({ categories })
         };
       }
 
@@ -2066,7 +2250,13 @@
       }
 
       function bookSignature(book, index) {
-        return [book.title, book.price, bookImages(book).join('\u0002'), index].join('\u0001');
+        return [
+          book.title,
+          book.price,
+          bookImages(book).join('\u0002'),
+          bookCategories(book).map(normalizeText).join('\u0003'),
+          index
+        ].join('\u0001');
       }
 
       function rememberRemoteState() {
@@ -2090,36 +2280,88 @@
         return changed;
       }
 
+      function isMissingCategoriesError(error) {
+        const message = String((error && (error.message || error.details || error.hint)) || '');
+        return /book_categories/i.test(message) || /(relation|table|column|schema)[^.]*categor/i.test(message);
+      }
+
+      async function fetchRemoteBooks() {
+        const selectBooks = (columns) => sb.from('books')
+          .select(columns)
+          .order('sort_order', { ascending: true })
+          .order('created_at', { ascending: true });
+
+        const buildColumns = () => {
+          const parts = ['id', 'title', 'price', 'image_url'];
+          if (remoteImageArraysAvailable) parts.push('image_urls');
+          parts.push('sort_order', 'created_at');
+          if (remoteCategoriesAvailable) parts.push('book_categories(categories(name))');
+          return parts.join(',');
+        };
+
+        let lastError = null;
+        for (let attempt = 0; attempt < 3; attempt++) {
+          const result = await selectBooks(buildColumns());
+          if (!result.error) return result;
+
+          lastError = result.error;
+          let retry = false;
+          if (remoteImageArraysAvailable && /image_urls/i.test(String(result.error.message || ''))) {
+            remoteImageArraysAvailable = false;
+            retry = true;
+          }
+          if (remoteCategoriesAvailable && isMissingCategoriesError(result.error)) {
+            remoteCategoriesAvailable = false;
+            retry = true;
+          }
+          if (!retry) break;
+        }
+        throw lastError || new Error('No se pudo leer el catálogo.');
+      }
+
+      async function fetchRemoteCategories() {
+        if (!remoteCategoriesAvailable) return [];
+        try {
+          const { data, error } = await sb.from('categories')
+            .select('id,name,sort_order')
+            .order('sort_order', { ascending: true })
+            .order('name', { ascending: true });
+          if (error) {
+            if (isMissingCategoriesError(error)) remoteCategoriesAvailable = false;
+            console.warn('No se pudieron leer las categorías:', error.message);
+            return [];
+          }
+          return (data || []).map((row) => cleanCategoryName(row.name)).filter(Boolean);
+        } catch (err) {
+          console.warn('No se pudieron leer las categorías:', err);
+          return [];
+        }
+      }
+
       async function refreshRemoteState(options = {}) {
         if (!cloudEnabled) return false;
         const { silent = false } = options;
         try {
-          const selectBooks = (columns) => sb.from('books')
-            .select(columns)
-            .order('sort_order', { ascending: true })
-            .order('created_at', { ascending: true });
-
           const settingsPromise = sb.from('settings')
             .select('store_name,whatsapp,instagram,email')
             .eq('id', 1)
             .maybeSingle();
 
-          let booksResult = await selectBooks('id,title,price,image_url,image_urls,sort_order,created_at');
-          if (booksResult.error && /image_urls/i.test(String(booksResult.error.message || ''))) {
-            // Base creada con el esquema anterior: seguimos funcionando con una sola portada.
-            remoteImageArraysAvailable = false;
-            console.warn('La columna image_urls no existe todavía. Ejecutá la migración de supabase-schema.sql para guardar varias fotos.');
-            booksResult = await selectBooks('id,title,price,image_url,sort_order,created_at');
-          } else if (!booksResult.error) {
-            remoteImageArraysAvailable = true;
-          }
+          const booksResult = await fetchRemoteBooks();
+          const remoteCategoryNames = await fetchRemoteCategories();
           const settingsResult = await settingsPromise;
 
           if (booksResult.error) throw booksResult.error;
           if (settingsResult.error) throw settingsResult.error;
 
+          const books = (booksResult.data || []).map(remoteBook);
           state = {
-            books: (booksResult.data || []).map(remoteBook),
+            books,
+            categories: mergeCategoryNames(
+              remoteCategoryNames,
+              books.map((book) => bookCategories(book)),
+              DEFAULT_CATEGORIES
+            ),
             settings: remoteSettings(settingsResult.data)
           };
           remoteLoaded = true;
@@ -2163,6 +2405,68 @@
         const { data } = sb.storage.from(SUPABASE_BUCKET).getPublicUrl(path);
         if (!data || !data.publicUrl) throw new Error('No se pudo obtener la URL pública de la portada.');
         return data.publicUrl;
+      }
+
+      function categorySlug(name) {
+        return normalizeText(name)
+          .replace(/[^a-z0-9]+/g, '-')
+          .replace(/^-+|-+$/g, '')
+          .slice(0, 60);
+      }
+
+      // Crea (si hace falta) las categorías en Supabase y devuelve nombre → id.
+      async function ensureRemoteCategories() {
+        if (!remoteCategoriesAvailable) return null;
+        const names = state.categories.length ? state.categories : DEFAULT_CATEGORIES;
+        const seen = new Set();
+        const rows = [];
+        names.forEach((value, index) => {
+          const name = cleanCategoryName(value);
+          if (!name) return;
+          const slug = categorySlug(name) || 'categoria-' + (index + 1);
+          if (seen.has(slug)) return;
+          seen.add(slug);
+          rows.push({ name, slug, sort_order: index });
+        });
+
+        const { error } = await sb.from('categories')
+          .upsert(rows, { onConflict: 'slug', ignoreDuplicates: true });
+        if (error) throw error;
+
+        const { data, error: readError } = await sb.from('categories').select('id,name');
+        if (readError) throw readError;
+
+        const map = new Map();
+        (data || []).forEach((row) => { map.set(normalizeText(row.name), row.id); });
+        return map;
+      }
+
+      // Reescribe las conexiones libro ↔ categoría de los libros modificados.
+      async function pushBookCategories(books) {
+        if (!books.length) return;
+        const map = await ensureRemoteCategories();
+        if (!map) return;
+
+        const ids = books.map((book) => book.id);
+        const { error: deleteError } = await sb.from('book_categories').delete().in('book_id', ids);
+        if (deleteError) throw deleteError;
+
+        const rows = [];
+        const seen = new Set();
+        books.forEach((book) => {
+          bookCategories(book).forEach((name) => {
+            const categoryId = map.get(normalizeText(name));
+            if (!categoryId) return;
+            const key = book.id + '\u0001' + categoryId;
+            if (seen.has(key)) return;
+            seen.add(key);
+            rows.push({ book_id: book.id, category_id: categoryId });
+          });
+        });
+        if (!rows.length) return;
+
+        const { error } = await sb.from('book_categories').insert(rows);
+        if (error) throw error;
       }
 
       async function pushRemoteState() {
@@ -2224,6 +2528,26 @@
               }
             }
             if (error) throw error;
+
+            if (!remoteCategoriesAvailable && !warnedMissingCategories) {
+              warnedMissingCategories = true;
+              toast('Las categorías se guardan en este navegador. Ejecutá supabase-categorias.sql para guardarlas en la nube.', { type: 'info', duration: 8000 });
+            }
+
+            if (remoteCategoriesAvailable) {
+              try {
+                await pushBookCategories(changed.map(({ book }) => book));
+              } catch (categoryError) {
+                if (isMissingCategoriesError(categoryError)) {
+                  remoteCategoriesAvailable = false;
+                  console.warn('Las tablas de categorías no existen todavía. Ejecutá supabase-categorias.sql para guardarlas.');
+                  toast('La base todavía no tiene las tablas de categorías. Ejecutá supabase-categorias.sql para guardarlas.', { type: 'error', duration: 8000 });
+                } else {
+                  throw categoryError;
+                }
+              }
+            }
+
             changed.forEach(({ book, signature }) => lastSyncedBooks.set(book.id, signature));
           }
 
@@ -2280,6 +2604,7 @@
         clearSearch: $('#clearSearch'),
         sortSelect: $('#sortSelect'),
         resultCount: $('#resultCount'),
+        categoryFilters: $('#categoryFilters'),
         emptyState: $('#emptyState'),
         emptyTitle: $('#emptyTitle'),
         emptyText: $('#emptyText'),
@@ -2315,6 +2640,15 @@
         newImageUrl: $('#newImageUrl'),
         newPreview: $('#newPreview'),
         newPreviewPrice: $('#newPreviewPrice'),
+        newCategories: $('#newCategories'),
+        newCategoryName: $('#newCategoryName'),
+        newCategoryAdd: $('#newCategoryAdd'),
+        categoriesDialog: $('#categoriesDialog'),
+        categoriesTitle: $('#categoriesTitle'),
+        categoriesSubtitle: $('#categoriesSubtitle'),
+        categoriesChips: $('#categoriesChips'),
+        categoriesNewName: $('#categoriesNewName'),
+        categoriesAddBtn: $('#categoriesAddBtn'),
         manageSearch: $('#manageSearch'),
         manageCount: $('#manageCount'),
         manageList: $('#manageList'),
@@ -2512,10 +2846,51 @@
         el.setEmail.value = state.settings.email || '';
       }
 
+      function categoryCounts() {
+        const counts = new Map();
+        state.books.forEach((book) => {
+          bookCategories(book).forEach((name) => {
+            const key = normalizeText(name);
+            counts.set(key, (counts.get(key) || 0) + 1);
+          });
+        });
+        return counts;
+      }
+
+      function renderCategoryFilters() {
+        if (!el.categoryFilters) return;
+        const counts = categoryCounts();
+        const names = allCategoryNames().filter((name) => counts.has(normalizeText(name)));
+        if (activeCategory && !names.some((name) => normalizeText(name) === normalizeText(activeCategory))) {
+          activeCategory = '';
+        }
+
+        const chips = [
+          '<button class="chip' + (activeCategory ? '' : ' is-active') + '" type="button" data-category-filter="" ' +
+            'aria-pressed="' + (activeCategory ? 'false' : 'true') + '">Todas <span class="chip__count">' + state.books.length + '</span></button>'
+        ];
+        names.forEach((name) => {
+          const isActive = normalizeText(activeCategory) === normalizeText(name);
+          chips.push(
+            '<button class="chip' + (isActive ? ' is-active' : '') + '" type="button" ' +
+              'data-category-filter="' + escapeAttr(name) + '" aria-pressed="' + String(isActive) + '">' +
+              escapeHtml(name) + ' <span class="chip__count">' + counts.get(normalizeText(name)) + '</span>' +
+            '</button>'
+          );
+        });
+        el.categoryFilters.innerHTML = chips.join('');
+      }
+
       function bookCard(book, index) {
         const href = whatsappHref(book);
         const images = bookImages(book);
         const cover = coverMarkup(book);
+        const categories = bookCategories(book);
+        const tags = categories.length
+          ? '<div class="book-card__tags">' + categories.map((name) =>
+              '<span class="tag">' + escapeHtml(name) + '</span>'
+            ).join('') + '</div>'
+          : '';
         const galleryButton = images.length > 1
           ? '<button class="book-card__gallery" type="button" data-gallery-id="' + escapeAttr(book.id) + '" ' +
               'aria-label="Ver las ' + images.length + ' fotos de ' + escapeAttr(book.title) + '">' +
@@ -2526,6 +2901,7 @@
           '<div class="book-card__media"><div class="book-card__media-inner">' + cover + galleryButton + '</div></div>' +
           '<div class="book-card__body">' +
             '<h3 class="book-card__title">' + escapeHtml(book.title) + '</h3>' +
+            tags +
             '<p class="book-card__price"><span>Precio</span><strong>' + formatPrice(book.price) + '</strong></p>' +
             '<a class="btn btn--wa btn--full book-card__cta" href="' + escapeAttr(href) + '" data-wa-link ' +
               'target="_blank" rel="noopener noreferrer" aria-label="Consultar por WhatsApp: ' + escapeAttr(book.title) + '">' +
@@ -2538,7 +2914,15 @@
       function renderCatalog() {
         const query = el.searchInput.value.trim();
         const normalized = normalizeText(query);
-        let list = state.books.filter((book) => !normalized || normalizeText(book.title).includes(normalized));
+        if (activeCategory && !categoryCounts().has(normalizeText(activeCategory))) activeCategory = '';
+        let list = state.books.filter((book) => {
+          if (activeCategory && !bookCategories(book).some((name) => normalizeText(name) === normalizeText(activeCategory))) {
+            return false;
+          }
+          if (!normalized) return true;
+          const haystack = normalizeText(book.title + ' ' + bookCategories(book).join(' '));
+          return haystack.includes(normalized);
+        });
 
         const sort = el.sortSelect.value;
         if (sort === 'price-asc') list = [...list].sort((a, b) => a.price - b.price || a.title.localeCompare(b.title, 'es'));
@@ -2550,9 +2934,15 @@
         el.emptyState.hidden = list.length !== 0;
         el.clearSearch.hidden = !query;
 
+        renderCategoryFilters();
+
         if (query) {
           el.resultCount.innerHTML = '<strong>' + list.length + '</strong> ' +
-            (list.length === 1 ? 'resultado' : 'resultados') + ' para “' + escapeHtml(query) + '”';
+            (list.length === 1 ? 'resultado' : 'resultados') + ' para “' + escapeHtml(query) + '”' +
+            (activeCategory ? ' en ' + escapeHtml(activeCategory) : '');
+        } else if (activeCategory) {
+          el.resultCount.innerHTML = '<strong>' + list.length + '</strong> ' +
+            (list.length === 1 ? 'libro' : 'libros') + ' en ' + escapeHtml(activeCategory);
         } else {
           el.resultCount.innerHTML = '<strong>' + state.books.length + '</strong> ' +
             (state.books.length === 1 ? 'libro disponible' : 'libros disponibles');
@@ -2563,9 +2953,13 @@
             el.emptyTitle.textContent = 'Tu catálogo está vacío';
             el.emptyText.textContent = 'Agregá tu primer libro desde el panel de administración.';
             el.emptyAction.textContent = 'Agregar mi primer libro';
+          } else if (activeCategory) {
+            el.emptyTitle.textContent = 'No hay libros en esta categoría';
+            el.emptyText.textContent = 'Probá con otra categoría o mirá todos los títulos disponibles.';
+            el.emptyAction.textContent = 'Ver todos los libros';
           } else {
             el.emptyTitle.textContent = 'No encontramos ese libro';
-            el.emptyText.textContent = 'Probá con otra palabra o mirá todos los títulos disponibles.';
+            el.emptyText.textContent = 'Probá con otra palabra o categoría, o mirá todos los títulos disponibles.';
             el.emptyAction.textContent = 'Ver todos los libros';
           }
         }
@@ -2604,6 +2998,7 @@
         renderHero();
         updateCounts();
         renderManage();
+        renderAddCategories();
       }
 
       /* ----------------------------------------------------------------------
@@ -2613,6 +3008,12 @@
         const titleId = 'title-' + book.id;
         const priceId = 'price-' + book.id;
         const imageCount = bookImages(book).length;
+        const categories = bookCategories(book);
+        const tags = categories.length
+          ? '<div class="manage-tags">' + categories.map((name) =>
+              '<span class="tag">' + escapeHtml(name) + '</span>'
+            ).join('') + '</div>'
+          : '<div class="manage-tags"><span class="manage-tags--empty">Sin categorías</span></div>';
         return '<li class="manage-row" data-id="' + escapeAttr(book.id) + '">' +
           '<label class="manage-thumb" title="Cambiar portada">' +
             coverMarkup(book, { mini: true }) +
@@ -2627,8 +3028,13 @@
               '<label class="sr-only" for="' + priceId + '">Precio</label>' +
               '<input class="input" id="' + priceId + '" data-field="price" type="text" inputmode="decimal" value="' + formatPricePlain(book.price) + '" />' +
             '</div>' +
+            tags +
           '</div>' +
           '<div class="manage-actions">' +
+            '<button class="icon-btn" type="button" data-action="manage-categories" title="Categorías" aria-label="Categorías de ' + escapeAttr(book.title) + '">' +
+              icon('tag') +
+              (categories.length ? '<span class="manage-action__count" aria-hidden="true">' + categories.length + '</span>' : '') +
+            '</button>' +
             '<button class="icon-btn" type="button" data-action="manage-photos" title="Administrar fotos" aria-label="Administrar fotos de ' + escapeAttr(book.title) + '">' +
               icon('image') +
               (imageCount ? '<span class="manage-action__count" aria-hidden="true">' + imageCount + '</span>' : '') +
@@ -2644,7 +3050,8 @@
       function renderManage() {
         if (!el.manageList) return;
         const query = normalizeText(el.manageSearch.value);
-        const list = state.books.filter((book) => !query || normalizeText(book.title).includes(query));
+        const list = state.books.filter((book) => !query ||
+          normalizeText(book.title + ' ' + bookCategories(book).join(' ')).includes(query));
 
         el.manageList.innerHTML = list.map(manageRow).join('');
         el.manageEmpty.hidden = list.length !== 0;
@@ -2712,6 +3119,61 @@
         else el.photosDialog.removeAttribute('open');
         photosBookId = null;
         if (el.photosInput) el.photosInput.value = '';
+        syncBodyLock();
+      }
+
+      /* ----------------------------------------------------------------------
+         9c. CATEGORÍAS POR LIBRO (PUBLICACIÓN Y ADMIN)
+         ---------------------------------------------------------------------- */
+      function categoryChipsHtml(selectedNames) {
+        const selected = new Set(mergeCategoryNames(selectedNames).map(normalizeText));
+        return allCategoryNames().map((name) => {
+          const isActive = selected.has(normalizeText(name));
+          return '<button class="chip' + (isActive ? ' is-active' : '') + '" type="button" ' +
+            'data-category-toggle="' + escapeAttr(name) + '" aria-pressed="' + String(isActive) + '">' +
+            escapeHtml(name) + '</button>';
+        }).join('');
+      }
+
+      function renderAddCategories() {
+        if (el.newCategories) el.newCategories.innerHTML = categoryChipsHtml(pendingCategories);
+      }
+
+      function categoriesBook() {
+        return state.books.find((book) => book.id === categoriesBookId) || null;
+      }
+
+      function renderCategoriesDialog() {
+        const book = categoriesBook();
+        if (!book) return;
+        const count = bookCategories(book).length;
+        if (el.categoriesTitle) el.categoriesTitle.textContent = 'Categorías de ' + truncate(book.title, 52);
+        if (el.categoriesSubtitle) {
+          el.categoriesSubtitle.textContent = count
+            ? count + (count === 1 ? ' categoría asignada. Se guarda automáticamente.' : ' categorías asignadas. Se guardan automáticamente.')
+            : 'Todavía no tiene categorías. Tocá una para asignarla.';
+        }
+        if (el.categoriesChips) el.categoriesChips.innerHTML = categoryChipsHtml(book.categories);
+      }
+
+      function openCategoriesDialog(bookId) {
+        const book = state.books.find((item) => item.id === bookId);
+        if (!book) return;
+        categoriesBookId = bookId;
+        renderCategoriesDialog();
+        if (typeof el.categoriesDialog.showModal === 'function') {
+          if (!el.categoriesDialog.open) el.categoriesDialog.showModal();
+        } else {
+          el.categoriesDialog.setAttribute('open', '');
+        }
+        syncBodyLock();
+      }
+
+      function closeCategoriesDialog() {
+        if (typeof el.categoriesDialog.close === 'function' && el.categoriesDialog.open) el.categoriesDialog.close();
+        else el.categoriesDialog.removeAttribute('open');
+        categoriesBookId = null;
+        if (el.categoriesNewName) el.categoriesNewName.value = '';
         syncBodyLock();
       }
 
@@ -2853,13 +3315,16 @@
         const price = parsePrice(el.newPrice.value);
         el.newPreviewPrice.textContent = Number.isFinite(price) && price > 0 ? formatPrice(price) : '—';
         renderPendingImages();
+        renderAddCategories();
       }
 
       function resetAddForm() {
         pendingImages = [];
+        pendingCategories = [];
         el.newImage.value = '';
         el.newTitle.classList.remove('is-invalid');
         el.newPrice.classList.remove('is-invalid');
+        if (el.newCategoryName) el.newCategoryName.value = '';
         renderPendingImages();
         updateAddPreview();
       }
@@ -2886,7 +3351,7 @@
 
       function syncBodyLock() {
         const locked = dialogIsOpen(el.loginDialog) || dialogIsOpen(el.adminDialog) ||
-          dialogIsOpen(el.photosDialog) || dialogIsOpen(el.galleryDialog);
+          dialogIsOpen(el.photosDialog) || dialogIsOpen(el.categoriesDialog) || dialogIsOpen(el.galleryDialog);
         document.body.classList.toggle('no-scroll', locked);
       }
 
@@ -3273,6 +3738,7 @@
           version: 1,
           exportedAt: new Date().toISOString(),
           settings: state.settings,
+          categories: state.categories,
           books: state.books
         };
         const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
@@ -3307,6 +3773,11 @@
           if (data.settings && typeof data.settings === 'object') {
             state.settings = { ...DEFAULT_SETTINGS, ...data.settings };
           }
+          state.categories = mergeCategoryNames(
+            state.categories,
+            Array.isArray(data.categories) ? data.categories : [],
+            state.books.map((book) => bookCategories(book))
+          );
           saveNow();
           applySettings();
           syncSettingsForm();
@@ -3341,6 +3812,7 @@
           id: cloudEnabled ? newUuid() : uid(),
           title,
           price: Math.round(price * 100) / 100,
+          categories: mergeCategoryNames(pendingCategories),
           images: pendingImages.length
             ? pendingImages.slice(0, MAX_BOOK_IMAGES)
             : (el.newImageUrl.value.trim() ? [el.newImageUrl.value.trim()] : [])
@@ -3386,10 +3858,22 @@
             openAdmin('add');
           } else {
             el.searchInput.value = '';
+            activeCategory = '';
             renderCatalog();
             el.searchInput.focus();
           }
         });
+
+        // Filtro público por categoría
+        if (el.categoryFilters) {
+          el.categoryFilters.addEventListener('click', (event) => {
+            const chip = event.target.closest('[data-category-filter]');
+            if (!chip) return;
+            const value = chip.dataset.categoryFilter || '';
+            activeCategory = value && normalizeText(value) !== normalizeText(activeCategory) ? value : '';
+            renderCatalog();
+          });
+        }
 
         // Portadas del hero: filtran el catálogo por ese título
         el.heroStack.addEventListener('click', (event) => {
@@ -3400,6 +3884,7 @@
           if (!book) return;
           el.searchInput.value = book.title;
           el.sortSelect.value = 'reco';
+          activeCategory = '';
           renderCatalog();
           scrollToCatalog();
         });
@@ -3477,6 +3962,7 @@
           observer.observe(el.adminDialog, { attributes: true, attributeFilter: ['open'] });
           observer.observe(el.loginDialog, { attributes: true, attributeFilter: ['open'] });
           observer.observe(el.photosDialog, { attributes: true, attributeFilter: ['open'] });
+          if (el.categoriesDialog) observer.observe(el.categoriesDialog, { attributes: true, attributeFilter: ['open'] });
           observer.observe(el.galleryDialog, { attributes: true, attributeFilter: ['open'] });
         }
 
@@ -3489,6 +3975,11 @@
           if (event.key === 'Escape' && dialogIsOpen(el.photosDialog)) {
             event.preventDefault();
             closePhotosDialog();
+            return;
+          }
+          if (event.key === 'Escape' && dialogIsOpen(el.categoriesDialog)) {
+            event.preventDefault();
+            closeCategoriesDialog();
             return;
           }
           if (event.key === 'Escape' && dialogIsOpen(el.loginDialog)) {
@@ -3568,6 +4059,88 @@
         });
         el.addForm.addEventListener('submit', handleAddSubmit);
 
+        // Categorías: selector del formulario de alta
+        if (el.newCategories) {
+          el.newCategories.addEventListener('click', (event) => {
+            const chip = event.target.closest('[data-category-toggle]');
+            if (!chip) return;
+            pendingCategories = toggleCategoryName(pendingCategories, chip.dataset.categoryToggle);
+            renderAddCategories();
+          });
+        }
+
+        const createCategory = (input, onCreated) => {
+          if (!input) return;
+          const name = addCategoryName(input.value);
+          if (!name) {
+            input.focus();
+            return;
+          }
+          input.value = '';
+          scheduleSave();
+          toast('Categoría «' + name + '» disponible.', { type: 'success', duration: 2600 });
+          if (typeof onCreated === 'function') onCreated(name);
+        };
+
+        if (el.newCategoryAdd) {
+          el.newCategoryAdd.addEventListener('click', () => {
+            createCategory(el.newCategoryName, (name) => {
+              pendingCategories = toggleCategoryName(pendingCategories, name);
+              renderAddCategories();
+              renderCategoryFilters();
+            });
+          });
+        }
+        if (el.newCategoryName) {
+          el.newCategoryName.addEventListener('keydown', (event) => {
+            if (event.key !== 'Enter') return;
+            event.preventDefault();
+            if (el.newCategoryAdd) el.newCategoryAdd.click();
+          });
+        }
+
+        // Categorías: selector del libro en edición
+        if (el.categoriesChips) {
+          el.categoriesChips.addEventListener('click', (event) => {
+            const chip = event.target.closest('[data-category-toggle]');
+            const book = categoriesBook();
+            if (!chip || !book) return;
+            book.categories = toggleCategoryName(bookCategories(book), chip.dataset.categoryToggle);
+            saveNow();
+            renderAll();
+            renderCategoriesDialog();
+          });
+        }
+        if (el.categoriesAddBtn) {
+          el.categoriesAddBtn.addEventListener('click', () => {
+            createCategory(el.categoriesNewName, (name) => {
+              const book = categoriesBook();
+              if (!book) return;
+              book.categories = toggleCategoryName(bookCategories(book), name);
+              saveNow();
+              renderAll();
+              renderCategoriesDialog();
+            });
+          });
+        }
+        if (el.categoriesNewName) {
+          el.categoriesNewName.addEventListener('keydown', (event) => {
+            if (event.key !== 'Enter') return;
+            event.preventDefault();
+            if (el.categoriesAddBtn) el.categoriesAddBtn.click();
+          });
+        }
+
+        $$('[data-close-categories]').forEach((button) => {
+          button.addEventListener('click', closeCategoriesDialog);
+        });
+        if (el.categoriesDialog) {
+          el.categoriesDialog.addEventListener('click', (event) => {
+            if (event.target === el.categoriesDialog) closeCategoriesDialog();
+          });
+          el.categoriesDialog.addEventListener('close', syncBodyLock);
+        }
+
         // Gestión: búsqueda, edición en vivo, borrado y cambio de portada
         el.manageSearch.addEventListener('input', renderManage);
         el.manageList.addEventListener('input', (event) => {
@@ -3607,6 +4180,8 @@
 
           if (button.dataset.action === 'delete') {
             deleteBook(book.id);
+          } else if (button.dataset.action === 'manage-categories') {
+            openCategoriesDialog(book.id);
           } else if (button.dataset.action === 'manage-photos') {
             openPhotosDialog(book.id);
           } else if (button.dataset.action === 'remove-image') {
