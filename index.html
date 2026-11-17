@@ -194,7 +194,7 @@
     }
     .hero__lead { max-width: 50ch; margin-top: 22px; color: var(--muted); font-size: 1.02rem; font-weight: 300; line-height: 1.7; }
     .hero__actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
-    .hero__meta { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; margin-top: 28px; font-size: 0.83rem; color: var(--muted); }
+    .hero__meta { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; margin-top: 28px; font-size: 0.83rem; color: #5E6957; }
     .hero__stars { color: var(--gold); letter-spacing: 2px; font-size: 0.9rem; }
     .hero__meta strong { color: var(--deep); font-weight: 600; }
     .hero__dot { width: 3px; height: 3px; border-radius: 50%; background: var(--line-strong); }
@@ -325,6 +325,21 @@
     .book-card__price span { font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
     .book-card__price strong { font-family: var(--serif); font-size: 1.42rem; font-weight: 700; color: var(--deep); letter-spacing: 0.01em; }
     .book-card__cta { margin-top: auto; font-size: 0.85rem; padding: 12px 16px; }
+    .book-card__media-inner { position: relative; }
+    .book-card__gallery {
+      position: absolute; inset: 0; z-index: 5; display: block; width: 100%; height: 100%;
+      padding: 0; border: 0; background: transparent; color: inherit; text-align: inherit;
+      cursor: zoom-in; border-radius: 8px;
+    }
+    .book-card__gallery:focus-visible { outline: 2px solid var(--gold); outline-offset: 4px; }
+    .book-card__gallery-badge {
+      position: absolute; right: 8px; bottom: 8px; z-index: 6;
+      display: inline-flex; align-items: center; gap: 4px; padding: 4px 8px;
+      border-radius: 999px; background: rgba(35, 48, 29, 0.8); color: #fff;
+      font-size: 0.68rem; font-weight: 600; line-height: 1;
+      box-shadow: 0 4px 10px -4px rgba(15, 24, 12, 0.8);
+    }
+    .book-card__gallery-badge .icon { width: 12px; height: 12px; }
 
     /* ==========================================================================
        8. PORTADAS GENERATIVAS (sin imágenes externas)
@@ -583,6 +598,108 @@
     }
     .login-foot .icon { width: 13px; height: 13px; }
 
+    /* Administración de fotos por libro */
+    .photos-dialog {
+      width: min(760px, calc(100vw - 32px));
+      max-width: none; max-height: none;
+      padding: 0; border: 0; background: transparent; color: var(--ink);
+      overflow: visible;
+    }
+    .photos-dialog::backdrop {
+      background: rgba(28, 38, 24, 0.55);
+      -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+    }
+    .photos-dialog[open] { animation: dialogIn 0.32s var(--ease) both; }
+    .photos-dialog[open]::backdrop { animation: fadeIn 0.3s ease both; }
+    .photos-card {
+      max-height: calc(100vh - 44px); overflow: auto;
+      padding: 24px; background: var(--cream); border-radius: 22px;
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      box-shadow: 0 50px 110px -40px rgba(18, 28, 14, 0.7);
+    }
+    .photos-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
+    .photos-head h2 { font-family: var(--serif); font-size: 1.5rem; font-weight: 600; color: var(--deep); line-height: 1.2; }
+    .photos-head p { margin-top: 5px; font-size: 0.76rem; color: var(--muted); }
+    .photos-head .icon-btn { flex: none; }
+    .photos-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(118px, 1fr));
+      gap: 12px; margin-top: 18px;
+    }
+    .photo-tile {
+      margin: 0; overflow: hidden; background: #fff; border: 1px solid var(--line);
+      border-radius: 12px; box-shadow: var(--shadow-sm);
+    }
+    .photo-tile img { display: block; width: 100%; aspect-ratio: 3 / 4; object-fit: cover; background: #EDF2E9; }
+    .photo-tile figcaption { padding: 7px 9px 0; font-size: 0.68rem; color: var(--muted); }
+    .photo-tile__actions { display: flex; flex-wrap: wrap; gap: 5px; padding: 6px 8px 8px; }
+    .photo-tile__actions button {
+      display: inline-flex; align-items: center; gap: 4px; padding: 5px 7px;
+      border: 1px solid var(--line-strong); border-radius: 7px; background: #fff;
+      color: var(--deep); font-size: 0.64rem; cursor: pointer;
+    }
+    .photo-tile__actions button:hover { border-color: var(--sage); background: var(--sage-tint); }
+    .photo-tile__actions .icon { width: 12px; height: 12px; }
+    .photos-empty { margin-top: 18px; padding: 24px 16px; text-align: center; font-size: 0.82rem; color: var(--muted); border: 1px dashed var(--line-strong); border-radius: 12px; }
+    .photos-add { margin-top: 16px; }
+    .photos-add.is-disabled { opacity: 0.5; cursor: not-allowed; }
+    .photos-help { margin-top: 10px; font-size: 0.72rem; line-height: 1.5; color: var(--muted); }
+    .photos-actions { display: flex; justify-content: flex-end; margin-top: 18px; }
+
+    /* Galería pública */
+    .gallery-dialog {
+      width: min(900px, calc(100vw - 24px));
+      max-width: none; max-height: none;
+      padding: 0; border: 0; background: transparent; color: #F6F0DD;
+      overflow: visible;
+    }
+    .gallery-dialog::backdrop {
+      background: rgba(16, 23, 13, 0.86);
+      -webkit-backdrop-filter: blur(5px); backdrop-filter: blur(5px);
+    }
+    .gallery-dialog[open] { animation: dialogIn 0.3s var(--ease) both; }
+    .gallery-dialog[open]::backdrop { animation: fadeIn 0.25s ease both; }
+    .gallery-shell { display: flex; flex-direction: column; gap: 12px; }
+    .gallery-bar { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; }
+    .gallery-bar h2 { font-family: var(--serif); font-size: 1.18rem; font-weight: 600; line-height: 1.25; color: #F6F0DD; }
+    .gallery-counter { display: inline-block; margin-top: 3px; font-size: 0.72rem; color: #D9CFB4; letter-spacing: 0.06em; }
+    .gallery-close {
+      flex: none; display: grid; place-items: center; width: 38px; height: 38px;
+      border: 1px solid rgba(255, 255, 255, 0.32); border-radius: 50%;
+      background: rgba(255, 255, 255, 0.08); color: #fff; cursor: pointer;
+    }
+    .gallery-close:hover { background: rgba(255, 255, 255, 0.18); }
+    .gallery-close .icon { width: 18px; height: 18px; }
+    .gallery-stage { position: relative; display: grid; place-items: center; min-height: 180px; }
+    .gallery-img {
+      display: block; width: auto; max-width: 100%; max-height: min(70vh, 700px);
+      border-radius: 12px; background: #EDF2E9;
+      box-shadow: 0 30px 70px -30px rgba(0, 0, 0, 0.8);
+    }
+    .gallery-nav {
+      position: absolute; top: 50%; transform: translateY(-50%); z-index: 2;
+      display: grid; place-items: center; width: 44px; height: 44px;
+      border: 1px solid rgba(255, 255, 255, 0.32); border-radius: 50%;
+      background: rgba(24, 33, 20, 0.72); color: #fff; cursor: pointer;
+      -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px);
+    }
+    .gallery-nav:hover { background: rgba(24, 33, 20, 0.92); }
+    .gallery-nav .icon { width: 22px; height: 22px; }
+    .gallery-nav--prev { left: 8px; }
+    .gallery-nav--next { right: 8px; }
+    .gallery-thumbs {
+      display: flex; gap: 8px; justify-content: center; overflow-x: auto;
+      padding: 4px 2px 2px; scrollbar-width: thin;
+    }
+    .gallery-thumb {
+      flex: none; width: 52px; height: 70px; padding: 0; overflow: hidden;
+      border: 2px solid transparent; border-radius: 7px; background: rgba(255, 255, 255, 0.08);
+      cursor: pointer; opacity: 0.62; transition: opacity 0.2s, border-color 0.2s;
+    }
+    .gallery-thumb:hover { opacity: 0.9; }
+    .gallery-thumb.is-active { border-color: var(--gold); opacity: 1; }
+    .gallery-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .gallery-thumb:focus-visible, .gallery-nav:focus-visible, .gallery-close:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+
     .password-input { position: relative; display: flex; }
     .password-input .input { padding-right: 46px; }
     .password-toggle {
@@ -702,6 +819,26 @@
     .file-drop small { display: block; font-size: 0.7rem; color: var(--muted); }
     .image-or { text-align: center; font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
     .image-help { display: block; margin-top: 8px; font-size: 0.73rem; color: var(--muted); line-height: 1.5; }
+    .pending-photos {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(64px, 1fr)); gap: 8px;
+    }
+    .pending-photo {
+      position: relative; display: block; aspect-ratio: 3 / 4; overflow: hidden;
+      border-radius: 8px; border: 1px solid var(--line); background: #fff;
+    }
+    .pending-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .pending-photo__remove {
+      position: absolute; top: 4px; right: 4px; z-index: 2; display: grid; place-items: center;
+      width: 22px; height: 22px; border: 0; border-radius: 50%;
+      background: rgba(35, 48, 29, 0.82); color: #fff; cursor: pointer;
+    }
+    .pending-photo__remove .icon { width: 12px; height: 12px; }
+    .pending-photo__remove:hover { background: #6E3429; }
+    .pending-photo__cover {
+      position: absolute; left: 4px; bottom: 4px; padding: 3px 6px; border-radius: 999px;
+      background: rgba(35, 48, 29, 0.82); color: #fff; font-size: 0.58rem;
+      font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
+    }
 
     .admin-form-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
     .admin-preview { position: sticky; top: 0; }
@@ -748,8 +885,13 @@
     }
     .manage-price .input { padding-left: 23px; text-align: right; font-variant-numeric: tabular-nums; }
     .manage-actions { display: flex; align-items: center; gap: 6px; }
-    .manage-actions .icon-btn { width: 34px; height: 34px; }
+    .manage-actions .icon-btn { width: 34px; height: 34px; position: relative; }
     .manage-actions .icon { width: 15px; height: 15px; }
+    .manage-action__count {
+      position: absolute; top: -4px; right: -4px; display: grid; place-items: center;
+      min-width: 16px; height: 16px; padding: 0 4px; border-radius: 999px;
+      background: var(--sage-deep); color: #fff; font-size: 0.58rem; font-weight: 700; line-height: 1;
+    }
     .manage-empty { padding: 30px 16px; text-align: center; font-size: 0.86rem; color: var(--muted); }
     .manage-footer { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 16px; font-size: 0.74rem; color: var(--muted); }
     .manage-footer .dot-live { width: 7px; height: 7px; border-radius: 50%; background: var(--sage); box-shadow: 0 0 0 3px rgba(135, 169, 107, 0.18); }
@@ -851,6 +993,14 @@
       .toast-stack { right: 16px; bottom: 16px; }
       .login-dialog { width: calc(100vw - 24px); }
       .login-card { padding: 26px 20px 20px; }
+      .photos-dialog { width: calc(100vw - 16px); }
+      .photos-card { padding: 18px 16px; }
+      .photos-grid { grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: 9px; }
+      .gallery-nav { width: 38px; height: 38px; }
+      .gallery-nav--prev { left: 2px; }
+      .gallery-nav--next { right: 2px; }
+      .gallery-thumb { width: 44px; height: 60px; }
+      .gallery-img { max-height: 62vh; }
     }
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
@@ -933,6 +1083,12 @@
     </symbol>
     <symbol id="i-leaf" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
       <path d="M20 4C10 4 4 9 4 15a5 5 0 0 0 5 5c6 0 11-6 11-16Z"/><path d="M4 20c2.5-5 6-8 11-10"/>
+    </symbol>
+    <symbol id="i-chevron-left" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="m15 5-7 7 7 7"/>
+    </symbol>
+    <symbol id="i-chevron-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="m9 5 7 7-7 7"/>
     </symbol>
   </svg>
 
@@ -1254,20 +1410,21 @@
               </label>
 
               <fieldset class="image-field">
-                <legend>Foto de portada</legend>
+                <legend>Fotos del libro (hasta 8)</legend>
                 <div class="image-options">
                   <label class="file-drop">
                     <span class="file-drop__icon"><svg class="icon" aria-hidden="true"><use href="#i-image"/></svg></span>
                     <span>
-                      <strong id="newImageName">Subir una imagen</strong>
-                      <small>JPG o PNG · se optimiza automáticamente</small>
+                      <strong id="newImageName">Subir fotos</strong>
+                      <small>JPG, PNG o WebP · podés elegir varias</small>
                     </span>
-                    <input id="newImage" type="file" accept="image/*" aria-label="Subir imagen de portada" />
+                    <input id="newImage" type="file" accept="image/*" multiple aria-label="Subir fotos del libro" />
                   </label>
+                  <div class="pending-photos" id="newImageList" hidden></div>
                   <span class="image-or">o pegá un enlace</span>
                   <input class="input" id="newImageUrl" type="url" placeholder="https://ejemplo.com/portada.jpg" autocomplete="off" aria-label="URL de la imagen de portada" />
                 </div>
-                <small class="image-help">Si no agregás una foto, creamos una portada elegante con el título automáticamente.</small>
+                <small class="image-help">La primera foto se usa como portada. Si no agregás ninguna, creamos una portada elegante con el título automáticamente.</small>
               </fieldset>
 
               <div class="admin-form-actions">
@@ -1304,7 +1461,7 @@
 
           <div class="manage-footer">
             <span class="dot-live" aria-hidden="true"></span>
-            <span>Los cambios de título y precio se guardan automáticamente. Tocá una portada para reemplazarla.</span>
+            <span>Los cambios de título y precio se guardan automáticamente. Tocá una portada para reemplazarla o el botón de fotos para administrar todas.</span>
           </div>
         </section>
 
@@ -1431,8 +1588,40 @@
   </dialog>
 
   <!-- ======================================================================
-       ACCESO AL PANEL (CONTRASEÑA)
+       ADMINISTRAR FOTOS DE UN LIBRO
        ====================================================================== -->
+  <dialog class="photos-dialog" id="photosDialog" aria-labelledby="photosTitle" aria-describedby="photosSubtitle">
+    <div class="photos-card">
+      <div class="photos-head">
+        <div>
+          <h2 id="photosTitle">Fotos del libro</h2>
+          <p id="photosSubtitle"></p>
+        </div>
+        <button class="icon-btn" type="button" data-close-photos aria-label="Cerrar administración de fotos">
+          <svg class="icon" aria-hidden="true"><use href="#i-x"/></svg>
+        </button>
+      </div>
+
+      <div class="photos-grid" id="photosGrid"></div>
+      <p class="photos-empty" id="photosEmpty" hidden>Este libro todavía no tiene fotos.</p>
+
+      <label class="file-drop photos-add">
+        <span class="file-drop__icon"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg></span>
+        <span>
+          <strong>Agregar fotos</strong>
+          <small>Podés sumar varias a la vez · máximo 8 por libro</small>
+        </span>
+        <input id="photosInput" type="file" accept="image/*" multiple aria-label="Agregar fotos al libro" />
+      </label>
+
+      <p class="photos-help">La primera foto se muestra como portada en el catálogo. Usá «Portada» para mover otra al primer lugar.</p>
+
+      <div class="photos-actions">
+        <button class="btn btn--ghost" type="button" data-close-photos>Cerrar</button>
+      </div>
+    </div>
+  </dialog>
+
   <dialog class="login-dialog" id="loginDialog" aria-labelledby="loginTitle" aria-describedby="loginDesc">
     <form class="login-card" id="loginForm" novalidate>
       <div class="login-card__mark" aria-hidden="true">
@@ -1475,6 +1664,35 @@
     </form>
   </dialog>
 
+  <!-- ======================================================================
+       GALERÍA PÚBLICA DE FOTOS
+       ====================================================================== -->
+  <dialog class="gallery-dialog" id="galleryDialog" aria-labelledby="galleryTitle">
+    <div class="gallery-shell">
+      <div class="gallery-bar">
+        <div>
+          <h2 id="galleryTitle">Fotos del libro</h2>
+          <span class="gallery-counter" id="galleryCounter">1 / 1</span>
+        </div>
+        <button class="gallery-close" type="button" data-close-gallery aria-label="Cerrar galería">
+          <svg class="icon" aria-hidden="true"><use href="#i-x"/></svg>
+        </button>
+      </div>
+
+      <div class="gallery-stage">
+        <button class="gallery-nav gallery-nav--prev" id="galleryPrev" type="button" aria-label="Foto anterior">
+          <svg class="icon" aria-hidden="true"><use href="#i-chevron-left"/></svg>
+        </button>
+        <img class="gallery-img" id="galleryImage" src="" alt="" decoding="async" />
+        <button class="gallery-nav gallery-nav--next" id="galleryNext" type="button" aria-label="Foto siguiente">
+          <svg class="icon" aria-hidden="true"><use href="#i-chevron-right"/></svg>
+        </button>
+      </div>
+
+      <div class="gallery-thumbs" id="galleryThumbs"></div>
+    </div>
+  </dialog>
+
   <!-- Notificaciones -->
   <div class="toast-stack" id="toastStack" aria-live="polite" aria-atomic="false"></div>
 
@@ -1483,8 +1701,9 @@
     /* ========================================================================
        LANDING PAGE + ADMINISTRADOR VISUAL
        - Catálogo público con búsqueda, orden y botones de WhatsApp.
-       - Panel de administración con CRUD completo.
-       - Persistencia en localStorage (sin backend).
+       - Galería pública para libros con varias fotos.
+       - Panel de administración con CRUD completo y hasta 8 fotos por libro.
+       - Persistencia en Supabase (o localStorage como respaldo local).
        ======================================================================== */
     (() => {
       'use strict';
@@ -1496,6 +1715,7 @@
       const ADMIN_CRED_KEY = 'fe-vida-admin-cred-v1';
       const DEFAULT_ADMIN_PASSWORD = 'FeVida2026';
       const MIN_PASSWORD_LENGTH = 6;
+      const MAX_BOOK_IMAGES = 8;
 
       /* ======================================================================
          CONFIGURACIÓN DE SUPABASE
@@ -1680,20 +1900,41 @@
             id: 'seed-' + (index + 1),
             title,
             price,
-            image: null
+            images: []
           })),
           settings: { ...DEFAULT_SETTINGS }
         };
       }
 
+      function isImageSource(value) {
+        return typeof value === 'string' && value.trim() !== '';
+      }
+
+      function bookImages(book) {
+        if (!book || typeof book !== 'object') return [];
+        if (Array.isArray(book.images)) {
+          const images = book.images.filter(isImageSource);
+          if (images.length || !isImageSource(book.image)) return images;
+        }
+        // Compatibilidad con el modelo anterior de una sola portada.
+        return isImageSource(book.image) ? [book.image] : [];
+      }
+
+      function coverOf(book) {
+        return bookImages(book)[0] || null;
+      }
+
       function normalizeBook(raw) {
         const book = raw && typeof raw === 'object' ? raw : {};
         const validId = typeof book.id === 'string' && /^[A-Za-z0-9_-]{1,80}$/.test(book.id);
+        let images = [];
+        if (Array.isArray(book.images)) images = book.images.filter(isImageSource);
+        if (!images.length && isImageSource(book.image)) images = [book.image];
         return {
           id: validId ? book.id : uid(),
           title: String(book.title ?? '').trim(),
           price: Number(book.price),
-          image: typeof book.image === 'string' && book.image.trim() ? book.image : null
+          images: images.slice(0, MAX_BOOK_IMAGES)
         };
       }
 
@@ -1720,7 +1961,7 @@
       let state = loadState();
       let saveTimer = null;
       let refreshTimer = null;
-      let pendingImage = null;
+      let pendingImages = [];
       let adminUnlocked = false;
       let pendingAdminTab = 'add';
       let adminCredential = loadAdminCredential();
@@ -1729,8 +1970,12 @@
       let remoteSyncTimer = null;
       let remoteSyncing = false;
       let remoteDirty = false;
+      let remoteImageArraysAvailable = true;
       let lastSyncedBooks = new Map();
       let lastSyncedSettings = '';
+      let photosBookId = null;
+      let galleryBookId = null;
+      let galleryIndex = 0;
 
       function flashSaved() {
         const label = $('#settingsSaveText');
@@ -1788,8 +2033,8 @@
         }
         if (el.storageNotice) {
           el.storageNotice.innerHTML = cloudEnabled
-            ? 'Los libros, las portadas y los ajustes se guardan en <strong>Supabase</strong>. El panel se protege con una cuenta real y la contraseña queda cifrada en la base de datos.'
-            : 'Todo se guarda automáticamente en este navegador (<strong>localStorage</strong>). No necesitás cuenta ni servidor. Para usar en otro dispositivo, exportá un respaldo desde Ajustes.';
+            ? 'Los libros, las fotos y los ajustes se guardan en <strong>Supabase</strong>. Cada libro admite hasta 8 fotos y la primera se usa como portada. El panel se protege con una cuenta real y la contraseña queda cifrada en la base de datos.'
+            : 'Todo se guarda automáticamente en este navegador (<strong>localStorage</strong>). Podés agregar hasta 8 fotos por libro. Para usar en otro dispositivo, exportá un respaldo desde Ajustes.';
         }
         if (cloudEnabled && el.loginEmail) {
           try {
@@ -1800,11 +2045,13 @@
       }
 
       function remoteBook(row) {
+        const images = Array.isArray(row.image_urls) ? row.image_urls.filter(isImageSource) : [];
+        if (!images.length && isImageSource(row.image_url)) images.push(row.image_url);
         return {
           id: row.id,
           title: String(row.title || ''),
           price: Number(row.price) || 0,
-          image: row.image_url || null
+          images: images.slice(0, MAX_BOOK_IMAGES)
         };
       }
 
@@ -1819,7 +2066,7 @@
       }
 
       function bookSignature(book, index) {
-        return [book.title, book.price, book.image || '', index].join('\u0001');
+        return [book.title, book.price, bookImages(book).join('\u0002'), index].join('\u0001');
       }
 
       function rememberRemoteState() {
@@ -1847,16 +2094,26 @@
         if (!cloudEnabled) return false;
         const { silent = false } = options;
         try {
-          const [booksResult, settingsResult] = await Promise.all([
-            sb.from('books')
-              .select('id,title,price,image_url,sort_order,created_at')
-              .order('sort_order', { ascending: true })
-              .order('created_at', { ascending: true }),
-            sb.from('settings')
-              .select('store_name,whatsapp,instagram,email')
-              .eq('id', 1)
-              .maybeSingle()
-          ]);
+          const selectBooks = (columns) => sb.from('books')
+            .select(columns)
+            .order('sort_order', { ascending: true })
+            .order('created_at', { ascending: true });
+
+          const settingsPromise = sb.from('settings')
+            .select('store_name,whatsapp,instagram,email')
+            .eq('id', 1)
+            .maybeSingle();
+
+          let booksResult = await selectBooks('id,title,price,image_url,image_urls,sort_order,created_at');
+          if (booksResult.error && /image_urls/i.test(String(booksResult.error.message || ''))) {
+            // Base creada con el esquema anterior: seguimos funcionando con una sola portada.
+            remoteImageArraysAvailable = false;
+            console.warn('La columna image_urls no existe todavía. Ejecutá la migración de supabase-schema.sql para guardar varias fotos.');
+            booksResult = await selectBooks('id,title,price,image_url,sort_order,created_at');
+          } else if (!booksResult.error) {
+            remoteImageArraysAvailable = true;
+          }
+          const settingsResult = await settingsPromise;
 
           if (booksResult.error) throw booksResult.error;
           if (settingsResult.error) throw settingsResult.error;
@@ -1918,11 +2175,19 @@
         try {
           ensureRemoteBookIds();
 
-          // Subir a Storage las portadas que todavía están como data URL.
+          // Subir a Storage las fotos que todavía están como data URL.
           let uploaded = false;
           for (const book of state.books) {
-            if (book.image && book.image.startsWith('data:')) {
-              book.image = await uploadCover(book.id, book.image);
+            const images = bookImages(book).slice();
+            let bookChanged = false;
+            for (let i = 0; i < images.length; i++) {
+              if (images[i].startsWith('data:')) {
+                images[i] = await uploadCover(book.id, images[i]);
+                bookChanged = true;
+              }
+            }
+            if (bookChanged) {
+              book.images = images.slice(0, MAX_BOOK_IMAGES);
               uploaded = true;
             }
           }
@@ -1935,15 +2200,29 @@
           });
 
           if (changed.length) {
-            const rows = changed.map(({ book, index }) => ({
-              id: book.id,
-              title: book.title,
-              price: book.price,
-              image_url: book.image || null,
-              sort_order: index,
-              updated_at: new Date().toISOString()
-            }));
-            const { error } = await sb.from('books').upsert(rows, { onConflict: 'id' });
+            const rows = changed.map(({ book, index }) => {
+              const images = bookImages(book);
+              const row = {
+                id: book.id,
+                title: book.title,
+                price: book.price,
+                image_url: images[0] || null,
+                sort_order: index,
+                updated_at: new Date().toISOString()
+              };
+              if (remoteImageArraysAvailable) row.image_urls = images;
+              return row;
+            });
+            let { error } = await sb.from('books').upsert(rows, { onConflict: 'id' });
+            if (error && /image_urls/i.test(String(error.message || '')) && remoteImageArraysAvailable) {
+              remoteImageArraysAvailable = false;
+              console.warn('La columna image_urls no existe todavía. Se guardó solo la portada.');
+              const legacyRows = rows.map(({ image_urls, ...row }) => row);
+              ({ error } = await sb.from('books').upsert(legacyRows, { onConflict: 'id' }));
+              if (!error) {
+                toast('La base todavía no admite varias fotos. Ejecutá la migración de supabase-schema.sql para guardarlas todas.', { type: 'error', duration: 8000 });
+              }
+            }
             if (error) throw error;
             changed.forEach(({ book, signature }) => lastSyncedBooks.set(book.id, signature));
           }
@@ -2032,6 +2311,7 @@
         newPrice: $('#newPrice'),
         newImage: $('#newImage'),
         newImageName: $('#newImageName'),
+        newImageList: $('#newImageList'),
         newImageUrl: $('#newImageUrl'),
         newPreview: $('#newPreview'),
         newPreviewPrice: $('#newPreviewPrice'),
@@ -2039,6 +2319,19 @@
         manageCount: $('#manageCount'),
         manageList: $('#manageList'),
         manageEmpty: $('#manageEmpty'),
+        photosDialog: $('#photosDialog'),
+        photosTitle: $('#photosTitle'),
+        photosSubtitle: $('#photosSubtitle'),
+        photosGrid: $('#photosGrid'),
+        photosEmpty: $('#photosEmpty'),
+        photosInput: $('#photosInput'),
+        galleryDialog: $('#galleryDialog'),
+        galleryTitle: $('#galleryTitle'),
+        galleryCounter: $('#galleryCounter'),
+        galleryImage: $('#galleryImage'),
+        galleryPrev: $('#galleryPrev'),
+        galleryNext: $('#galleryNext'),
+        galleryThumbs: $('#galleryThumbs'),
         setStoreName: $('#setStoreName'),
         setWhatsapp: $('#setWhatsapp'),
         setInstagram: $('#setInstagram'),
@@ -2121,6 +2414,7 @@
       function coverMarkup(book, options = {}) {
         const { mini = false, eager = false, decorative = false } = options;
         const title = book.title || 'Nuevo libro';
+        const cover = coverOf(book);
         const length = title.length;
         const sizeClass = length > 48 ? ' is-xxlong' : length > 34 ? ' is-xlong' : length > 24 ? ' is-long' : '';
         const theme = coverTheme(book);
@@ -2140,14 +2434,14 @@
           '</span>' +
           sprigSvg() + sprigSvg(' cover-sprig--r');
 
-        const photo = book.image
-          ? '<img class="cover-img" src="' + escapeAttr(book.image) + '" alt="' +
+        const photo = cover
+          ? '<img class="cover-img" src="' + escapeAttr(cover) + '" alt="' +
             (hideFromAT ? '' : 'Portada del libro ' + escapeAttr(title)) + '" ' +
             (eager ? 'fetchpriority="high" ' : 'loading="lazy" ') + 'decoding="async" />'
           : '';
 
         return '<div class="book-cover cover--' + theme + sizeClass + (mini ? ' is-mini' : '') +
-          (book.image ? ' book-cover--photo' : '') + '"' + accessible + '>' + photo + inner + '</div>';
+          (cover ? ' book-cover--photo' : '') + '"' + accessible + '>' + photo + inner + '</div>';
       }
 
       /* ----------------------------------------------------------------------
@@ -2220,13 +2514,21 @@
 
       function bookCard(book, index) {
         const href = whatsappHref(book);
+        const images = bookImages(book);
+        const cover = coverMarkup(book);
+        const galleryButton = images.length > 1
+          ? '<button class="book-card__gallery" type="button" data-gallery-id="' + escapeAttr(book.id) + '" ' +
+              'aria-label="Ver las ' + images.length + ' fotos de ' + escapeAttr(book.title) + '">' +
+              '<span class="book-card__gallery-badge" aria-hidden="true">' + icon('image') + '<span>' + images.length + '</span></span>' +
+            '</button>'
+          : '';
         return '<article class="book-card" style="--delay:' + Math.min(index, 9) * 45 + 'ms">' +
-          '<div class="book-card__media">' + coverMarkup(book) + '</div>' +
+          '<div class="book-card__media"><div class="book-card__media-inner">' + cover + galleryButton + '</div></div>' +
           '<div class="book-card__body">' +
             '<h3 class="book-card__title">' + escapeHtml(book.title) + '</h3>' +
             '<p class="book-card__price"><span>Precio</span><strong>' + formatPrice(book.price) + '</strong></p>' +
             '<a class="btn btn--wa btn--full book-card__cta" href="' + escapeAttr(href) + '" data-wa-link ' +
-              'target="_blank" rel="noopener noreferrer" aria-label="Consultar por ' + escapeAttr(book.title) + ' por WhatsApp">' +
+              'target="_blank" rel="noopener noreferrer" aria-label="Consultar por WhatsApp: ' + escapeAttr(book.title) + '">' +
               icon('wa') + ' <span>Consultar por WhatsApp</span>' +
             '</a>' +
           '</div>' +
@@ -2310,6 +2612,7 @@
       function manageRow(book) {
         const titleId = 'title-' + book.id;
         const priceId = 'price-' + book.id;
+        const imageCount = bookImages(book).length;
         return '<li class="manage-row" data-id="' + escapeAttr(book.id) + '">' +
           '<label class="manage-thumb" title="Cambiar portada">' +
             coverMarkup(book, { mini: true }) +
@@ -2326,8 +2629,12 @@
             '</div>' +
           '</div>' +
           '<div class="manage-actions">' +
-            (book.image
-              ? '<button class="icon-btn" type="button" data-action="remove-image" title="Quitar portada" aria-label="Quitar portada de ' + escapeAttr(book.title) + '">' + icon('image') + '</button>'
+            '<button class="icon-btn" type="button" data-action="manage-photos" title="Administrar fotos" aria-label="Administrar fotos de ' + escapeAttr(book.title) + '">' +
+              icon('image') +
+              (imageCount ? '<span class="manage-action__count" aria-hidden="true">' + imageCount + '</span>' : '') +
+            '</button>' +
+            (imageCount
+              ? '<button class="icon-btn" type="button" data-action="remove-image" title="Quitar todas las fotos" aria-label="Quitar todas las fotos de ' + escapeAttr(book.title) + '">' + icon('x') + '</button>'
               : '') +
             '<button class="icon-btn icon-btn--danger" type="button" data-action="delete" title="Eliminar libro" aria-label="Eliminar ' + escapeAttr(book.title) + '">' + icon('trash') + '</button>' +
           '</div>' +
@@ -2345,6 +2652,124 @@
           ? list.length + ' de ' + state.books.length + ' libros'
           : state.books.length + ' ' + (state.books.length === 1 ? 'libro' : 'libros');
         el.tabCount.textContent = state.books.length;
+      }
+
+      /* ----------------------------------------------------------------------
+         9b. FOTOS POR LIBRO (ADMIN) Y GALERÍA PÚBLICA
+         ---------------------------------------------------------------------- */
+      function photosBook() {
+        return state.books.find((book) => book.id === photosBookId) || null;
+      }
+
+      function renderPhotosDialog() {
+        const book = photosBook();
+        if (!book) return;
+        const images = bookImages(book);
+        if (el.photosTitle) el.photosTitle.textContent = 'Fotos de ' + truncate(book.title, 52);
+        if (el.photosSubtitle) {
+          el.photosSubtitle.textContent = images.length
+            ? images.length + ' de ' + MAX_BOOK_IMAGES + ' fotos. La primera se usa como portada.'
+            : 'Este libro todavía no tiene fotos.';
+        }
+        if (el.photosGrid) {
+          el.photosGrid.innerHTML = images.map((src, index) =>
+            '<figure class="photo-tile">' +
+              '<img src="' + escapeAttr(src) + '" alt="Foto ' + (index + 1) + ' de ' + escapeAttr(book.title) + '" loading="lazy" decoding="async" />' +
+              '<figcaption>' + (index === 0 ? 'Portada' : 'Foto ' + (index + 1)) + '</figcaption>' +
+              '<div class="photo-tile__actions">' +
+                (index > 0
+                  ? '<button type="button" data-photo-action="cover" data-photo-index="' + index + '" aria-label="Usar la foto ' + (index + 1) + ' como portada">' + icon('star') + ' Portada</button>'
+                  : '') +
+                '<button type="button" data-photo-action="remove" data-photo-index="' + index + '" aria-label="Quitar la foto ' + (index + 1) + '">' + icon('trash') + '</button>' +
+              '</div>' +
+            '</figure>'
+          ).join('');
+          el.photosGrid.hidden = images.length === 0;
+        }
+        if (el.photosEmpty) el.photosEmpty.hidden = images.length !== 0;
+        if (el.photosInput) {
+          el.photosInput.disabled = images.length >= MAX_BOOK_IMAGES;
+          const addLabel = el.photosInput.closest('.photos-add');
+          if (addLabel) addLabel.classList.toggle('is-disabled', el.photosInput.disabled);
+        }
+      }
+
+      function openPhotosDialog(bookId) {
+        const book = state.books.find((item) => item.id === bookId);
+        if (!book) return;
+        photosBookId = bookId;
+        renderPhotosDialog();
+        if (typeof el.photosDialog.showModal === 'function') {
+          if (!el.photosDialog.open) el.photosDialog.showModal();
+        } else {
+          el.photosDialog.setAttribute('open', '');
+        }
+        syncBodyLock();
+      }
+
+      function closePhotosDialog() {
+        if (typeof el.photosDialog.close === 'function' && el.photosDialog.open) el.photosDialog.close();
+        else el.photosDialog.removeAttribute('open');
+        photosBookId = null;
+        if (el.photosInput) el.photosInput.value = '';
+        syncBodyLock();
+      }
+
+      function openGallery(bookId, index = 0) {
+        const book = state.books.find((item) => item.id === bookId);
+        const images = bookImages(book);
+        if (!book || !images.length) return;
+        galleryBookId = bookId;
+        galleryIndex = Math.max(0, Math.min(index, images.length - 1));
+        renderGallery();
+        if (typeof el.galleryDialog.showModal === 'function') {
+          if (!el.galleryDialog.open) el.galleryDialog.showModal();
+        } else {
+          el.galleryDialog.setAttribute('open', '');
+        }
+        syncBodyLock();
+      }
+
+      function closeGallery() {
+        if (typeof el.galleryDialog.close === 'function' && el.galleryDialog.open) el.galleryDialog.close();
+        else el.galleryDialog.removeAttribute('open');
+        galleryBookId = null;
+        syncBodyLock();
+      }
+
+      function renderGallery() {
+        const book = state.books.find((item) => item.id === galleryBookId);
+        if (!book) return;
+        const images = bookImages(book);
+        if (!images.length) { closeGallery(); return; }
+        galleryIndex = Math.max(0, Math.min(galleryIndex, images.length - 1));
+        if (el.galleryTitle) el.galleryTitle.textContent = book.title;
+        if (el.galleryCounter) el.galleryCounter.textContent = (galleryIndex + 1) + ' / ' + images.length;
+        if (el.galleryImage) {
+          el.galleryImage.src = images[galleryIndex];
+          el.galleryImage.alt = 'Foto ' + (galleryIndex + 1) + ' de ' + images.length + ' de ' + book.title;
+        }
+        const multiple = images.length > 1;
+        if (el.galleryPrev) el.galleryPrev.hidden = !multiple;
+        if (el.galleryNext) el.galleryNext.hidden = !multiple;
+        if (el.galleryThumbs) {
+          el.galleryThumbs.hidden = !multiple;
+          el.galleryThumbs.innerHTML = images.map((src, index) =>
+            '<button class="gallery-thumb' + (index === galleryIndex ? ' is-active' : '') + '" type="button" ' +
+              'data-gallery-thumb="' + index + '" aria-label="Ver foto ' + (index + 1) + ' de ' + escapeAttr(book.title) + '" ' +
+              'aria-current="' + (index === galleryIndex ? 'true' : 'false') + '">' +
+              '<img src="' + escapeAttr(src) + '" alt="" loading="lazy" decoding="async" />' +
+            '</button>'
+          ).join('');
+        }
+      }
+
+      function stepGallery(delta) {
+        const book = state.books.find((item) => item.id === galleryBookId);
+        const images = bookImages(book);
+        if (images.length < 2) return;
+        galleryIndex = (galleryIndex + delta + images.length) % images.length;
+        renderGallery();
       }
 
       function deleteBook(id) {
@@ -2403,19 +2828,39 @@
         });
       }
 
+      function renderPendingImages() {
+        if (!el.newImageList) return;
+        el.newImageList.innerHTML = pendingImages.map((src, index) =>
+          '<span class="pending-photo">' +
+            '<img src="' + escapeAttr(src) + '" alt="Foto ' + (index + 1) + ' lista para guardar" />' +
+            (index === 0 ? '<span class="pending-photo__cover">Portada</span>' : '') +
+            '<button class="pending-photo__remove" type="button" data-remove-pending="' + index + '" aria-label="Quitar foto ' + (index + 1) + '">' + icon('x') + '</button>' +
+          '</span>'
+        ).join('');
+        el.newImageList.hidden = pendingImages.length === 0;
+        if (el.newImageName) {
+          el.newImageName.textContent = pendingImages.length
+            ? pendingImages.length + (pendingImages.length === 1 ? ' foto lista' : ' fotos listas')
+            : 'Subir fotos';
+        }
+      }
+
       function updateAddPreview() {
         const title = el.newTitle.value.trim() || 'Título del libro';
-        const image = pendingImage || el.newImageUrl.value.trim() || null;
-        el.newPreview.innerHTML = coverMarkup({ title, image });
+        const url = el.newImageUrl.value.trim();
+        const images = pendingImages.length ? pendingImages : (url ? [url] : []);
+        el.newPreview.innerHTML = coverMarkup({ title, images });
         const price = parsePrice(el.newPrice.value);
         el.newPreviewPrice.textContent = Number.isFinite(price) && price > 0 ? formatPrice(price) : '—';
+        renderPendingImages();
       }
 
       function resetAddForm() {
-        pendingImage = null;
-        el.newImageName.textContent = 'Subir una imagen';
+        pendingImages = [];
+        el.newImage.value = '';
         el.newTitle.classList.remove('is-invalid');
         el.newPrice.classList.remove('is-invalid');
+        renderPendingImages();
         updateAddPreview();
       }
 
@@ -2440,7 +2885,8 @@
       }
 
       function syncBodyLock() {
-        const locked = dialogIsOpen(el.loginDialog) || dialogIsOpen(el.adminDialog);
+        const locked = dialogIsOpen(el.loginDialog) || dialogIsOpen(el.adminDialog) ||
+          dialogIsOpen(el.photosDialog) || dialogIsOpen(el.galleryDialog);
         document.body.classList.toggle('no-scroll', locked);
       }
 
@@ -2855,7 +3301,9 @@
           const confirmed = window.confirm('Se reemplazarán el catálogo y los datos de contacto por los del respaldo (' + books.length + ' libros). ¿Continuar?');
           if (!confirmed) return;
 
-          state.books = books;
+          state.books = cloudEnabled
+            ? books.map((book) => ({ ...book, id: newUuid() }))
+            : books;
           if (data.settings && typeof data.settings === 'object') {
             state.settings = { ...DEFAULT_SETTINGS, ...data.settings };
           }
@@ -2890,10 +3338,12 @@
         }
 
         const book = {
-          id: uid(),
+          id: cloudEnabled ? newUuid() : uid(),
           title,
           price: Math.round(price * 100) / 100,
-          image: pendingImage || el.newImageUrl.value.trim() || null
+          images: pendingImages.length
+            ? pendingImages.slice(0, MAX_BOOK_IMAGES)
+            : (el.newImageUrl.value.trim() ? [el.newImageUrl.value.trim()] : [])
         };
 
         state.books.unshift(book);
@@ -2952,6 +3402,14 @@
           el.sortSelect.value = 'reco';
           renderCatalog();
           scrollToCatalog();
+        });
+
+        // Galería pública: un libro con varias fotos abre su visor
+        el.booksGrid.addEventListener('click', (event) => {
+          const trigger = event.target.closest('[data-gallery-id]');
+          if (!trigger) return;
+          event.preventDefault();
+          openGallery(trigger.dataset.galleryId, 0);
         });
 
         // Si todavía no hay un WhatsApp configurado, avisamos al visitante
@@ -3018,9 +3476,21 @@
           const observer = new MutationObserver(syncBodyLock);
           observer.observe(el.adminDialog, { attributes: true, attributeFilter: ['open'] });
           observer.observe(el.loginDialog, { attributes: true, attributeFilter: ['open'] });
+          observer.observe(el.photosDialog, { attributes: true, attributeFilter: ['open'] });
+          observer.observe(el.galleryDialog, { attributes: true, attributeFilter: ['open'] });
         }
 
         document.addEventListener('keydown', (event) => {
+          if (event.key === 'Escape' && dialogIsOpen(el.galleryDialog)) {
+            event.preventDefault();
+            closeGallery();
+            return;
+          }
+          if (event.key === 'Escape' && dialogIsOpen(el.photosDialog)) {
+            event.preventDefault();
+            closePhotosDialog();
+            return;
+          }
           if (event.key === 'Escape' && dialogIsOpen(el.loginDialog)) {
             event.preventDefault();
             closeLogin();
@@ -3052,25 +3522,44 @@
           updateAddPreview();
         });
         el.newImageUrl.addEventListener('input', () => {
-          if (el.newImageUrl.value.trim()) {
-            pendingImage = null;
+          if (el.newImageUrl.value.trim() && pendingImages.length) {
+            pendingImages = [];
             el.newImage.value = '';
-            el.newImageName.textContent = 'Subir una imagen';
+            renderPendingImages();
           }
           updateAddPreview();
         });
+        el.newImageList.addEventListener('click', (event) => {
+          const button = event.target.closest('[data-remove-pending]');
+          if (!button) return;
+          const index = Number(button.dataset.removePending);
+          if (!Number.isInteger(index) || index < 0 || index >= pendingImages.length) return;
+          pendingImages.splice(index, 1);
+          updateAddPreview();
+        });
         el.newImage.addEventListener('change', async () => {
-          const file = el.newImage.files && el.newImage.files[0];
-          if (!file) return;
+          const files = Array.from(el.newImage.files || []);
+          if (!files.length) return;
+          const room = MAX_BOOK_IMAGES - pendingImages.length;
+          if (room <= 0) {
+            toast('Ya alcanzaste el máximo de ' + MAX_BOOK_IMAGES + ' fotos por libro.', { type: 'info' });
+            el.newImage.value = '';
+            return;
+          }
+          const selected = files.slice(0, room);
           try {
-            pendingImage = await processImage(file);
+            const processed = [];
+            for (const file of selected) processed.push(await processImage(file));
+            pendingImages = pendingImages.concat(processed).slice(0, MAX_BOOK_IMAGES);
             el.newImageUrl.value = '';
-            el.newImageName.textContent = truncate(file.name, 32);
+            el.newImage.value = '';
             updateAddPreview();
-            toast('Imagen lista para guardar.', { type: 'success', duration: 2200 });
+            toast(processed.length === 1 ? 'Foto lista para guardar.' : processed.length + ' fotos listas para guardar.', { type: 'success', duration: 2200 });
+            if (files.length > selected.length) {
+              toast('Solo se agregaron ' + selected.length + ' fotos: el máximo es ' + MAX_BOOK_IMAGES + ' por libro.', { type: 'info', duration: 5000 });
+            }
           } catch (err) {
             el.newImage.value = '';
-            pendingImage = null;
             toast(err.message || 'No se pudo procesar la imagen.', { type: 'error' });
           }
         });
@@ -3081,7 +3570,6 @@
 
         // Gestión: búsqueda, edición en vivo, borrado y cambio de portada
         el.manageSearch.addEventListener('input', renderManage);
-
         el.manageList.addEventListener('input', (event) => {
           const input = event.target.closest('[data-field]');
           if (!input) return;
@@ -3119,11 +3607,13 @@
 
           if (button.dataset.action === 'delete') {
             deleteBook(book.id);
+          } else if (button.dataset.action === 'manage-photos') {
+            openPhotosDialog(book.id);
           } else if (button.dataset.action === 'remove-image') {
-            book.image = null;
+            book.images = [];
             saveNow();
             renderAll();
-            toast('Portada quitada. Se generará una automática con el título.');
+            toast('Se quitaron todas las fotos. Se generará una portada automática con el título.');
           }
         });
 
@@ -3135,7 +3625,10 @@
           if (!book) return;
           try {
             const dataUrl = await processImage(input.files[0]);
-            book.image = dataUrl;
+            const images = bookImages(book).slice();
+            if (images.length) images[0] = dataUrl;
+            else images.push(dataUrl);
+            book.images = images.slice(0, MAX_BOOK_IMAGES);
             saveNow();
             renderAll();
             toast('Portada actualizada.');
@@ -3144,6 +3637,96 @@
           } finally {
             input.value = '';
           }
+        });
+
+        // Administración de fotos por libro
+        el.photosGrid.addEventListener('click', (event) => {
+          const button = event.target.closest('[data-photo-action]');
+          if (!button) return;
+          const book = photosBook();
+          if (!book) return;
+          const images = bookImages(book).slice();
+          const index = Number(button.dataset.photoIndex);
+          if (!Number.isInteger(index) || index < 0 || index >= images.length) return;
+
+          if (button.dataset.photoAction === 'remove') {
+            images.splice(index, 1);
+            book.images = images;
+            saveNow();
+            renderAll();
+            renderPhotosDialog();
+            toast('Foto quitada.');
+          } else if (button.dataset.photoAction === 'cover') {
+            const [selected] = images.splice(index, 1);
+            images.unshift(selected);
+            book.images = images;
+            saveNow();
+            renderAll();
+            renderPhotosDialog();
+            toast('Portada actualizada.');
+          }
+        });
+
+        el.photosInput.addEventListener('change', async () => {
+          const book = photosBook();
+          if (!book) return;
+          const files = Array.from(el.photosInput.files || []);
+          if (!files.length) return;
+          const current = bookImages(book);
+          const room = MAX_BOOK_IMAGES - current.length;
+          if (room <= 0) {
+            toast('Ya alcanzaste el máximo de ' + MAX_BOOK_IMAGES + ' fotos por libro.', { type: 'info' });
+            el.photosInput.value = '';
+            return;
+          }
+          const selected = files.slice(0, room);
+          try {
+            const processed = [];
+            for (const file of selected) processed.push(await processImage(file));
+            book.images = current.concat(processed).slice(0, MAX_BOOK_IMAGES);
+            saveNow();
+            renderAll();
+            renderPhotosDialog();
+            toast(processed.length === 1 ? 'Foto agregada.' : processed.length + ' fotos agregadas.');
+            if (files.length > selected.length) {
+              toast('Solo se agregaron ' + selected.length + ': el máximo es ' + MAX_BOOK_IMAGES + ' fotos por libro.', { type: 'info', duration: 5000 });
+            }
+          } catch (err) {
+            toast(err.message || 'No se pudo agregar la foto.', { type: 'error' });
+          } finally {
+            el.photosInput.value = '';
+          }
+        });
+
+        $$('[data-close-photos]').forEach((button) => {
+          button.addEventListener('click', closePhotosDialog);
+        });
+        el.photosDialog.addEventListener('click', (event) => {
+          if (event.target === el.photosDialog) closePhotosDialog();
+        });
+        el.photosDialog.addEventListener('close', syncBodyLock);
+
+        // Galería pública: navegación y miniaturas
+        $$('[data-close-gallery]').forEach((button) => {
+          button.addEventListener('click', closeGallery);
+        });
+        el.galleryDialog.addEventListener('click', (event) => {
+          if (event.target === el.galleryDialog) closeGallery();
+        });
+        el.galleryDialog.addEventListener('close', syncBodyLock);
+        el.galleryPrev.addEventListener('click', () => stepGallery(-1));
+        el.galleryNext.addEventListener('click', () => stepGallery(1));
+        el.galleryThumbs.addEventListener('click', (event) => {
+          const button = event.target.closest('[data-gallery-thumb]');
+          if (!button) return;
+          const index = Number(button.dataset.galleryThumb);
+          if (!Number.isInteger(index)) return;
+          galleryIndex = index;
+          renderGallery();
+        });
+        el.galleryDialog.addEventListener('keydown', (event) => {
+          if (event.key === 'ArrowLeft') { event.preventDefault(); stepGallery(-1); }
+          else if (event.key === 'ArrowRight') { event.preventDefault(); stepGallery(1); }
         });
 
         // Ajustes: guardado automático
@@ -3175,6 +3758,9 @@
           const confirmed = window.confirm('¿Restaurar el catálogo original de 34 libros? Se borrarán los libros agregados y los cambios de títulos y precios. Tus datos de contacto se conservan.');
           if (!confirmed) return;
           state.books = freshState().books;
+          if (cloudEnabled) {
+            state.books.forEach((book) => { book.id = newUuid(); });
+          }
           saveNow();
           el.manageSearch.value = '';
           renderAll();
@@ -3215,7 +3801,8 @@
       /* ----------------------------------------------------------------------
          14. INICIO
          ---------------------------------------------------------------------- */
-      function init() {
+      async function init() {
+        updateBackendUx();
         applySettings();
         syncSettingsForm();
         updatePasswordStatus();
@@ -3224,10 +3811,24 @@
         renderManage();
         updateAddPreview();
         setTab('add');
+
+        if (cloudEnabled) {
+          const loaded = await refreshRemoteState({ silent: true });
+          if (!loaded) {
+            console.warn('Se está usando la copia local porque Supabase no respondió.');
+          }
+        } else if (hasSupabaseConfig) {
+          setTimeout(() => {
+            toast('No se pudo cargar la librería de Supabase. Revisá el CDN o tu conexión.', {
+              type: 'error',
+              duration: 8000
+            });
+          }, 1200);
+        }
       }
 
       bindEvents();
-      init();
+      void init();
     })();
   </script>
 </body>
