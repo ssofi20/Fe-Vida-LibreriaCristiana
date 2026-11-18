@@ -1141,7 +1141,7 @@
        ====================================================================== -->
   <header class="site-header" id="top">
     <div class="container header__inner">
-      <a class="brand" href="#top">
+      <a class="brand" href="#top" data-reload-home title="Actualizar la página">
         <span class="brand__mark" aria-hidden="true">
           <svg viewBox="0 0 32 32" fill="none">
             <path d="M16 5v22M8 12h16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
@@ -1153,7 +1153,7 @@
           <span class="brand__name" data-store-name>Fe &amp; Vida</span>
           <span class="brand__tag" data-store-tagline>Libros católicos</span>
         </span>
-        <span class="sr-only">Ir al inicio</span>
+        <span class="sr-only">Actualizar la página</span>
       </a>
 
       <nav class="nav" aria-label="Navegación principal">
@@ -1180,9 +1180,9 @@
       <div class="hero__blob hero__blob--2" aria-hidden="true"></div>
       <div class="container hero__grid">
         <div class="hero__copy" data-reveal>
-          <span class="eyebrow"><span class="eyebrow__line" aria-hidden="true"></span>Libros católicos<span class="eyebrow__line" aria-hidden="true"></span></span>
-          <h1 id="heroTitle">Que la Palabra sea tu <em>descanso</em>.</h1>
-          <p class="hero__lead">Cuando el día pesa y el corazón necesita calma, un libro puede ser un buen refugio. Elegimos cada título con cariño para que encuentres paz, esperanza y una compañía silenciosa que te ayude a volver a lo esencial.</p>
+          <span class="eyebrow"><span class="eyebrow__line" aria-hidden="true"></span>Lecturas que iluminan<span class="eyebrow__line" aria-hidden="true"></span></span>
+          <h1 id="heroTitle">Alimento para el espíritu, <em>luz</em> para el camino.</h1>
+          <p class="hero__lead">Cada libro es una puerta abierta a la Verdad, a la belleza y al encuentro. Dejate guiar por lecturas que alimentan la fe, levantan la mirada y dejan una huella imborrable en tu historia con Dios.</p>
           <div class="hero__actions">
             <a class="btn btn--primary" href="#catalogo">
               Explorar el catálogo
@@ -1340,7 +1340,7 @@
     <div class="container">
       <div class="footer__grid">
         <div>
-          <a class="brand brand--footer" href="#top">
+          <a class="brand brand--footer" href="#top" data-reload-home title="Actualizar la página">
             <span class="brand__mark" aria-hidden="true">
               <svg viewBox="0 0 32 32" fill="none">
                 <path d="M16 5v22M8 12h16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
@@ -1352,7 +1352,7 @@
               <span class="brand__name" data-store-name>Fe &amp; Vida</span>
               <span class="brand__tag" data-store-tagline>Libros católicos</span>
             </span>
-            <span class="sr-only">Volver al inicio</span>
+            <span class="sr-only">Actualizar la página</span>
           </a>
           <p class="footer__about">Un rincón con libros elegidos para acompañar tu vida de fe, tu familia y esos pequeños momentos que merecen una buena lectura.</p>
           <a class="btn btn--gold btn--sm footer__wa" href="#" data-wa-link data-general-wa target="_blank" rel="noopener noreferrer">
@@ -3852,6 +3852,14 @@
         const onScroll = () => el.header.classList.toggle('is-scrolled', window.scrollY > 12);
         window.addEventListener('scroll', onScroll, { passive: true });
         onScroll();
+
+        // El logo funciona como acceso directo para actualizar la página
+        $$('[data-reload-home]').forEach((link) => {
+          link.addEventListener('click', (event) => {
+            event.preventDefault();
+            window.location.reload();
+          });
+        });
 
         // Búsqueda y orden
         el.searchInput.addEventListener('input', renderCatalog);
