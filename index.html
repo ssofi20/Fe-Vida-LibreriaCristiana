@@ -193,7 +193,6 @@
       border-radius: 3px;
     }
     .hero__lead { max-width: 50ch; margin-top: 22px; color: var(--muted); font-size: 1.02rem; font-weight: 300; line-height: 1.7; }
-    .hero__lead strong { font-weight: 600; color: var(--deep); }
     .hero__actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
     .hero__meta { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; margin-top: 28px; font-size: 0.83rem; color: #5E6957; }
     .hero__stars { color: var(--gold); letter-spacing: 2px; font-size: 0.9rem; }
@@ -1182,8 +1181,8 @@
       <div class="container hero__grid">
         <div class="hero__copy" data-reveal>
           <span class="eyebrow"><span class="eyebrow__line" aria-hidden="true"></span>Libros católicos<span class="eyebrow__line" aria-hidden="true"></span></span>
-          <h1 id="heroTitle">Palabras que <em>acompañan</em> tu fe.</h1>
-          <p class="hero__lead">Libros seleccionados con amor para <strong>acompañar tu fe e iluminar tu vida</strong></p>
+          <h1 id="heroTitle">Que la Palabra sea tu <em>descanso</em>.</h1>
+          <p class="hero__lead">Cuando el día pesa y el corazón necesita calma, un libro puede ser un buen refugio. Elegimos cada título con cariño para que encuentres paz, esperanza y una compañía silenciosa que te ayude a volver a lo esencial.</p>
           <div class="hero__actions">
             <a class="btn btn--primary" href="#catalogo">
               Explorar el catálogo
@@ -1275,7 +1274,7 @@
 
         <div class="catalog-meta">
           <p id="resultCount" aria-live="polite"><strong>34</strong> libros disponibles</p>
-          <a class="catalog-meta__link" href="#" data-wa-link data-general-wa target="_blank" rel="noopener noreferrer">¿No encontrás un título? Escribinos que Dios mediando nos ocuparemos →</a>
+          <a class="catalog-meta__link" href="#" data-wa-link data-missing-wa target="_blank" rel="noopener noreferrer">¿Buscás otro título? Escribinos, que con la ayuda de Dios lo conseguimos →</a>
         </div>
 
         <div class="books-grid" id="booksGrid"></div>
@@ -2792,6 +2791,15 @@
         return 'https://wa.me/' + phone + '?text=' + encodeURIComponent(message);
       }
 
+      // Mensaje propio del enlace «¿Buscás otro título?».
+      function missingTitleHref() {
+        const phone = digits(state.settings.whatsapp);
+        if (!phone) return '#';
+        const store = state.settings.storeName || 'Fe & Vida';
+        const message = '¡Hola ' + store + '! No encontré un título en el catálogo y quisiera consultarles.';
+        return 'https://wa.me/' + phone + '?text=' + encodeURIComponent(message);
+      }
+
       /* ----------------------------------------------------------------------
          8. RENDER PÚBLICO
          ---------------------------------------------------------------------- */
@@ -2813,6 +2821,8 @@
 
         const general = whatsappHref(null);
         $$('[data-general-wa]').forEach((anchor) => { anchor.href = general; });
+        const missingTitle = missingTitleHref();
+        $$('[data-missing-wa]').forEach((anchor) => { anchor.href = missingTitle; });
 
         const instagram = String(settings.instagram || '').trim();
         if (instagram) {
